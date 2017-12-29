@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"  style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShowDossierController">
+   <children>
+      <Label layoutX="31.0" layoutY="80.0" prefHeight="26.0" prefWidth="105.0" text="Incontinentie">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="34.0" text="Bewoner dossier">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="224.0" prefHeight="26.0" prefWidth="105.0" text="Privacy">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="117.0" prefHeight="26.0" prefWidth="157.0" text="Reanimatie wens">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="155.0" prefHeight="26.0" prefWidth="157.0" text="Grote operaties">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="189.0" prefHeight="26.0" prefWidth="157.0" text="Allergieën">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="Allergieën" layoutX="222.0" layoutY="189.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label fx:id="GroteOperaties" layoutX="222.0" layoutY="155.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label fx:id="ReanimatieWens" layoutX="223.0" layoutY="117.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label fx:id="Privacy" layoutX="222.0" layoutY="224.0" prefHeight="26.0" prefWidth="157.0" />
+      <Label fx:id="Incontinentie" layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="157.0" />
+   </children>
+</AnchorPane>

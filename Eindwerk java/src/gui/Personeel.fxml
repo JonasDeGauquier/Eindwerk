@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersoneelController">
+   <children>
+      <SplitPane fx:id="splitpane" dividerPositions="0.5" focusTraversable="true" prefHeight="580.0" prefWidth="1003.0" VBox.vgrow="ALWAYS">
+         <items>
+            <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
+               <children>
+                  <JFXTextField fx:id="search" layoutX="14.0" layoutY="73.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+                  <JFXButton fx:id="ShwoPersoneel" layoutX="223.0" layoutY="117.0" onAction="#ShowPersoneelGegevens" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Personeel gegevens bekijken" />
+                  <JFXButton fx:id="AddPersoneel" layoutX="223.0" layoutY="170.0" onAction="#AddPersoneel" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Personeel toevoegen" />
+                  <JFXButton fx:id="DeletePersoneel" layoutX="223.0" layoutY="223.0" onAction="#DeletePersoneel" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Verwijder Persoon" />
+                  <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="117.0" prefHeight="270.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
+                        <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="14.0" layoutY="26.0" text="Personeel">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
+         </items>
+      </SplitPane>
+   </children>
+</VBox>

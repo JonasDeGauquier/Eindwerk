@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane style="-fx-background-color: #dee4ed#dee4ed;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXTextField layoutX="72.0" layoutY="60.0" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+      <JFXListView layoutX="72.0" layoutY="107.0" prefHeight="269.0" prefWidth="206.0" />
+      <JFXButton layoutX="315.0" layoutY="107.0" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Verwijder">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="315.0" layoutY="162.0" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Toevoegen">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+   </children>
+</Pane>

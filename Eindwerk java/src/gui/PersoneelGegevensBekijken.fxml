@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color: #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShowPersoneelGegevensController">
+   <children>
+      <Label layoutX="51.0" layoutY="73.0" prefHeight="26.0" prefWidth="105.0" text="Voornaam">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="36.0" prefHeight="26.0" prefWidth="218.0" text="Personeel gegevens">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="108.0" prefHeight="26.0" prefWidth="105.0" text="Achternaam">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="146.0" prefHeight="26.0" prefWidth="157.0" text="Geboortedatum">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="179.0" prefHeight="26.0" prefWidth="157.0" text="Email">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="214.0" prefHeight="26.0" prefWidth="157.0" text="Rol">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="246.0" prefHeight="26.0" prefWidth="157.0" text="Straat">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="281.0" prefHeight="26.0" prefWidth="157.0" text="Huisnr">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="316.0" prefHeight="26.0" prefWidth="157.0" text="Gemeente">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="355.0" prefHeight="26.0" prefWidth="157.0" text="Postcode">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="voornaam" layoutX="228.0" layoutY="78.0" text="Label" />
+      <Label fx:id="achternaam" layoutX="228.0" layoutY="113.0" text="Label" />
+      <Label fx:id="geboortedatum" layoutX="228.0" layoutY="151.0" text="Label" />
+      <Label fx:id="email" layoutX="229.0" layoutY="184.0" text="Label" />
+      <Label fx:id="rol" layoutX="229.0" layoutY="219.0" text="Label" />
+      <Label fx:id="straat" layoutX="229.0" layoutY="251.0" text="Label" />
+      <Label fx:id="huisnr" layoutX="229.0" layoutY="286.0" text="Label" />
+      <Label fx:id="gemeente" layoutX="229.0" layoutY="321.0" text="Label" />
+      <Label fx:id="postcode" layoutX="229.0" layoutY="360.0" text="Label" />
+   </children>
+</AnchorPane>

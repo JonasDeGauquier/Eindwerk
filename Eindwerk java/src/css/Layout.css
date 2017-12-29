@@ -1,0 +1,16 @@
+.button {
+    -fx-background-color: #5494f9;
+}
+
+.cardPane{
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+}
+
+.text-field.error {
+  -fx-border-color: red ;
+}
+
+.combo-box.error {
+  -fx-border-color: red ;
+}

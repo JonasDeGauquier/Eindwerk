@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color:#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditDossierController">
+   <children>
+      <Label layoutX="94.0" layoutY="123.0" prefHeight="26.0" prefWidth="105.0" text="Incontinentie">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="77.0" text="Bewoner dossier bewerken">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="158.0" prefHeight="26.0" prefWidth="105.0" text="Privacy">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="196.0" prefHeight="26.0" prefWidth="157.0" text="Reanimatie wens">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="237.0" prefHeight="26.0" prefWidth="157.0" text="Grote operaties">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="272.0" prefHeight="26.0" prefWidth="157.0" text="Allergieën">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="GroteOperaties" layoutX="251.0" layoutY="231.0" />
+      <JFXTextField fx:id="Allergieën" layoutX="251.0" layoutY="266.0" />
+      <JFXButton layoutX="176.0" layoutY="338.0" onAction="#addDossier" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Bewerken">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXRadioButton fx:id="IncontinentieJa" layoutX="250.0" layoutY="128.0" text="Ja" />
+      <JFXRadioButton fx:id="IncontinentieNee" layoutX="335.0" layoutY="128.0" text="Nee" />
+      <JFXRadioButton fx:id="PrivacyJa" layoutX="250.0" layoutY="163.0" text="Ja" />
+      <JFXRadioButton fx:id="PrivacyNee" layoutX="335.0" layoutY="163.0" text="Nee" />
+      <JFXRadioButton fx:id="ReanimatieJa" layoutX="250.0" layoutY="201.0" text="Ja" />
+      <JFXRadioButton fx:id="ReanimatieNee" layoutX="335.0" layoutY="201.0" text="Nee" />
+   </children>
+</AnchorPane>
