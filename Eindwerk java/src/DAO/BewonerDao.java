@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -386,9 +389,18 @@ public class BewonerDao {
         int addressID = AdressDao.getId(bewoner.getAdress());
         bewoner.getAdress().setId(addressID);
 
+        File img = new File(String.valueOf(bewoner.getFoto()));
+        System.out.println(img);
+        FileInputStream fin = null;
+        try {
+            fin = new FileInputStream(img);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Connect();
         try {
-            stmt = con.prepareStatement("insert into bewoner(voornaam, achternaam, geboortedatum, geboorteplaats, geslacht, burgerlijke_staat, gekoppeld_met, opnamedatum, geloofsovertuiging, meter, peter, nationaliteit, rijskregisternr, identiteitskaartnr, dokter, voorkeur_ziekenhuis, kamernr, adres_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("insert into bewoner(voornaam, achternaam, geboortedatum, geboorteplaats, geslacht, burgerlijke_staat, gekoppeld_met, opnamedatum, geloofsovertuiging, meter, peter, nationaliteit, rijskregisternr, identiteitskaartnr, dokter, voorkeur_ziekenhuis, kamernr, adres_id, foto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setString(1, bewoner.getVoornaam());
             stmt.setString(2, bewoner.getAchternaam());
             stmt.setDate(3, (Date) bewoner.getGeboortedatum());
@@ -407,6 +419,7 @@ public class BewonerDao {
             stmt.setString(16,  bewoner.getVoorkeurZiekenhuis());
             stmt.setInt(17,  bewoner.getKamernr());
             stmt.setInt(18, addressID);
+            stmt.setBinaryStream(19, fin, (int) img.length());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {

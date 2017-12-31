@@ -1,5 +1,8 @@
 package model;
 
+import org.postgresql.util.PGbytea;
+
+import java.io.File;
 import java.util.Date;
 
 public class Bewoner {
@@ -23,6 +26,7 @@ public class Bewoner {
     private Integer kamernr;
     private Adress adress;
     private static Integer selectedId;
+    private File foto;
 
     public Bewoner(){
     }
@@ -42,7 +46,7 @@ public class Bewoner {
         this.achternaam = achternaam;
     }
 
-    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress) {
+    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, File foto) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
@@ -61,9 +65,10 @@ public class Bewoner {
         this.voorkeurZiekenhuis = voorkeurZiekenhuis;
         this.kamernr = kamernr;
         this.adress = adress;
+        this.foto = foto;
     }
 
-    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress) {
+    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, File foto) {
         this.id = id;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
@@ -83,6 +88,7 @@ public class Bewoner {
         this.voorkeurZiekenhuis = voorkeurZiekenhuis;
         this.kamernr = kamernr;
         this.adress = adress;
+        this.foto = foto;
     }
 
     public static Integer getSelectedId() {
@@ -243,6 +249,14 @@ public class Bewoner {
 
     public void setAdress(Adress adress) {
         this.adress = adress;
+    }
+
+    public File getFoto() {
+        return foto;
+    }
+
+    public void setFoto(File foto) {
+        this.foto = foto;
     }
 
     @Override
