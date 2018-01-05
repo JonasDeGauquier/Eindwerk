@@ -63,6 +63,39 @@ public class BewonerController implements Initializable {
     }
 
     @FXML
+    void switchToShowBewoner(ActionEvent event){
+        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
+        if (selectedBewoner == null || selectedBewoner.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen bewoner gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een bewoner te selecteren!");
+            notSelected.show();
+        } else {
+            if (BewonerDao.getBewoner(selectedBewoner.getId()) == null || BewonerDao.getBewoner(selectedBewoner.getId()).equals("")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Geen dossier gevonden");
+                alert.setHeaderText(null);
+                alert.setContentText("Er is een fout opgetreden. Probeer opnieuw!");
+                alert.show();
+            } else {
+                Bewoner bewoner = new Bewoner();
+                bewoner.setSelectedId(selectedBewoner.getId());
+
+                try {
+                    URL paneUrl = getClass().getResource("../gui/BewonergegevensBekijken.fxml");
+                    content = FXMLLoader.load(paneUrl);
+
+                    splitpane.getItems().remove(1);
+                    splitpane.getItems().add(content);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
     void switchToShowDossier(ActionEvent event) {
         Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
         if (selectedBewoner == null || selectedBewoner.equals("")) {

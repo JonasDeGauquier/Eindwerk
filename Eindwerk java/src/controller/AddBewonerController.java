@@ -12,9 +12,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.Adress;
 import model.Bewoner;
+import org.postgresql.util.PGBinaryObject;
 import org.postgresql.util.PGbytea;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -55,11 +59,27 @@ public class AddBewonerController {
         opnameDate = opnamedatum.getValue();
         Date sqlOpnameDate = java.sql.Date.valueOf( opnameDate );
 
+        File img = new File(String.valueOf(byteaFile));
+        byte[] bFile = new byte[(int) img.length()];
+
+        //read file into bytes[]
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(img);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fileInputStream.read(bFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
         Bewoner bewoner = new Bewoner(voornaam.getText().toString(), achternaam.getText().toString(), sqlGeboorteDate, geboorteplaats.getText().toString(),
                 geslacht.getText().toString(), burgerlijkestaat.getText().toString(), gekoppeldmet.getText().toString(), sqlOpnameDate,
                 geloofsovertuiging.getText().toString(), meter.getText().toString(), peter.getText().toString(), nationaliteit.getText().toString(), Integer.parseInt(rijksregisternr.getText()),
-                Integer.parseInt(identiteitskaartnr.getText()), huisarts.getText().toString(), voorkeursziekenhuis.getText().toString(), Integer.parseInt(kamernr.getText()), adres, byteaFile);
+                Integer.parseInt(identiteitskaartnr.getText()), huisarts.getText().toString(), voorkeursziekenhuis.getText().toString(), Integer.parseInt(kamernr.getText()), adres, bFile);
         Boolean add = BewonerDao.addBewoner(bewoner);
         if (add == true)
         {

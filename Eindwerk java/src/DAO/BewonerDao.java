@@ -7,11 +7,12 @@ import model.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static DAO.PostgreSQLJDBC.Connect;
 import static DAO.PostgreSQLJDBC.con;
@@ -449,5 +450,46 @@ public class BewonerDao {
                 }
             }
         }
+    }
+
+    public static Bewoner getBewoner(int id) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("select * from bewoner where id = ?");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                Adress adres = AdressDao.getAdress(rs.getInt("adres_id"));
+                Bewoner bewoner = new Bewoner(rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"), rs.getString("geboorteplaats"), rs.getString("geslacht"), rs.getString("burgerlijke_staat"),
+                        rs.getString("gekoppeld_met"), rs.getDate("opnamedatum"), rs.getString("geloofsovertuiging"), rs.getString("meter"), rs.getString("peter"), rs.getString("nationaliteit"), rs.getInt("rijskregisternr"),
+                        rs.getInt("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"));
+                return bewoner;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }

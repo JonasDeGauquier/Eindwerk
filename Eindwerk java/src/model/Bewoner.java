@@ -26,7 +26,7 @@ public class Bewoner {
     private Integer kamernr;
     private Adress adress;
     private static Integer selectedId;
-    private File foto;
+    private byte[] foto;
 
     public Bewoner(){
     }
@@ -46,7 +46,7 @@ public class Bewoner {
         this.achternaam = achternaam;
     }
 
-    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, File foto) {
+    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
@@ -68,7 +68,7 @@ public class Bewoner {
         this.foto = foto;
     }
 
-    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, File foto) {
+    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
         this.id = id;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
@@ -251,11 +251,11 @@ public class Bewoner {
         this.adress = adress;
     }
 
-    public File getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(File foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 
