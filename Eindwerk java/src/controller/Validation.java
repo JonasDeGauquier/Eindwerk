@@ -13,8 +13,8 @@ public class Validation {
         }
     }
 
-    public static boolean checkAlphaNumerical(String name) {
-        String regex = "[A-Za-z0-9]{2,40}";
+    public static boolean checkNumeric(String name) {
+        String regex = "[0-9]{1,40}";
         if (Pattern.matches(regex, name)) {
             return true;
         } else {
@@ -23,7 +23,7 @@ public class Validation {
     }
 
     public static boolean checkAlphabetical(String name) {
-        String regex = "[A-Za-z]{2,40}";
+        String regex = "[A-Za-z ]{2,40}";
         if (Pattern.matches(regex, name)) {
             return true;
         } else {
@@ -94,9 +94,18 @@ public class Validation {
         }
     }
 
-    public static boolean checkIdentitiecard(String email) {
+    public static boolean checkIdentitiecard(String indentiticard) {
         String regex = "[0-9]{3}+-[0-9]{7}+-[0-9]{2}";
-        if (Pattern.matches(regex, email)) {
+        if (Pattern.matches(regex, indentiticard)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkRijksregisternr(String rijksregisternr) {
+        String regex = "[0-9]{11}";
+        if (Pattern.matches(regex, rijksregisternr)) {
             return true;
         } else {
             return false;

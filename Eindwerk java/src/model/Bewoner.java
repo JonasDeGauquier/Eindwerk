@@ -19,8 +19,8 @@ public class Bewoner {
     private String peter;
     private String meter;
     private String nationaliteit;
-    private Integer rijksregisternr;
-    private Integer indetiteitskaartnr;
+    private Long rijksregisternr;
+    private String indetiteitskaartnr;
     private String huisdokter;
     private String voorkeurZiekenhuis;
     private Integer kamernr;
@@ -46,7 +46,7 @@ public class Bewoner {
         this.achternaam = achternaam;
     }
 
-    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
+    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
@@ -68,7 +68,7 @@ public class Bewoner {
         this.foto = foto;
     }
 
-    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Integer rijksregisternr, Integer indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
+    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
         this.id = id;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
@@ -203,19 +203,19 @@ public class Bewoner {
         this.nationaliteit = nationaliteit;
     }
 
-    public Integer getRijksregisternr() {
+    public Long getRijksregisternr() {
         return rijksregisternr;
     }
 
-    public void setRijksregisternr(Integer rijksregisternr) {
+    public void setRijksregisternr(Long rijksregisternr) {
         this.rijksregisternr = rijksregisternr;
     }
 
-    public Integer getIndetiteitskaartnr() {
+    public String getIndetiteitskaartnr() {
         return indetiteitskaartnr;
     }
 
-    public void setIndetiteitskaartnr(Integer indetiteitskaartnr) {
+    public void setIndetiteitskaartnr(String indetiteitskaartnr) {
         this.indetiteitskaartnr = indetiteitskaartnr;
     }
 

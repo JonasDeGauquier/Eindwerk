@@ -14,3 +14,11 @@
 .combo-box.error {
   -fx-border-color: red ;
 }
+
+.label.error {
+  -fx-border-color: red ;
+}
+
+.date-picker.error {
+  -fx-border-color: red ;
+}

@@ -390,15 +390,6 @@ public class BewonerDao {
         int addressID = AdressDao.getId(bewoner.getAdress());
         bewoner.getAdress().setId(addressID);
 
-        File img = new File(String.valueOf(bewoner.getFoto()));
-        System.out.println(img);
-        FileInputStream fin = null;
-        try {
-            fin = new FileInputStream(img);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         Connect();
         try {
             stmt = con.prepareStatement("insert into bewoner(voornaam, achternaam, geboortedatum, geboorteplaats, geslacht, burgerlijke_staat, gekoppeld_met, opnamedatum, geloofsovertuiging, meter, peter, nationaliteit, rijskregisternr, identiteitskaartnr, dokter, voorkeur_ziekenhuis, kamernr, adres_id, foto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -414,13 +405,13 @@ public class BewonerDao {
             stmt.setString(10,  bewoner.getMeter());
             stmt.setString(11,  bewoner.getPeter());
             stmt.setString(12,  bewoner.getNationaliteit());
-            stmt.setInt(13,  bewoner.getRijksregisternr());
-            stmt.setInt(14,  bewoner.getIndetiteitskaartnr());
+            stmt.setLong(13,  bewoner.getRijksregisternr());
+            stmt.setString(14,  bewoner.getIndetiteitskaartnr());
             stmt.setString(15,  bewoner.getHuisdokter());
             stmt.setString(16,  bewoner.getVoorkeurZiekenhuis());
             stmt.setInt(17,  bewoner.getKamernr());
             stmt.setInt(18, addressID);
-            stmt.setBinaryStream(19, fin, (int) img.length());
+            stmt.setBytes(19, bewoner.getFoto());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -461,8 +452,8 @@ public class BewonerDao {
             if (rs.next()) {
                 Adress adres = AdressDao.getAdress(rs.getInt("adres_id"));
                 Bewoner bewoner = new Bewoner(rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"), rs.getString("geboorteplaats"), rs.getString("geslacht"), rs.getString("burgerlijke_staat"),
-                        rs.getString("gekoppeld_met"), rs.getDate("opnamedatum"), rs.getString("geloofsovertuiging"), rs.getString("meter"), rs.getString("peter"), rs.getString("nationaliteit"), rs.getInt("rijskregisternr"),
-                        rs.getInt("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"));
+                        rs.getString("gekoppeld_met"), rs.getDate("opnamedatum"), rs.getString("geloofsovertuiging"), rs.getString("meter"), rs.getString("peter"), rs.getString("nationaliteit"), rs.getLong("rijskregisternr"),
+                        rs.getString("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"));
                 return bewoner;
             }
         } catch (Exception e) {

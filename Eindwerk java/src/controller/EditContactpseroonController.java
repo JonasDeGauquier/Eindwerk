@@ -109,9 +109,9 @@ public class EditContactpseroonController implements Initializable{
         }else {
             if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == true && Validation.checkAlphabetical(relatie.getText().toString()) == true && Validation.checkPhone(telefoon.getText()) == true
                     && Validation.checkEmail(email.getText()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true) {
-                Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText().toString()));
-                int adresId = AdressDao.getId(a);
-                adres.setId(adresId);
+                    Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText().toString()));
+                    int adresId = AdressDao.getId(a);
+                    adres.setId(adresId);
                 contactpersoon = new Contactpersoon(bewoner, adres, voornaam.getText().toString(), achternaam.getText().toString(), Integer.parseInt(telefoon.getText().toString()), email.getText().toString(),
                         relatie.getText().toString(), identiteitskaartnr.getText().toString());
                 Boolean edit;
