@@ -23,6 +23,15 @@ public class BewonersDossier {
         this.allergieën = allergieën;
     }
 
+    public BewonersDossier(Bewoner bewoner, Boolean incontinentie, Boolean privacy, Boolean reanimatieWens, String groteOperaties, String allergieën) {
+        this.bewoner = bewoner;
+        this.incontinentie = incontinentie;
+        this.privacy = privacy;
+        this.reanimatieWens = reanimatieWens;
+        this.groteOperaties = groteOperaties;
+        this.allergieën = allergieën;
+    }
+
     public BewonersDossier(Integer id,Boolean incontinentie, Boolean privacy, Boolean reanimatieWens, String groteOperaties, String allergieën) {
         this.id = id;
         this.incontinentie = incontinentie;
@@ -32,16 +41,6 @@ public class BewonersDossier {
         this.allergieën = allergieën;
     }
 
-    public BewonersDossier(Integer id, Bewoner bewoner, Boolean incontinentie, Boolean privacy, Boolean reanimatieWens, String groteOperaties, String allergieën, Timestamp timestamp) {
-        this.id = id;
-        this.bewoner = bewoner;
-        this.incontinentie = incontinentie;
-        this.privacy = privacy;
-        this.reanimatieWens = reanimatieWens;
-        this.groteOperaties = groteOperaties;
-        this.allergieën = allergieën;
-        this.timestamp = timestamp;
-    }
 
     public Integer getId() {
         return id;

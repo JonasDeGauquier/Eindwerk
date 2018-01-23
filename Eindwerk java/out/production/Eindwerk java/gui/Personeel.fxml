@@ -18,8 +18,6 @@
                <children>
                   <JFXTextField fx:id="search" layoutX="14.0" layoutY="73.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
                   <JFXButton fx:id="ShwoPersoneel" layoutX="223.0" layoutY="117.0" onAction="#ShowPersoneelGegevens" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Personeel gegevens bekijken" />
-                  <JFXButton fx:id="AddPersoneel" layoutX="223.0" layoutY="170.0" onAction="#AddPersoneel" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Personeel toevoegen" />
-                  <JFXButton fx:id="DeletePersoneel" layoutX="223.0" layoutY="223.0" onAction="#DeletePersoneel" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Verwijder Persoon" />
                   <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="117.0" prefHeight="270.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />

@@ -57,14 +57,28 @@ public class HomeController {
         URL paneOneUrl = getClass().getResource("../gui/Home.fxml");
         VBox paneOne = FXMLLoader.load( paneOneUrl );
 
-        root.setTop(bar);
-        root.setCenter(paneOne);
-        Scene scene = new Scene(root,640,480);
-        scene.getStylesheets().add("css/Layout.css");
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.hide();
-        stage.show();
+        if (root == null){
+            root.setTop(bar);
+            root.setCenter(paneOne);
+            Scene scene = new Scene(root,640,480);
+            scene.getStylesheets().add("css/Layout.css");
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.hide();
+            stage.show();
+            System.out.println("dfdf");
+        }
+        else {
+            root = new BorderPane();
+            root.setTop(bar);
+            root.setCenter(paneOne);
+            Scene scene = new Scene(root,640,480);
+            scene.getStylesheets().add("css/Layout.css");
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.hide();
+            stage.show();
+        }
     }
 
 
@@ -89,16 +103,28 @@ public class HomeController {
         URL paneOneUrl = getClass().getResource("../gui/Home.fxml");
         VBox paneOne = FXMLLoader.load( paneOneUrl );
 
-        // constructing our scene using the static root
 
-        root.setTop(bar);
-        root.setCenter(paneOne);
-        Scene scene = new Scene(root,640,480);
-        scene.getStylesheets().add("css/Layout.css");
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.hide();
-        stage.show();
+
+        if (root == null){
+            root.setTop(bar);
+            root.setCenter(paneOne);
+            Scene scene = new Scene(root,640,480);
+            scene.getStylesheets().add("css/Layout.css");
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.hide();
+            stage.show();
+        }
+        else {
+            root = new BorderPane();
+            root.setTop(bar);
+            root.setCenter(paneOne);
+            Scene scene = new Scene(root,640,480);
+            scene.getStylesheets().add("css/Layout.css");
+            stage.setScene(scene);
+            stage.setResizable(true);
+            stage.hide();
+            stage.show();
+        }
     }
-
 }

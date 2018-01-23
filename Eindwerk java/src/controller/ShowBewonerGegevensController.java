@@ -1,11 +1,16 @@
 package controller;
 
 import DAO.BewonerDao;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import model.Bewoner;
 
 import java.io.File;
@@ -26,6 +31,10 @@ public class ShowBewonerGegevensController implements Initializable {
             Peter, Meter, Nationaliteit, Rijksregisternr, Identiteitskaartnr, Huisarts, Ziekenhuis, Kamernr, Straat, Huisnr,Postcode, Gemeente;
     @FXML
     private ImageView foto;
+
+    private AnchorPane content;
+    private SplitPane splitpane;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bewoner = BewonerDao.getBewoner(bewoner.getSelectedId());
@@ -54,7 +63,7 @@ public class ShowBewonerGegevensController implements Initializable {
 
         Path path = null;
         try {
-            File myFile = new File("src/"+ bewoner.getVoornaam().toString() + " " + bewoner.getAchternaam().toString() + ".png");
+            File myFile = new File("src/images/"+ bewoner.getVoornaam().toString() + " " + bewoner.getAchternaam().toString() + ".png");
             FileOutputStream image = new FileOutputStream(myFile);
 
             int length = bewoner.getFoto().length;

@@ -8,15 +8,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import model.*;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -70,8 +77,16 @@ public class ZorgplanController implements Initializable {
         cmbZorgtaak.getStyleClass().remove("error");
 
         bew = cmbBewoner.getSelectionModel().getSelectedItem();
-        med = cmbMedicatie.getSelectionModel().getSelectedItem();
-        taak = cmbZorgtaak.getSelectionModel().getSelectedItem();
+        if (cmbMedicatie.getSelectionModel().getSelectedItem() == null){
+            med.setId(1);
+        }else {
+            med = cmbMedicatie.getSelectionModel().getSelectedItem();
+        }
+        if (cmbZorgtaak.getSelectionModel().getSelectedItem() == null){
+            taak.setId(1);
+        }else {
+            taak = cmbZorgtaak.getSelectionModel().getSelectedItem();
+        }
         String opmerking = txtOpmerking.getText().toString();
 
         if (bew == null || bew.equals("")) {
@@ -134,13 +149,33 @@ public class ZorgplanController implements Initializable {
                     pas = pair.getValue();
                 });
 
-                if (LoginDao.checkLogin(gebruikersnaam.toString(), pas.toString()) == true) {
-                    int userId = LoginDao.getUserId(gebruikersnaam.toString(), pas.toString());
+                // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                MessageDigest objMD5 = null;
+                try {
+                    objMD5 = MessageDigest.getInstance("MD5");
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+                byte[] bytMD5 = objMD5.digest(pas.getBytes());
+                BigInteger intNumMD5 = new BigInteger(1, bytMD5);
+                String passw = String.format("%032x", intNumMD5);
+
+                if (LoginDao.checkLogin(gebruikersnaam.toString(), passw.toString()) == true) {
+                    int userId = LoginDao.getUserId(gebruikersnaam.toString(), passw.toString());
                     user.setCurrentUser(userId);
                     Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
                     Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
                     if (check == true) {
+                        try {
+                            URL paneUrl = getClass().getResource("../gui/Home.fxml");
+                            VBox pane = FXMLLoader.load(paneUrl);
+
+                            BorderPane border = HomeController.getRoot();
+                            border.setCenter(pane);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         Alert added = new Alert(Alert.AlertType.INFORMATION);
                         added.setTitle("Toevoegen gelukt");
                         added.setHeaderText(null);
@@ -254,6 +289,15 @@ public class ZorgplanController implements Initializable {
     void addZorgtaak(ActionEvent event) {
         Zorgtaak zorgtaak = new Zorgtaak(zorgTaak.getText());
         if (ZorgplanDao.addZorgtaak(zorgtaak) == true) {
+            try {
+                URL paneUrl = getClass().getResource("../gui/Home.fxml");
+                VBox pane = FXMLLoader.load(paneUrl);
+
+                BorderPane border = HomeController.getRoot();
+                border.setCenter(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Toevoegen gelutk");
             alert.setHeaderText(null);

@@ -192,7 +192,7 @@ public class PersoneelDao {
             if (rs.next()) {
                 Adress adres = AdressDao.getAdress(rs.getInt("adres_id"));
                 Rol rol = RolDao.getRolById(rs.getInt("rol_id"));
-                User user = new User(rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"),rs.getString("email"), adres, rol);
+                User user = new User(rs.getInt("id"),rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"),rs.getString("email"), adres, rol);
                 return user;
             }
         } catch (Exception e) {

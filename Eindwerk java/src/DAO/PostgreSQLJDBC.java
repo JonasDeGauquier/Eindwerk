@@ -9,8 +9,8 @@ public abstract class PostgreSQLJDBC {
         try {
             Class.forName("org.postgresql.Driver");
             con = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/Eindwerk",
-                            "postgres", "Eindwerk");
+                    .getConnection("jdbc:postgresql://10.3.50.26:5432/Eindwerk",
+                            "postgres", "gquauier");
         } catch (Exception e) {
             e.printStackTrace();
         }

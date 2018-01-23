@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color:#dee4ed;" xmlns="http://javafx.com/javafx/9">
+<AnchorPane prefHeight="482.0" prefWidth="538.0" style="-fx-background-color:#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddBewonerdossierController">
    <children>
       <Label layoutX="74.0" layoutY="103.0" prefHeight="26.0" prefWidth="105.0" text="Icontinentie">
          <font>
@@ -40,15 +39,18 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="231.0" layoutY="105.0" />
-      <JFXTextField layoutX="231.0" layoutY="140.0" />
-      <JFXTextField layoutX="231.0" layoutY="178.0" />
-      <JFXTextField layoutX="231.0" layoutY="211.0" />
-      <JFXTextField layoutX="231.0" layoutY="246.0" />
-      <JFXButton layoutX="156.0" layoutY="318.0" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Toevoegen">
+      <JFXButton onAction="#addDossier" layoutX="156.0" layoutY="318.0" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Toevoegen">
          <font>
             <Font size="19.0" />
          </font>
       </JFXButton>
+      <JFXTextField fx:id="GroteOperaties" layoutX="246.0" layoutY="209.0" />
+      <JFXTextField fx:id="Allergieën" layoutX="246.0" layoutY="244.0" />
+      <JFXRadioButton fx:id="IncontinentieJa" layoutX="245.0" layoutY="106.0" text="Ja" />
+      <JFXRadioButton fx:id="IncontinentieNee" layoutX="330.0" layoutY="106.0" text="Nee" />
+      <JFXRadioButton fx:id="PrivacyJa" layoutX="245.0" layoutY="141.0" text="Ja" />
+      <JFXRadioButton fx:id="PrivacyNee" layoutX="330.0" layoutY="141.0" text="Nee" />
+      <JFXRadioButton fx:id="ReanimatieJa" layoutX="245.0" layoutY="179.0" text="Ja" />
+      <JFXRadioButton fx:id="ReanimatieNee" layoutX="330.0" layoutY="179.0" text="Nee" />
    </children>
 </AnchorPane>

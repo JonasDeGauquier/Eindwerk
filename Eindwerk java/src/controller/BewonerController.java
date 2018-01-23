@@ -74,7 +74,7 @@ public class BewonerController implements Initializable {
         } else {
             if (BewonerDao.getBewoner(selectedBewoner.getId()) == null || BewonerDao.getBewoner(selectedBewoner.getId()).equals("")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Geen dossier gevonden");
+                alert.setTitle("Geen gegevens gevonden");
                 alert.setHeaderText(null);
                 alert.setContentText("Er is een fout opgetreden. Probeer opnieuw!");
                 alert.show();
@@ -84,6 +84,39 @@ public class BewonerController implements Initializable {
 
                 try {
                     URL paneUrl = getClass().getResource("../gui/BewonergegevensBekijken.fxml");
+                    content = FXMLLoader.load(paneUrl);
+
+                    splitpane.getItems().remove(1);
+                    splitpane.getItems().add(content);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    void switchToEditBewoner(ActionEvent event) {
+        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
+        if (selectedBewoner == null || selectedBewoner.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen bewoner gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een bewoner te selecteren!");
+            notSelected.show();
+        } else {
+            if (BewonerDao.getBewoner(selectedBewoner.getId()) == null || BewonerDao.getBewoner(selectedBewoner.getId()).equals("")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Geen gegevens gevonden");
+                alert.setHeaderText(null);
+                alert.setContentText("Er is een fout opgetreden. Probeer opnieuw!");
+                alert.show();
+            } else {
+                Bewoner bewoner = new Bewoner();
+                bewoner.setSelectedId(selectedBewoner.getId());
+
+                try {
+                    URL paneUrl = getClass().getResource("../gui/BewonerBewerken.fxml");
                     content = FXMLLoader.load(paneUrl);
 
                     splitpane.getItems().remove(1);
@@ -117,6 +150,8 @@ public class BewonerController implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes) {
+                    Bewoner bewoner = new Bewoner();
+                    bewoner.setSelectedId(selectedBewoner.getId());
                     try {
                         URL paneUrl = getClass().getResource("../gui/BewonerDossierToevoegen.fxml");
                         Pane pane = FXMLLoader.load(paneUrl);
@@ -128,11 +163,8 @@ public class BewonerController implements Initializable {
                     }
                 }
             } else {
-
                 Bewoner bewoner = new Bewoner();
                 bewoner.setSelectedId(selectedBewoner.getId());
-                ShowDossierController showDossier = new ShowDossierController();
-
                 try {
                     URL paneUrl = getClass().getResource("../gui/BewonerDossierBekijken.fxml");
                     content = FXMLLoader.load(paneUrl);
@@ -168,6 +200,8 @@ public class BewonerController implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes) {
+                    Bewoner bewoner = new Bewoner();
+                    bewoner.setSelectedId(selectedBewoner.getId());
                     try {
                         URL paneUrl = getClass().getResource("../gui/BewonerDossierToevoegen.fxml");
                         Pane pane = FXMLLoader.load(paneUrl);
@@ -218,6 +252,8 @@ public class BewonerController implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes) {
+                    Bewoner bewoner = new Bewoner();
+                    bewoner.setSelectedId(selectedBewoner.getId());
                     try {
                         URL paneUrl = getClass().getResource("../gui/verpleegdossierToevoegen.fxml");
                         Pane pane = FXMLLoader.load(paneUrl);
@@ -231,7 +267,6 @@ public class BewonerController implements Initializable {
             } else {
                 Bewoner bewoner = new Bewoner();
                 bewoner.setSelectedId(selectedBewoner.getId());
-
                 try {
                     URL paneUrl = getClass().getResource("../gui/VerpleegDossierBekijken.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);
@@ -318,6 +353,8 @@ public class BewonerController implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes) {
+                    Bewoner bewoner = new Bewoner();
+                    bewoner.setSelectedId(selectedBewoner.getId());
                     try {
                         URL paneUrl = getClass().getResource("../gui/ContactpersoonToevoegen.fxml");
                         Pane pane = FXMLLoader.load(paneUrl);
@@ -331,7 +368,6 @@ public class BewonerController implements Initializable {
             } else {
                 Bewoner bewoner = new Bewoner();
                 bewoner.setSelectedId(selectedBewoner.getId());
-
                 try {
                     URL paneUrl = getClass().getResource("../gui/ContactpersoonBekijken.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);
@@ -367,6 +403,8 @@ public class BewonerController implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes) {
+                    Bewoner bewoner = new Bewoner();
+                    bewoner.setSelectedId(selectedBewoner.getId());
                     try {
                         URL paneUrl = getClass().getResource("../gui/ContactpersoonToevoegen.fxml");
                         Pane pane = FXMLLoader.load(paneUrl);
@@ -380,7 +418,6 @@ public class BewonerController implements Initializable {
             } else {
                 Bewoner bewoner = new Bewoner();
                 bewoner.setSelectedId(selectedBewoner.getId());
-
                 try {
                     URL paneUrl = getClass().getResource("../gui/ContactpersoonBewerken.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);

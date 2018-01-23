@@ -186,6 +186,46 @@ public class BewonerDao {
         return null;
     }
 
+    public static boolean addDossier(BewonersDossier b) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("INSERT into bewonersdossier(bewoner_id, incontinentie, privacy, reanimatie_wens, grote_operaties, allergieën) VALUES (?, ?, ?, ?, ?, ?)");
+            stmt.setInt(1,b.getBewoner().getSelectedId());
+            stmt.setBoolean(2, b.getIncontinentie());
+            stmt.setBoolean(3, b.getPrivacy());
+            stmt.setBoolean(4, b.getReanimatieWens());
+            stmt.setString(5, b.getGroteOperaties());
+            stmt.setString(6, b.getAllergieën());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static boolean editDossier(BewonersDossier b) {
         Connect();
         try {
@@ -262,6 +302,46 @@ public class BewonerDao {
             }
         }
         return null;
+    }
+
+    public static boolean addVerpleegDossier(Verpleegdossier v) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("INSERT INTO verpleegdossier (bewoner_id, wondzorg, bloedafname, suikerziekte, beroep_vroeger, specifiekewensen) VALUES (?, ?, ?, ?, ?, ?)");
+            stmt.setInt(1,v.getBewoner().getSelectedId());
+            stmt.setString(2, v.getWondzorg());
+            stmt.setString(3, v.getBloedafname());
+            stmt.setBoolean(4, v.getSuikerziekte());
+            stmt.setString(5, v.getBeroepVroeger());
+            stmt.setString(6, v.getSpecifiekeWensen());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static boolean editVerpleegDossier(Verpleegdossier v) {
@@ -341,6 +421,51 @@ public class BewonerDao {
             }
         }
         return null;
+    }
+
+    public static boolean addContactpersoon(Contactpersoon c) {
+        AdressDao.addAddress(c.getAdress());
+        int addressID = AdressDao.getId(c.getAdress());
+        c.getAdress().setId(addressID);
+        Connect();
+        try {
+            stmt = con.prepareStatement("INSERT INTO contactpersoon(bewoner_id, adres_id, achternaam, voornaam, telefoon, email, relatie, identiteitskaartnr) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt.setInt(1,c.getBewoner().getSelectedId());
+            stmt.setInt(2, c.getAdress().getId());
+            stmt.setString(3, c.getAchternaam());
+            stmt.setString(4, c.getVoornaam());
+            stmt.setInt(5, c.getTelefoon());
+            stmt.setString(6,c.getEmail());
+            stmt.setString(7, c.getRelatie());
+            stmt.setString(8, c.getIdentiteitskaartnr());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static boolean editContactpersoon(Contactpersoon c) {
@@ -451,7 +576,7 @@ public class BewonerDao {
             rs = stmt.executeQuery();
             if (rs.next()) {
                 Adress adres = AdressDao.getAdress(rs.getInt("adres_id"));
-                Bewoner bewoner = new Bewoner(rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"), rs.getString("geboorteplaats"), rs.getString("geslacht"), rs.getString("burgerlijke_staat"),
+                Bewoner bewoner = new Bewoner(rs.getInt("id"),rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"), rs.getString("geboorteplaats"), rs.getString("geslacht"), rs.getString("burgerlijke_staat"),
                         rs.getString("gekoppeld_met"), rs.getDate("opnamedatum"), rs.getString("geloofsovertuiging"), rs.getString("meter"), rs.getString("peter"), rs.getString("nationaliteit"), rs.getLong("rijskregisternr"),
                         rs.getString("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"));
                 return bewoner;

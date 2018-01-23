@@ -86,7 +86,7 @@ public class Validation {
     }
 
     public static boolean checkEmail(String email) {
-        String regex = "[A-Za-z0-9]+@[A-Za-z0-9]+[\\.][A-Za-z]{2,4}";
+        String regex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9]+[\\.][A-Za-z]{2,4}";
         if (Pattern.matches(regex, email)) {
             return true;
         } else {
@@ -106,14 +106,6 @@ public class Validation {
     public static boolean checkRijksregisternr(String rijksregisternr) {
         String regex = "[0-9]{11}";
         if (Pattern.matches(regex, rijksregisternr)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean checkAge(int age) {
-        if (age >= 0 && age > 120) {
             return true;
         } else {
             return false;

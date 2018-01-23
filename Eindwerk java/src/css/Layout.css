@@ -1,5 +1,7 @@
 .button {
-    -fx-background-color: #5494f9;
+    -fx-background-color: #125d91;
+    -fx-text-fill: white;
+    -fx-font-size: 11pt;
 }
 
 .cardPane{
@@ -21,4 +23,19 @@
 
 .date-picker.error {
   -fx-border-color: red ;
+}
+
+.menu-bar {
+    -fx-background-color: #125d91;
+}
+
+.context-menu {
+    -fx-background-color: #4287b7;
+}
+
+.menu-bar .label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
 }

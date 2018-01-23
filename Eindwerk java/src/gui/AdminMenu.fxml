@@ -21,6 +21,7 @@
       <Menu mnemonicParsing="false" text="Personeel">
         <items>
           <MenuItem fx:id="Personeel" mnemonicParsing="false" text="Personeel" onAction="#switchToPersonneel" />
+          <MenuItem fx:id="AddPersoneel" mnemonicParsing="false" text="Personeel toevoegen" onAction="#AddPersoneel" />
         </items>
       </Menu>
     <Menu mnemonicParsing="false" text="Uitloggen">

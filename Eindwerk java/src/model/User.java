@@ -18,11 +18,17 @@ public class User {
 
     public  User() {}
 
-    public User(Integer userId) {
-        this.userId = userId;
+    public User(String voornaam, String achternaam, Date geboortedatum, String email, Adress adress, Rol rol) {
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.geboortedatum = geboortedatum;
+        this.email = email;
+        this.adress = adress;
+        this.rol = rol;
     }
 
-    public User(String voornaam, String achternaam, Date geboortedatum, String email, Adress adress, Rol rol) {
+    public User(Integer userId, String voornaam, String achternaam, Date geboortedatum, String email, Adress adress, Rol rol) {
+        this.userId = userId;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;

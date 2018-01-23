@@ -5,49 +5,24 @@ import DAO.BewonerDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.Adress;
 import model.Bewoner;
-import model.BewonersDossier;
 import model.Contactpersoon;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
 
-public class EditContactpseroonController implements Initializable{
+public class AddContactpersoonController {
     private Contactpersoon contactpersoon = new Contactpersoon();
     private Bewoner bewoner = new Bewoner();
 
     @FXML
     private TextField voornaam, achternaam, identiteitskaartnr, relatie, telefoon ,email , straat, huisnr, gemeente, postcode;
     Adress a = new Adress();
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        contactpersoon = BewonerDao.getContactpersoon(bewoner.getSelectedId());
-
-        voornaam.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(contactpersoon.getAchternaam().toString()));
-        relatie.setText(String.valueOf(contactpersoon.getRelatie().toString()));
-        telefoon.setText(String.valueOf(contactpersoon.getTelefoon().toString()));
-        email.setText(String.valueOf(contactpersoon.getEmail().toString()));
-        straat.setText(String.valueOf(contactpersoon.getAdress().getStraat()));
-        huisnr.setText(String.valueOf(contactpersoon.getAdress().getHuisnr()));
-        gemeente.setText(String.valueOf(contactpersoon.getAdress().getGemeente()));
-        postcode.setText(String.valueOf(contactpersoon.getAdress().getPostcode()));
-        identiteitskaartnr.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr().toString()));
-
-        a.setStraat(contactpersoon.getAdress().getStraat());
-        a.setHuisnr(contactpersoon.getAdress().getHuisnr());
-        a.setGemeente(contactpersoon.getAdress().getGemeente());
-        a.setPostcode(contactpersoon.getAdress().getPostcode());
-    }
 
     @FXML
     void addContactpersoon(ActionEvent event) {
@@ -112,18 +87,16 @@ public class EditContactpseroonController implements Initializable{
         }else {
             if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == true && Validation.checkAlphabetical(relatie.getText().toString()) == true && Validation.checkPhone(telefoon.getText()) == true
                     && Validation.checkEmail(email.getText()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true) {
-                    Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText().toString()));
-                    int adresId = AdressDao.getId(a);
-                    adres.setId(adresId);
+                Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText().toString()));
                 contactpersoon = new Contactpersoon(bewoner, adres, voornaam.getText().toString(), achternaam.getText().toString(), Integer.parseInt(telefoon.getText().toString()), email.getText().toString(),
                         relatie.getText().toString(), identiteitskaartnr.getText().toString());
-                Boolean edit;
-                edit = BewonerDao.editContactpersoon(contactpersoon);
-                if (edit == true) {
+                Boolean add;
+                add = BewonerDao.addContactpersoon(contactpersoon);
+                if (add == true) {
                     Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Aanpassen gelukt");
+                    alertsuc.setTitle("Toevoegen gelukt");
                     alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Contactpseroon is aangepast!");
+                    alertsuc.setContentText("Contactpseroon is toegevoegd!");
                     alertsuc.show();
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
@@ -136,9 +109,9 @@ public class EditContactpseroonController implements Initializable{
                     }
                 } else {
                     Alert alertmis = new Alert(Alert.AlertType.ERROR);
-                    alertmis.setTitle("Aanpassen mislukt");
+                    alertmis.setTitle("Toevoegen mislukt");
                     alertmis.setHeaderText(null);
-                    alertmis.setContentText("Contactpersoon is niet aangepast! Probeer opnieuw!");
+                    alertmis.setContentText("Contactpersoon is niet toegeveogd! Probeer opnieuw!");
                     alertmis.showAndWait();
                 }
             }else {
@@ -183,7 +156,7 @@ public class EditContactpseroonController implements Initializable{
                     postcode.getStyleClass().add("error");
                 }
                 Alert alertmis = new Alert(Alert.AlertType.ERROR);
-                alertmis.setTitle("Aanpassen mislukt");
+                alertmis.setTitle("Toevoegen mislukt");
                 alertmis.setHeaderText(null);
                 alertmis.setContentText("Gelieve alle velden correct in te vullen!");
                 alertmis.showAndWait();

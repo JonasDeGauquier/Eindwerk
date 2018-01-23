@@ -1,12 +1,9 @@
 package model;
 
-import org.postgresql.util.PGbytea;
-
-import java.io.File;
 import java.util.Date;
 
 public class Bewoner {
-    private Integer id;
+    private static Integer id;
     private String voornaam;
     private String achternaam;
     private Date geboortedatum;
@@ -34,6 +31,7 @@ public class Bewoner {
     public Bewoner(Integer id) {
         this.id = id;
     }
+
 
     public Bewoner(String voornaam, String achternaam) {
         this.voornaam = voornaam;
@@ -99,7 +97,7 @@ public class Bewoner {
         Bewoner.selectedId = selectedId;
     }
 
-    public Integer getId() {
+    public static Integer getId() {
         return id;
     }
 

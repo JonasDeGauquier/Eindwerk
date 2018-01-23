@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import javafx.fxml.FXMLLoader;
@@ -91,8 +94,19 @@ public class LoginController {
         passwordField.setStyle("-fx-background-color: white;");
 
         if (username.getText().trim().length() > 0 && passwordField.getText().trim().length() > 0) {
-            if (LoginDao.checkLogin(username.getText(), passwordField.getText())==true){
-                login = new Login(username.getText(), passwordField.getText());
+            // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+            MessageDigest objMD5 = null;
+            try {
+                objMD5 = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            byte[] bytMD5 = objMD5.digest(passwordField.getText().getBytes());
+            BigInteger intNumMD5 = new BigInteger(1, bytMD5);
+            String password = String.format("%032x", intNumMD5);
+
+            if (LoginDao.checkLogin(username.getText(), password)==true){
+                login = new Login(username.getText(), password);
                 homeController = new HomeController();
                 homeController.redirectHome(stage);
             }
@@ -122,8 +136,5 @@ public class LoginController {
         stage.setResizable(false);
         stage.hide();
         stage.show();
-
-
     }
-
 }

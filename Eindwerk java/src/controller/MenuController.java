@@ -1,9 +1,12 @@
 package controller;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -13,11 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class MenuController {
+public class MenuController{
     @FXML
     MenuBar myMenuBar;
     @FXML
@@ -103,9 +107,28 @@ public class MenuController {
     }
 
     @FXML
+    void AddPersoneel(ActionEvent event) {
+        try {
+            URL paneUrl = getClass().getResource("../gui/PersoneelToevoegen.fxml");
+            AnchorPane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void logOut(ActionEvent event){
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
+        BorderPane border = HomeController.getRoot();
+        border.setCenter(null);
+        border.setTop(null);
+        border.setDisable(true);
         stage.close();
+
+
 
         LoginController loginController = new LoginController();
         loginController.launchLogingController(stage);

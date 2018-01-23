@@ -4,8 +4,11 @@ import DAO.BewonerDao;
 import DAO.PersoneelDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -198,11 +201,10 @@ public class AddBewonerController  implements Initializable{
                 opnameDate = opnamedatum.getValue();
                 Date sqlOpnameDate = java.sql.Date.valueOf( opnameDate );
 
+                // Bron: https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
                 File img = new File(String.valueOf(byteaFile));
                 byte[] bFile = new byte[(int) img.length()];
-                System.out.println(bFile.toString());
 
-                //read file into bytes[]
                 FileInputStream fileInputStream = null;
                 try {
                     fileInputStream = new FileInputStream(img);
@@ -227,7 +229,16 @@ public class AddBewonerController  implements Initializable{
                     alertsuc.setTitle("Toevoegen gelukt");
                     alertsuc.setHeaderText(null);
                     alertsuc.setContentText("Bewoner is toegevoegd!");
-                    alertsuc.showAndWait();
+                    alertsuc.show();
+                    try {
+                        URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
+                        VBox pane = FXMLLoader.load(paneUrl);
+
+                        BorderPane border = HomeController.getRoot();
+                        border.setCenter(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     Alert alertmis = new Alert(Alert.AlertType.CONFIRMATION);

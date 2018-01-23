@@ -12,18 +12,15 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.Bewoner;
-import model.BewonersDossier;
 import model.Verpleegdossier;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VerpleegdossierBewerkenController implements Initializable{
+public class VerpleegDossierToevoegenController implements Initializable{
     private Verpleegdossier dossier = new Verpleegdossier();
     private Bewoner bewoner = new Bewoner();
-
-    ToggleGroup suikerziekte =new ToggleGroup();
 
     @FXML
     private TextField Wondzorg, Bloedafname, VroegerBeroep, Specifiekewensen;
@@ -31,27 +28,14 @@ public class VerpleegdossierBewerkenController implements Initializable{
     @FXML
     private RadioButton SuikerziekteJa, SuikerziekteNee;
 
+    ToggleGroup suikerziekte =new ToggleGroup();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dossier = BewonerDao.getVerpleegDossier(bewoner.getSelectedId());
-
-        Wondzorg.setText(String.valueOf(dossier.getWondzorg().toString()));
-        Bloedafname.setText(String.valueOf(dossier.getBloedafname().toString()));
-        VroegerBeroep.setText(String.valueOf(dossier.getBeroepVroeger().toString()));
-        Specifiekewensen.setText(String.valueOf(dossier.getSpecifiekeWensen().toString()));
-
         SuikerziekteJa.setToggleGroup(suikerziekte);
         SuikerziekteJa.setUserData("True");
         SuikerziekteNee.setToggleGroup(suikerziekte);
         SuikerziekteNee.setUserData("False");
-
-        if (dossier.getSuikerziekte() == true){
-            SuikerziekteJa.setSelected(true);
-        }
-        else {
-            SuikerziekteNee.setSelected(true);
-        }
-
     }
 
     @FXML
@@ -79,21 +63,21 @@ public class VerpleegdossierBewerkenController implements Initializable{
                 Specifiekewensen.getStyleClass().add("error");
             }
             Alert alertmis = new Alert(Alert.AlertType.ERROR);
-            alertmis.setTitle("Aanpassen mislukt");
+            alertmis.setTitle("Toevoegen mislukt");
             alertmis.setHeaderText(null);
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }else {
             if (Validation.checkAlphabetical(Wondzorg.getText().toString()) == true && Validation.checkAlphabetical(Bloedafname.getText().toString()) == true  && Validation.checkAlphabetical(VroegerBeroep.getText().toString()) == true  && Validation.checkText(Specifiekewensen.getText().toString()) == true){
                 Verpleegdossier dossier = new Verpleegdossier(bewoner.getSelectedId(), Wondzorg.getText().toString(), Bloedafname.getText().toString() ,Boolean.valueOf(suikerziekte.getSelectedToggle().getUserData().toString()),VroegerBeroep.getText().toString(), Specifiekewensen.getText().toString());
-                Boolean edit;
-                edit = BewonerDao.editVerpleegDossier(dossier);
-                if (edit == true)
+                Boolean add;
+                add = BewonerDao.addVerpleegDossier(dossier);
+                if (add == true)
                 {
                     Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Aanpassen gelukt");
+                    alertsuc.setTitle("Toevoegen gelukt");
                     alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Verpleegdossier is aangepast!");
+                    alertsuc.setContentText("Verpleegdossier is toegevoegd!");
                     alertsuc.showAndWait();
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
@@ -107,9 +91,9 @@ public class VerpleegdossierBewerkenController implements Initializable{
                 }
                 else {
                     Alert alertmis = new Alert(Alert.AlertType.ERROR);
-                    alertmis.setTitle("Aanpassen mislukt");
+                    alertmis.setTitle("Toevoegen mislukt");
                     alertmis.setHeaderText(null);
-                    alertmis.setContentText("Verpleegdossier is niet aangepast! Probeer opnieuw!");
+                    alertmis.setContentText("Verpleegdossier is niet toegevoegd! Probeer opnieuw!");
                     alertmis.showAndWait();
                 }
             }else {
@@ -130,7 +114,7 @@ public class VerpleegdossierBewerkenController implements Initializable{
                     Specifiekewensen.getStyleClass().add("error");
                 }
                 Alert alertmis = new Alert(Alert.AlertType.ERROR);
-                alertmis.setTitle("Aanpassen mislukt");
+                alertmis.setTitle("Toevoegen mislukt");
                 alertmis.setHeaderText(null);
                 alertmis.setContentText("Gelieve alle velden correct in te vullen!");
                 alertmis.showAndWait();
