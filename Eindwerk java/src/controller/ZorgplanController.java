@@ -2,7 +2,7 @@ package controller;
 
 import DAO.BewonerDao;
 import DAO.LoginDao;
-import DAO.MediactieDao;
+import DAO.MedicatieDao;
 import DAO.ZorgplanDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,13 +18,11 @@ import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import model.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,7 +60,7 @@ public class ZorgplanController implements Initializable {
         bewoner = BewonerDao.getAllBewoners();
         cmbBewoner.setItems(bewoner);
 
-        medicatie = MediactieDao.getAllMedicatie();
+        medicatie = MedicatieDao.getAllMedicatie();
         cmbMedicatie.setItems(medicatie);
 
         zorgtaak = ZorgplanDao.getAllZorgtaak();
@@ -287,29 +285,50 @@ public class ZorgplanController implements Initializable {
 
     @FXML
     void addZorgtaak(ActionEvent event) {
-        Zorgtaak zorgtaak = new Zorgtaak(zorgTaak.getText());
-        if (ZorgplanDao.addZorgtaak(zorgtaak) == true) {
-            try {
-                URL paneUrl = getClass().getResource("../gui/Home.fxml");
-                VBox pane = FXMLLoader.load(paneUrl);
+        zorgTaak.getStyleClass().remove("error");
 
-                BorderPane border = HomeController.getRoot();
-                border.setCenter(pane);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Toevoegen gelutk");
-            alert.setHeaderText(null);
-            alert.setContentText("Het toevoegen van de zorgtaak is gelukt!");
-            alert.showAndWait();
-            zorgTaak.setText("");
+        if (zorgTaak.getText() == null || zorgTaak.getText().trim().isEmpty()){
+            zorgTaak.getStyleClass().add("error");
+
+            Alert alertmis = new Alert(Alert.AlertType.ERROR);
+            alertmis.setTitle("Zorgtaak toevoegen mislukt");
+            alertmis.setHeaderText(null);
+            alertmis.setContentText("Gelieve alle velden in te vullen!");
+            alertmis.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Toevoegen mislukt");
-            alert.setHeaderText(null);
-            alert.setContentText("Het toevoegen van de zorgtaak is niet gelukt! Probeer opnieuw.");
-            alert.showAndWait();
+            if ( Validation.checkAlphabetical(zorgTaak.getText().toString()) == true){
+                Zorgtaak zorgtaak = new Zorgtaak(zorgTaak.getText());
+                if (ZorgplanDao.addZorgtaak(zorgtaak) == true) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Toevoegen gelutk");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Het toevoegen van de zorgtaak is gelukt!");
+                    alert.showAndWait();
+                    try {
+                        URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");
+                        VBox pane = FXMLLoader.load(paneUrl);
+
+                        BorderPane border = HomeController.getRoot();
+                        border.setCenter(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Toevoegen mislukt");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Het toevoegen van de zorgtaak is niet gelukt! Probeer opnieuw.");
+                    alert.showAndWait();
+                }
+            } else {
+                zorgTaak.getStyleClass().add("error");
+
+                Alert alertmis = new Alert(Alert.AlertType.ERROR);
+                alertmis.setTitle("Zorgtaak toevoegen mislukt");
+                alertmis.setHeaderText(null);
+                alertmis.setContentText("Gelieve alle velden correct in te vullen!");
+                alertmis.showAndWait();
+            }
         }
     }
 }

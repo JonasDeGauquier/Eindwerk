@@ -3,11 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
 
-
-<Pane style="-fx-background-color: #dee4ed#dee4ed;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: #dee4ed#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="249.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddMedicatieController">
    <children>
       <Label layoutX="58.0" layoutY="48.0" prefHeight="40.0" prefWidth="212.0" text="Medicatie toevoegen">
          <font>
@@ -15,7 +14,7 @@
          </font>
       </Label>
       <Label layoutX="58.0" layoutY="111.0" prefHeight="17.0" prefWidth="44.0" text="Naam:" />
-      <JFXTextField layoutX="133.0" layoutY="106.0" />
-      <JFXButton layoutX="121.0" layoutY="187.0" stylesheets="@../css/Layout.css" text="Toevoegen" />
+      <JFXTextField  fx:id="naam" layoutX="133.0" layoutY="106.0" />
+      <JFXButton onAction="#AddMedicatie" layoutX="121.0" layoutY="187.0" stylesheets="@../css/Layout.css" text="Toevoegen" />
    </children>
-</Pane>
+</AnchorPane>

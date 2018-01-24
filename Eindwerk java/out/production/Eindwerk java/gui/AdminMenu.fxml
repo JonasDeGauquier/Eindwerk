@@ -4,7 +4,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
-<MenuBar fx:id="myMenuBar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+<MenuBar fx:id="myMenuBar" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
   <menus>
     <Menu mnemonicParsing="false" text="Bewoners">
       <items>
@@ -14,14 +14,15 @@
     </Menu>
     <Menu mnemonicParsing="false" text="Zorgplan">
       <items>
-            <MenuItem fx:id="ShowZorgplan" mnemonicParsing="false" onAction="#switchToZorgplan" text="Zorgplan" />
-        <MenuItem fx:id="AddZorgtaak" mnemonicParsing="false" onAction="#switchToAddZorgtaak" text="Zorgtaak toevoegen" />
+            <MenuItem fx:id="ShowZorgplan" mnemonicParsing="false" onAction="#switchToZorgplan" text="Zorgplan invullen" />
+            <MenuItem fx:id="AddZorgtaak" mnemonicParsing="false" onAction="#switchToZorgtaak" text="Zorgtaak" />
+            <MenuItem fx:id="Medicatie" mnemonicParsing="false" onAction="#switchToMedicatie" text="Medicatie" />
       </items>
     </Menu>
       <Menu mnemonicParsing="false" text="Personeel">
         <items>
-          <MenuItem fx:id="Personeel" mnemonicParsing="false" text="Personeel" onAction="#switchToPersonneel" />
-          <MenuItem fx:id="AddPersoneel" mnemonicParsing="false" text="Personeel toevoegen" onAction="#AddPersoneel" />
+          <MenuItem fx:id="Personeel" mnemonicParsing="false" onAction="#switchToPersonneel" text="Personeel" />
+          <MenuItem fx:id="AddPersoneel" mnemonicParsing="false" onAction="#AddPersoneel" text="Personeel toevoegen" />
         </items>
       </Menu>
     <Menu mnemonicParsing="false" text="Uitloggen">

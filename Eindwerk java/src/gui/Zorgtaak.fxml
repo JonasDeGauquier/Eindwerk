@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane style="-fx-background-color: #dee4ed#dee4ed;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<VBox style="-fx-background-color: #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ZorgtaakController">
    <children>
-      <JFXTextField layoutX="72.0" layoutY="60.0" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-      <JFXListView layoutX="72.0" layoutY="107.0" prefHeight="269.0" prefWidth="206.0" />
-      <JFXButton layoutX="315.0" layoutY="107.0" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Verwijder">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="315.0" layoutY="162.0" prefHeight="44.0" prefWidth="206.0" stylesheets="@../css/Layout.css" text="Toevoegen">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXButton>
+      <SplitPane fx:id="splitpane" dividerPositions="0.5" focusTraversable="true" prefHeight="580.0" prefWidth="1003.0" VBox.vgrow="ALWAYS">
+         <items>
+            <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
+               <children>
+                  <TableView fx:id="ZorgtaakTable" layoutX="26.0" layoutY="77.0" prefHeight="355.0" prefWidth="206.0">
+                     <columns>
+                        <TableColumn fx:id="ZorgtaakNaam" prefWidth="140.0" text="Zorgtaak" />
+                     </columns>
+                  </TableView>
+                  <JFXTextField fx:id="search" layoutX="26.0" layoutY="25.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+                  <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="251.0" layoutY="106.0" onMouseClicked="#AddZorgtaak" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/if_sign-add_299068.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="34.0" fitWidth="44.0" layoutX="251.0" layoutY="147.0" onMouseClicked="#DeleteZorgtaak" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/if_f-cross_256_282471.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #dee4ed#dee4ed;" />
+         </items>
+      </SplitPane>
    </children>
-</Pane>
+</VBox>

@@ -13,6 +13,16 @@ public class Validation {
         }
     }
 
+
+    public static boolean checkAlphabeticalAndNumeric(String name) {
+        String regex = "\\b.*[ a-zA-Z ]{1,40}+.*\\b";
+        if (Pattern.matches(regex, name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean checkNumeric(String name) {
         String regex = "[0-9]{1,40}";
         if (Pattern.matches(regex, name)) {

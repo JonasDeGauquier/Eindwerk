@@ -64,9 +64,22 @@ public class MenuHoofdverpleegster {
     }
 
     @FXML
-    void switchToAddZorgtaak(ActionEvent event) {
+    void switchToZorgtaak(ActionEvent event) {
         try {
-            URL paneUrl = getClass().getResource("../../gui/ZorgtaakToevoegen.fxml");
+            URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");
+            Pane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void switchToMedicatie(ActionEvent event){
+        try {
+            URL paneUrl = getClass().getResource("../gui/Medicatie.fxml");
             Pane pane = FXMLLoader.load(paneUrl);
 
             BorderPane border = HomeController.getRoot();
