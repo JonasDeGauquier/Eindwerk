@@ -15,8 +15,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Bewoner;
 import model.Medicatie;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -88,11 +91,11 @@ public class MedicatieController implements Initializable {
             if (result.get() == buttonTypeYes) {
                 Boolean del = MedicatieDao.Delete(selectedMedicatie.getId());
                 if (del == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.INFORMATION);
-                    alertsuc.setTitle("Medicatie");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("De medicatie is succesvol verwijderd!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Medicatie";
+                    String message = "De medicatie is succesvol verwjiderd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Medicatie.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

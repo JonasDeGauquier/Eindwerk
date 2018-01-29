@@ -9,9 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Adress;
 import model.Bewoner;
 import model.Contactpersoon;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -93,11 +96,11 @@ public class AddContactpersoonController {
                 Boolean add;
                 add = BewonerDao.addContactpersoon(contactpersoon);
                 if (add == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Toevoegen gelukt");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Contactpseroon is toegevoegd!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Toevoegen gelukt";
+                    String message = "Contactpersoon is toegevoegd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

@@ -11,7 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.User;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,11 +67,11 @@ public class ShowPersoneelGegevensController implements Initializable {
             if (result.get() == buttonTypeYes) {
                 Boolean del = PersoneelDao.Delete(selectedPersoon);
                 if (del == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.INFORMATION);
-                    alertsuc.setTitle("Personeel");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Deze persoon is succesvol verwijderd!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Personeel";
+                    String message = "Deze persoon is succesvol verwijderd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Personeel.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

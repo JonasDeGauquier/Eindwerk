@@ -87,7 +87,7 @@ public class HomeController {
         URL menuBarUrl = null;
 
         Login login = new Login();
-        int loginId = LoginDao.getId(login.getUsername());
+        int loginId = LoginDao.getId(login.getUsername(), login.getPassword());
         int rolId = RolDao.getRol(loginId);
         if (rolId == 1){
              menuBarUrl = getClass().getResource("../gui/AdminMenu.fxml");

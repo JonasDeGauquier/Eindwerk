@@ -64,6 +64,8 @@ public class LoginController {
             if (rfid.length() == 10 )
             {
                 if (LoginDao.checkLoginrfid(Integer.valueOf(rfid)) == true){
+                    Integer loginid = LoginDao.getLoginId(Integer.valueOf(rfid));
+                    User.setCurrentUser(LoginDao.getUserIdByLoginId(loginid));
                     homeController = new HomeController();
                     homeController.redirectHomeRFID(stage, rfid);
                 } else{
@@ -106,7 +108,7 @@ public class LoginController {
             String password = String.format("%032x", intNumMD5);
 
             if (LoginDao.checkLogin(username.getText(), password)==true){
-                login = new Login(username.getText(), password);
+                User.setCurrentUser(LoginDao.getUserId(username.getText(), password));
                 homeController = new HomeController();
                 homeController.redirectHome(stage);
             }

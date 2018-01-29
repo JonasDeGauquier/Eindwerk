@@ -9,10 +9,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Adress;
 import model.Medicatie;
 import model.Rol;
 import model.User;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,11 +42,11 @@ public class AddMedicatieController {
                 Medicatie medicatie = new Medicatie(naam.getText().toString());
                 Boolean add = MedicatieDao.addMedicatie(medicatie);
                 if (add == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Toevoegen gelukt");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Medicatie is toegevoegd!");
-                    alertsuc.showAndWait();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Toevoegen gelukt";
+                    String message = "Medicatie is toegevoegd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Medicatie.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

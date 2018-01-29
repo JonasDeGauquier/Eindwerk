@@ -56,11 +56,12 @@ public class LoginDao extends PostgreSQLJDBC {
         return false;
     }
 
-    public static int getId(String username) {
+    public static int getId(String username, String password) {
         Connect();
         try {
-            stmt = con.prepareStatement("select id from login where username = ?");
-            stmt.setString(1, Login.getUsername());
+            stmt = con.prepareStatement("select id from login where username = ? and password = ?");
+            stmt.setString(1, username);
+            stmt.setString(2, password);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("id");

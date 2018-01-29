@@ -12,8 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import model.Adress;
 import model.Bewoner;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -225,11 +228,11 @@ public class AddBewonerController  implements Initializable{
                 Boolean add = BewonerDao.addBewoner(bewoner);
                 if (add == true)
                 {
-                    Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Toevoegen gelukt");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Bewoner is toegevoegd!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Toevoegen gelukt";
+                    String message = "Bewoner is toegevoegd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

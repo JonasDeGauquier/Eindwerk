@@ -8,8 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Bewoner;
 import model.BewonersDossier;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -97,12 +100,11 @@ public class EditDossierController implements Initializable {
                 edit = BewonerDao.editDossier(dossier);
                 if (edit == true)
                 {
-                    Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Aanpassen gelukt");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Dossier is aangepast!");
-                    alertsuc.showAndWait();
-
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Aanpassen gelukt";
+                    String message = "Dossier is aangepast!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

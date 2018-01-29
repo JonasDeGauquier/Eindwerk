@@ -18,6 +18,14 @@ public class User {
 
     public  User() {}
 
+    public User(String voornaam, String achternaam, Date geboortedatum, String email, Adress adress) {
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.geboortedatum = geboortedatum;
+        this.email = email;
+        this.adress = adress;
+    }
+
     public User(String voornaam, String achternaam, Date geboortedatum, String email, Adress adress, Rol rol) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;

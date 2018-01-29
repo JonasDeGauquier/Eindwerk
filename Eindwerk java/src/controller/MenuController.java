@@ -117,6 +117,19 @@ public class MenuController{
     }
 
     @FXML
+    void instellingen(ActionEvent event) {
+        try {
+            URL paneUrl = getClass().getResource("../gui/ProfielBewerken.fxml");
+            AnchorPane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void logOut(ActionEvent event){
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
         BorderPane border = HomeController.getRoot();

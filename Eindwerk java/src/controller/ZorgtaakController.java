@@ -14,9 +14,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Bewoner;
 import model.Medicatie;
 import model.Zorgtaak;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -86,11 +89,11 @@ public class ZorgtaakController implements Initializable {
             if (result.get() == buttonTypeYes) {
                 Boolean del = ZorgplanDao.DeleteZorgtaak(selectedZorgtaak.getId());
                 if (del == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.INFORMATION);
-                    alertsuc.setTitle("Zorgtaak");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("De zorgtaak is succesvol verwijderd!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Zorgtaak";
+                    String message = "De zorgtaak is succesvol verwijderd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

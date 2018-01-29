@@ -15,8 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafx.util.Pair;
 import model.*;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -165,6 +168,11 @@ public class ZorgplanController implements Initializable {
                     Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
                     if (check == true) {
+                        // Bron: https://github.com/PlusHaze/TrayNotification
+                        String title = "Toevoegen gelukt";
+                        String message = "Zorgplan is getekend!";
+                        TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                        tray.showAndDismiss(Duration.seconds(4));
                         try {
                             URL paneUrl = getClass().getResource("../gui/Home.fxml");
                             VBox pane = FXMLLoader.load(paneUrl);
@@ -174,11 +182,6 @@ public class ZorgplanController implements Initializable {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Alert added = new Alert(Alert.AlertType.INFORMATION);
-                        added.setTitle("Toevoegen gelukt");
-                        added.setHeaderText(null);
-                        added.setContentText("Zorgplan is getekend!");
-                        added.show();
                     } else {
                         Alert mislukt = new Alert(Alert.AlertType.ERROR);
                         mislukt.setTitle("Toevoegen niet gelukt");
@@ -246,11 +249,11 @@ public class ZorgplanController implements Initializable {
                             Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
                             if (check == true) {
-                                Alert added = new Alert(Alert.AlertType.INFORMATION);
-                                added.setTitle("Toevoegen gelukt");
-                                added.setHeaderText(null);
-                                added.setContentText("Zorgplan is getekend!");
-                                added.show();
+                                // Bron: https://github.com/PlusHaze/TrayNotification
+                                String title = "Toevoegen gelukt";
+                                String message = "Zorgplan is getekend!";
+                                TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                                tray.showAndDismiss(Duration.seconds(4));
                             } else {
                                 Alert mislukt = new Alert(Alert.AlertType.ERROR);
                                 mislukt.setTitle("Toevoegen niet gelukt");
@@ -299,11 +302,11 @@ public class ZorgplanController implements Initializable {
             if ( Validation.checkAlphabetical(zorgTaak.getText().toString()) == true){
                 Zorgtaak zorgtaak = new Zorgtaak(zorgTaak.getText());
                 if (ZorgplanDao.addZorgtaak(zorgtaak) == true) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Toevoegen gelutk");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Het toevoegen van de zorgtaak is gelukt!");
-                    alert.showAndWait();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Toevoegen gelukt";
+                    String message = "Het toevoegen van de zorgtaak is gelukt!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

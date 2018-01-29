@@ -11,10 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Adress;
 import model.Bewoner;
 import model.BewonersDossier;
 import model.Contactpersoon;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.net.URL;
@@ -120,11 +123,11 @@ public class EditContactpseroonController implements Initializable{
                 Boolean edit;
                 edit = BewonerDao.editContactpersoon(contactpersoon);
                 if (edit == true) {
-                    Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-                    alertsuc.setTitle("Aanpassen gelukt");
-                    alertsuc.setHeaderText(null);
-                    alertsuc.setContentText("Contactpseroon is aangepast!");
-                    alertsuc.show();
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Aanpassen gelukt";
+                    String message = "Contactpersoon is aangepast!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
                     try {
                         URL paneUrl = getClass().getResource("../gui/Bewoner.fxml");
                         VBox pane = FXMLLoader.load(paneUrl);

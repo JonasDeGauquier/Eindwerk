@@ -11,9 +11,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 import model.Adress;
 import model.Rol;
 import model.User;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -68,15 +71,13 @@ public class AddPersoneelController implements Initializable {
         Boolean add = PersoneelDao.addPersoneel(personeel, output);
         if (add == true)
         {
-            System.out.println("yes");
-            Alert alertsuc = new Alert(Alert.AlertType.CONFIRMATION);
-            alertsuc.setTitle("Toevoegen gelukt");
-            alertsuc.setHeaderText(null);
-            alertsuc.setContentText("Persoon is toegevoegd!");
-            alertsuc.showAndWait();
+            // Bron: https://github.com/PlusHaze/TrayNotification
+            String title = "Toevoegen gelukt";
+            String message = "Persoon is toegevoegd!";
+            TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.seconds(4));
         }
         else {
-            System.out.println("mis");
             Alert alertmis = new Alert(Alert.AlertType.CONFIRMATION);
             alertmis.setTitle("Toevoegen mislukt");
             alertmis.setHeaderText(null);
