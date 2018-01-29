@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"  style="-fx-background-color: #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfielbewerkenController">
+   <children>
+      <Label layoutX="61.0" layoutY="83.0" prefHeight="26.0" prefWidth="105.0" text="Voornaam">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="46.0" prefHeight="26.0" prefWidth="241.0" text="Profiel bewerken">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="118.0" prefHeight="26.0" prefWidth="105.0" text="Achternaam">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="157.0" prefHeight="26.0" prefWidth="157.0" text="Geboortedatum">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="189.0" prefHeight="26.0" prefWidth="157.0" text="Email">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="224.0" prefHeight="26.0" prefWidth="157.0" text="Straat">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="voornaam" layoutX="218.0" layoutY="83.0" />
+      <JFXTextField fx:id="achternaam" layoutX="218.0" layoutY="118.0" />
+      <JFXTextField fx:id="email" layoutX="218.0" layoutY="190.0" prefHeight="26.0" prefWidth="151.0" />
+      <JFXTextField fx:id="straat" layoutX="218.0" layoutY="225.0" prefHeight="26.0" prefWidth="151.0" />
+      <JFXButton onAction="#EditProfiel" layoutX="163.0" layoutY="451.0" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Bewerken">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="61.0" layoutY="259.0" prefHeight="26.0" prefWidth="157.0" text="Huisnr">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="huisnr" layoutX="218.0" layoutY="259.0" />
+      <Label layoutX="61.0" layoutY="294.0" prefHeight="26.0" prefWidth="157.0" text="Gemeente">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="gemeente" layoutX="218.0" layoutY="294.0" />
+      <Label layoutX="61.0" layoutY="333.0" prefHeight="26.0" prefWidth="157.0" text="Postcode">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="postcode" layoutX="218.0" layoutY="333.0" />
+      <DatePicker fx:id="geboortedatum" layoutX="215.0" layoutY="156.0" prefHeight="27.0" prefWidth="157.0" />
+   </children>
+</AnchorPane>
