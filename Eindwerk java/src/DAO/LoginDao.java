@@ -210,10 +210,48 @@ public class LoginDao extends PostgreSQLJDBC {
         return -1;
     }
 
+    public static int getLoginIdByUserId(Integer userId) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("select id from login where user_id = ?");
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return -1;
+    }
+
     public static Boolean checkLoginrfid(Integer rfid) {
         Connect();
         try {
-            stmt = con.prepareStatement("select * from rfid where rfid = ?");
+            stmt = con.prepareStatement("select * from rfid where rfid = ? and actief = true");
             stmt.setInt(1, rfid);
             rs = stmt.executeQuery();
             while ( rs.next() ) {

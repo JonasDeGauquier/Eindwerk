@@ -1,7 +1,6 @@
 package controller;
 
-import DAO.BewonerDao;
-import DAO.PersoneelDao;
+import DAO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.Bewoner;
 import model.User;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -75,6 +78,56 @@ public class PersoneelController implements Initializable{
                 splitpane.getItems().add(pane);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void deleteBadge(ActionEvent event){
+        User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null || selectedItem.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen persoon gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een persoon te selecteren!");
+            notSelected.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Badge blokkeren");
+            alert.setHeaderText(null);
+            alert.setContentText("Bent u zeker dat u deze badge wilt blokkeren?");
+
+            ButtonType buttonTypeYes = new ButtonType("Ja");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeYes) {
+                int loginId = LoginDao.getLoginIdByUserId(selectedItem.getUserId());
+                Boolean del = RfidDao.Delete(loginId);
+                if (del == true) {
+                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    String title = "Badge";
+                    String message = "De badge is succesvol geblokeerd!";
+                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                    tray.showAndDismiss(Duration.seconds(4));
+                    try {
+                        URL paneUrl = getClass().getResource("../gui/Personeel.fxml");
+                        VBox pane = FXMLLoader.load(paneUrl);
+
+                        BorderPane border = HomeController.getRoot();
+                        border.setCenter(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Alert alertAgain = new Alert(Alert.AlertType.ERROR);
+                    alertAgain.setTitle("Badge");
+                    alertAgain.setHeaderText(null);
+                    alertAgain.setContentText("De badge is niet geblokkeerd! Probeer opnieuw");
+                    alertAgain.showAndWait();
+                }
             }
         }
     }
