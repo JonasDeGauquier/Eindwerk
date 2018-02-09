@@ -183,6 +183,49 @@ public class PersoneelDao {
         }
     }
 
+    public static boolean editPersoneel(User user) {
+        AdressDao.editAdres(user.getAdress());
+
+        Connect();
+        try {
+            stmt = con.prepareStatement("update personeel set voornaam =?, achternaam =?, geboortedatum =?, email =?, actief =?  where id =?");
+            stmt.setString(1, user.getVoornaam());
+            stmt.setString(2, user.getAchternaam());
+            stmt.setDate(3, (Date) user.getGeboortedatum());
+            stmt.setString(4, user.getEmail());
+            stmt.setBoolean(5, true);
+            stmt.setInt(6,user.getSelectedId());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            ex.printStackTrace();
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static boolean editProfiel(User user) {
         AdressDao.editAdres(user.getAdress());
         int addressID = AdressDao.getId(user.getAdress());

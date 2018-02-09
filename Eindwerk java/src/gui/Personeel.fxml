@@ -29,7 +29,8 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXButton onAction="#deleteBadge" layoutX="223.0" layoutY="174.0" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
+                  <JFXButton layoutX="223.0" layoutY="230.0" onAction="#deleteBadge" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
+                  <JFXButton  layoutX="223.0" layoutY="173.0" onAction="#EditPersoneel" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Personeel aanpassen" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
