@@ -169,7 +169,7 @@ public class PersoneelController implements Initializable{
             User user = new User();
             user.setSelectedId(selectedItem.getUserId());
             try {
-                URL paneUrl = getClass().getResource("../gui/ZorgplanBekijken.fxml");
+                URL paneUrl = getClass().getResource("../gui/ZorgplanBekijkenViaPersoneel.fxml");
                 Pane pane = FXMLLoader.load(paneUrl);
 
                 splitpane.getItems().remove(1);

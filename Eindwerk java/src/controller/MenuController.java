@@ -65,6 +65,32 @@ public class MenuController{
     }
 
     @FXML
+    void switchToShowZorgplanByPersoneel(ActionEvent event){
+        try {
+            URL paneUrl = getClass().getResource("../gui/ZorgplanViaPersoneel.fxml");
+            Pane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void switchToShowZorgplanByBewoner(ActionEvent event){
+        try {
+            URL paneUrl = getClass().getResource("../gui/ZorgplanViaBewoner.fxml");
+            Pane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void switchToZorgtaak(ActionEvent event) {
         try {
             URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");

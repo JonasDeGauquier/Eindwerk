@@ -116,4 +116,9 @@ public class User {
     public static void setCurrentUser(Integer currentUser) {
         User.currentUser = currentUser;
     }
+
+    @Override
+    public String toString() {
+        return voornaam + ' ' + achternaam;
+    }
 }

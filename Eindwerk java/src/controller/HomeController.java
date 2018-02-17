@@ -25,9 +25,9 @@ public class HomeController {
     }
 
     public HomeController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../gui/Home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/Home.fxml"));
         try {
-            parent = (Parent) fxmlLoader.load();
+            parent = fxmlLoader.load();
             scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("css/Layout.css");
         } catch (IOException e) {
