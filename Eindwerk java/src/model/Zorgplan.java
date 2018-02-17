@@ -18,6 +18,7 @@ public class Zorgplan {
         this.bewoner = bewoner;
         this.opmerking = opmerking;
     }
+
     public Zorgplan(Integer id, Medicatie medicatie, Zorgtaak zorgtaak, User user, Bewoner bewoner, String opmerking, Timestamp timestamp) {
         this.id = id;
         this.medicatie = medicatie;
@@ -26,6 +27,9 @@ public class Zorgplan {
         this.bewoner = bewoner;
         this.opmerking = opmerking;
         this.timestamp = timestamp;
+    }
+
+    public Zorgplan() {
     }
 
     public Integer getId() {

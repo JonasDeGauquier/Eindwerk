@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BewonerController">
+   <children>
+      <SplitPane fx:id="splitpane" dividerPositions="0.5" focusTraversable="true" prefHeight="580.0" prefWidth="1003.0" VBox.vgrow="ALWAYS">
+         <items>
+            <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
+               <children>
+                  <JFXTextField fx:id="search" layoutX="32.0" layoutY="74.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+                  <TableView fx:id="BewonersTable" layoutX="29.0" layoutY="122.0" prefHeight="508.0" prefWidth="206.0">
+                     <columns>
+                        <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
+                        <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="ShowZorgplan" layoutX="269.0" layoutY="124.0" onAction="#ShowZorgplan" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Zorgplan bekijken" />
+                  <Label layoutX="32.0" layoutY="31.0" text="Zorgplan via bewoner">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
+         </items>
+      </SplitPane>
+   </children>
+</VBox>

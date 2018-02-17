@@ -1,6 +1,8 @@
 package controller;
 
 import DAO.BewonerDao;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXPopup;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,16 +15,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Callback;
 import model.Bewoner;
 import model.BewonersDossier;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,14 +57,15 @@ public class BewonerController implements Initializable {
             BewonersTable.getItems().setAll(bewoners);
         }else {
             searchList =  BewonerDao.getAllBewonersFromSearch(search.getText().toString());
-            Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
-            achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
+           // Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
+          //  achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
             BewonersTable.getItems().setAll(searchList);
         }
     }
 
     @FXML
     void switchToShowBewoner(ActionEvent event){
+
         Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
         if (selectedBewoner == null || selectedBewoner.equals("")) {
             Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
@@ -430,6 +432,31 @@ public class BewonerController implements Initializable {
             }
         }
     }
+
+    @FXML
+    void ShowZorgplan(ActionEvent event) {
+        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
+        if (selectedBewoner == null || selectedBewoner.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen bewoner gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een bewoner te selecteren!");
+            notSelected.show();
+        } else  {
+            Bewoner bewoner = new Bewoner();
+            bewoner.setSelectedId(selectedBewoner.getId());
+            try {
+                URL paneUrl = getClass().getResource("../gui/ZorgplanBekijkenViaBewoner.fxml");
+                Pane pane = FXMLLoader.load(paneUrl);
+
+                splitpane.getItems().remove(1);
+                splitpane.getItems().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bewoners =  BewonerDao.getAllBewonersForColum();

@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Bewoner {
-    private static Integer id;
+    private Integer id;
     private String voornaam;
     private String achternaam;
     private Date geboortedatum;
@@ -97,7 +97,7 @@ public class Bewoner {
         Bewoner.selectedId = selectedId;
     }
 
-    public static Integer getId() {
+    public Integer getId() {
         return id;
     }
 

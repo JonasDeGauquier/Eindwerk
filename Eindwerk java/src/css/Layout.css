@@ -39,3 +39,11 @@
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
+
+.button-raised{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #125d91;
+    -fx-text-fill: WHITE;
+}

@@ -103,6 +103,33 @@ public class MenuController{
         }
     }
 
+
+    @FXML
+    void zorgplanViaPersoneel(ActionEvent event) {
+        try {
+            URL paneUrl = getClass().getResource("../gui/zorgplanViaPersoneel.fxml");
+            VBox pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void zorgplanViaBewoner(ActionEvent event) {
+        try {
+            URL paneUrl = getClass().getResource("../gui/zorgplanViaBewoner.fxml");
+            VBox pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void AddPersoneel(ActionEvent event) {
         try {

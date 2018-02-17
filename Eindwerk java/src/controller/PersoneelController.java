@@ -155,4 +155,28 @@ public class PersoneelController implements Initializable{
             }
         }
     }
+
+    @FXML
+    void ShowZorgplan(ActionEvent event) {
+        User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null || selectedItem.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen persoon gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een persoon te selecteren!");
+            notSelected.show();
+        } else {
+            User user = new User();
+            user.setSelectedId(selectedItem.getUserId());
+            try {
+                URL paneUrl = getClass().getResource("../gui/ZorgplanBekijken.fxml");
+                Pane pane = FXMLLoader.load(paneUrl);
+
+                splitpane.getItems().remove(1);
+                splitpane.getItems().add(pane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

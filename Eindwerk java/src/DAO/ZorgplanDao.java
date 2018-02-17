@@ -2,13 +2,12 @@ package DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Medicatie;
-import model.Zorgplan;
-import model.Zorgtaak;
+import model.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static DAO.PostgreSQLJDBC.Connect;
 import static DAO.PostgreSQLJDBC.con;
@@ -92,6 +91,44 @@ public class ZorgplanDao {
                 }
             }
         }
+    }
+
+    public static Zorgtaak getZorgtaak(int id) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("select * from zorgtaak where id = ? AND actief = true");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                Zorgtaak zorgtaak = new Zorgtaak(rs.getInt("id"), rs.getString("taak"));
+                return zorgtaak;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     public static ObservableList getAllZorgtaak(){
@@ -248,5 +285,113 @@ public class ZorgplanDao {
                 }
             }
         }
+    }
+
+    public static ArrayList<Zorgplan> getAllZorgplannenByPersoneel(int id){
+        ArrayList<Zorgplan> zorgplan = new ArrayList<>();
+        Connect();
+        try{
+            stmt = con.prepareStatement("select * from zorgplan WHERE user_id= ? ");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while ( rs.next() ) {
+                Zorgplan z = new Zorgplan();
+                Medicatie m = new Medicatie();
+                Zorgtaak zorgtaak = new Zorgtaak();
+                User user = new User();
+                Bewoner bewoner = new Bewoner();
+                z.setId(rs.getInt("id"));
+                m.setId(rs.getInt("medicatie_id"));
+                z.setMedicatie(m);
+                zorgtaak.setId(rs.getInt("zorgtaak_id"));
+                z.setZorgtaak(zorgtaak);
+                user.setUserId(rs.getInt("user_id"));
+                z.setUser(user);
+                z.setOpmerking(rs.getString("opmerking"));
+                z.setTimestamp(rs.getTimestamp("timestamp"));
+                bewoner.setId(rs.getInt("bewoner_id"));
+                z.setBewoner(bewoner);
+                zorgplan.add(z);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return zorgplan;
+    }
+
+    public static ArrayList<Zorgplan> getAllZorgplannenByBewoner(int id){
+        ArrayList<Zorgplan> zorgplan = new ArrayList<>();
+        Connect();
+        try{
+            stmt = con.prepareStatement("select * from zorgplan WHERE bewoner_id = ? ");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while ( rs.next() ) {
+                Zorgplan z = new Zorgplan();
+                Medicatie m = new Medicatie();
+                Zorgtaak zorgtaak = new Zorgtaak();
+                User user = new User();
+                Bewoner bewoner = new Bewoner();
+                z.setId(rs.getInt("id"));
+                m.setId(rs.getInt("medicatie_id"));
+                z.setMedicatie(m);
+                zorgtaak.setId(rs.getInt("zorgtaak_id"));
+                z.setZorgtaak(zorgtaak);
+                user.setUserId(rs.getInt("user_id"));
+                z.setUser(user);
+                z.setOpmerking(rs.getString("opmerking"));
+                z.setTimestamp(rs.getTimestamp("timestamp"));
+                bewoner.setId(rs.getInt("bewoner_id"));
+                z.setBewoner(bewoner);
+                zorgplan.add(z);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return zorgplan;
     }
 }

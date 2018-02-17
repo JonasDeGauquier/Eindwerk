@@ -2,19 +2,25 @@ package controller;
 
 import DAO.AdressDao;
 import DAO.BewonerDao;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXRippler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Adress;
 import model.Bewoner;
-import model.BewonersDossier;
 import model.Contactpersoon;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -30,6 +36,11 @@ public class EditContactpseroonController implements Initializable{
     @FXML
     private TextField voornaam, achternaam, identiteitskaartnr, relatie, telefoon ,email , straat, huisnr, gemeente, postcode;
     Adress a = new Adress();
+
+    @FXML
+    private AnchorPane content;
+
+    private SplitPane splitpane = new SplitPane();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,6 +65,26 @@ public class EditContactpseroonController implements Initializable{
 
     @FXML
     void addContactpersoon(ActionEvent event) {
+        StackPane root = new StackPane();
+        JFXListView<String> list = new JFXListView<String>();
+        for(int i = 1 ; i < 5 ; i++) list.getItems().add("Item " + i);
+
+        JFXHamburger burger = new JFXHamburger();
+        burger.setPadding(new Insets(10,5,10,5));
+        JFXRippler popupSource = new JFXRippler(burger, JFXRippler.RipplerMask.CIRCLE, JFXRippler.RipplerPos.BACK);
+
+        JFXPopup popup = new JFXPopup();
+        popup.setPopupContent(list);
+        try {
+            URL paneUrl = getClass().getResource("../gui/BewonerBewerken.fxml");
+            content = FXMLLoader.load(paneUrl);
+
+            splitpane.getItems().add(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         voornaam.getStyleClass().remove("error");
         achternaam.getStyleClass().remove("error");
         identiteitskaartnr.getStyleClass().remove("error");

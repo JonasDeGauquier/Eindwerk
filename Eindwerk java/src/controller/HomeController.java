@@ -10,9 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Login;
-import model.User;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -27,7 +25,7 @@ public class HomeController {
     }
 
     public HomeController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/Home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../gui/Home.fxml"));
         try {
             parent = (Parent) fxmlLoader.load();
             scene = new Scene(parent, 600, 400);
