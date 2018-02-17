@@ -37,11 +37,11 @@ public class LoginController {
     private PasswordField passwordField = new PasswordField();
 
     public LoginController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../gui/Login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/Login.fxml"));
         fxmlLoader.setController(this);
         try {
             parent = (Parent) fxmlLoader.load();
-            scene = new Scene(parent);
+            scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("css/Layout.css");
         } catch (IOException e) {
             e.printStackTrace();
