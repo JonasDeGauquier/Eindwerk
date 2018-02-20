@@ -2,36 +2,39 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BewonerController">
+<VBox style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BewonerController">
   <children>
     <SplitPane fx:id="splitpane" dividerPositions="0.5" focusTraversable="true" prefHeight="580.0" prefWidth="1003.0" VBox.vgrow="ALWAYS">
       <items>
             <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
                <children>
-                  <JFXTextField fx:id="search" layoutX="32.0" layoutY="28.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-                  <JFXButton fx:id="ShowDossier" layoutX="270.0" layoutY="182.0" onAction="#switchToShowDossier" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Bewoner dossier bekijken" />
-                  <JFXButton fx:id="ChangeDossier" layoutX="269.0" layoutY="233.0" onAction="#switchToEditDossier" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Bewoner dossier aanpassen" />
-                  <JFXButton fx:id="ShowVerpleegDossier" layoutX="269.0" layoutY="284.0" onAction="#switchToShowVerpleegdossier" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Verpleeg dossier bekijken" />
-                  <JFXButton fx:id="ChangeVerpleegDossier" layoutX="270.0" layoutY="334.0" onAction="#switchToEditVerpleegDossier" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Verpleeg dossier aanpassen" />
-                  <JFXButton fx:id="ShowContactpersoon" layoutX="270.0" layoutY="385.0" onAction="#switchToShowContactpersoon" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Contactpersoon bekijken" />
-                  <TableView fx:id="BewonersTable" layoutX="29.0" layoutY="76.0" prefHeight="508.0" prefWidth="206.0">
+                  <JFXTextField fx:id="search" layoutX="32.0" layoutY="78.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+                  <JFXButton fx:id="ShowDossier" layoutX="270.0" layoutY="182.0" onAction="#switchToShowDossier" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewoner dossier bekijken" />
+                  <JFXButton fx:id="ShowVerpleegDossier" layoutX="270.0" layoutY="243.0" onAction="#switchToShowVerpleegdossier" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Verpleeg dossier bekijken" />
+                  <JFXButton fx:id="ShowContactpersoon" layoutX="270.0" layoutY="303.0" onAction="#switchToShowContactpersoon" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Contactpersoon bekijken" />
+                  <TableView fx:id="BewonersTable" layoutX="32.0" layoutY="122.0" prefHeight="362.0" prefWidth="206.0">
                      <columns>
                         <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="EditContactpersoon1" layoutX="270.0" layoutY="437.0" onAction="#switchToEditContactpersoon" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Contactpersoon aanpassen" />
-                  <JFXButton fx:id="ShowBewoner" layoutX="269.0" layoutY="78.0" onAction="#switchToShowBewoner" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Bewoner gegevens bekijken" />
-                  <JFXButton fx:id="ChangeBewoner" layoutX="269.0" layoutY="130.0" onAction="#switchToEditBewoner" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Bewoner gegevens aanpassen" />
+                  <JFXButton fx:id="ShowBewoner" layoutX="270.0" layoutY="122.0" onAction="#switchToShowBewoner" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewoner gegevens bekijken" />
+                  <VBox fx:id="vbox" prefHeight="27.0" prefWidth="510.0">
+                     <children>
+                        <JFXToolbar fx:id="toolbar" prefHeight="28.0" prefWidth="510.0">
+                        </JFXToolbar>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
+            <AnchorPane prefHeight="31.0" prefWidth="483.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
       </items>
     </SplitPane>
   </children>

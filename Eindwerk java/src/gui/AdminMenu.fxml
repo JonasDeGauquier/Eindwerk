@@ -19,8 +19,8 @@
             <MenuItem fx:id="Medicatie" mnemonicParsing="false" onAction="#switchToMedicatie" text="Medicatie" />
             <Menu mnemonicParsing="false" text="Zorgplan bekijken">
               <items>
-                <MenuItem onAction="#switchToShowZorgplanByPersoneel" mnemonicParsing="false" text="Via personeel" />
-                  <MenuItem onAction="#switchToShowZorgplanByBewoner" mnemonicParsing="false" text="Via bewoner" />
+                <MenuItem mnemonicParsing="false" onAction="#switchToShowZorgplanByPersoneel" text="Via personeel" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchToShowZorgplanByBewoner" text="Via bewoner" />
                   <MenuItem mnemonicParsing="false" text="Via datum" />
               </items>
             </Menu>

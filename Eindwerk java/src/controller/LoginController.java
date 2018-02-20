@@ -41,7 +41,7 @@ public class LoginController {
         fxmlLoader.setController(this);
         try {
             parent = (Parent) fxmlLoader.load();
-            scene = new Scene(parent, 600, 400);
+            scene = new Scene(parent);
             scene.getStylesheets().add("css/Layout.css");
         } catch (IOException e) {
             e.printStackTrace();
