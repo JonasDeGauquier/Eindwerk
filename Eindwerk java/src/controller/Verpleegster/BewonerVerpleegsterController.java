@@ -68,7 +68,7 @@ public class BewonerVerpleegsterController implements Initializable {
             } else {
 
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(selectedBewoner.getId());
+                Bewoner.setSelectedId(selectedBewoner.getId());
                 ShowDossierController showDossier = new ShowDossierController();
 
                 try {
@@ -101,7 +101,7 @@ public class BewonerVerpleegsterController implements Initializable {
                 alert.setContentText("De geselecteerde bewoneer heeft nog geen verpleegdossier.");
             } else {
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(selectedBewoner.getId());
+                Bewoner.setSelectedId(selectedBewoner.getId());
 
                 try {
                     URL paneUrl = getClass().getResource("../../gui/VerpleegDossierBekijken.fxml");
@@ -134,7 +134,7 @@ public class BewonerVerpleegsterController implements Initializable {
                 alert.setContentText("De geselecteerde bewoneer heeft nog geen contactpersoon.");
             } else {
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(selectedBewoner.getId());
+                Bewoner.setSelectedId(selectedBewoner.getId());
 
                 try {
                     URL paneUrl = getClass().getResource("../../gui/ContactpersoonBekijken.fxml");

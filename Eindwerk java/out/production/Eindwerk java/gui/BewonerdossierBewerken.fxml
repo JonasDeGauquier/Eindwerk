@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color:#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditDossierController">
+<AnchorPane style="-fx-background-color:#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditDossierController">
    <children>
       <Label layoutX="94.0" layoutY="123.0" prefHeight="26.0" prefWidth="105.0" text="Incontinentie">
          <font>
@@ -41,7 +41,7 @@
       </Label>
       <JFXTextField fx:id="GroteOperaties" layoutX="251.0" layoutY="231.0" />
       <JFXTextField fx:id="Allergieën" layoutX="251.0" layoutY="266.0" />
-      <JFXButton layoutX="176.0" layoutY="338.0" onAction="#addDossier" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Bewerken">
+      <JFXButton layoutX="176.0" layoutY="338.0" onAction="#addDossier" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewerken">
          <font>
             <Font size="19.0" />
          </font>

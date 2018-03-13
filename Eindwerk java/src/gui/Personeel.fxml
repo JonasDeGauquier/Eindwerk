@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,21 +17,25 @@
          <items>
             <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
                <children>
-                  <JFXTextField fx:id="search" layoutX="14.0" layoutY="73.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-                  <JFXButton fx:id="ShwoPersoneel" layoutX="223.0" layoutY="117.0" onAction="#ShowPersoneelGegevens" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Personeel gegevens bekijken" />
-                  <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="117.0" prefHeight="270.0" prefWidth="200.0">
+                  <VBox fx:id="vbox" prefHeight="27.0" prefWidth="510.0">
+                     <children>
+                        <JFXToolbar fx:id="toolbar" prefHeight="28.0" prefWidth="510.0" />
+                     </children>
+                  </VBox>
+                  <JFXTextField fx:id="search" layoutX="14.0" layoutY="93.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
+                  <JFXButton fx:id="ShwoPersoneel" layoutX="223.0" layoutY="137.0" onAction="#ShowPersoneelGegevens" prefHeight="44.0" prefWidth="230.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Personeel gegevens bekijken" />
+                  <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="137.0" prefHeight="270.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
                      </columns>
                   </TableView>
-                  <Label layoutX="14.0" layoutY="26.0" text="Personeel">
+                  <Label layoutX="14.0" layoutY="46.0" text="Personeel">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="223.0" layoutY="230.0" onAction="#deleteBadge" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
-                  <JFXButton  layoutX="223.0" layoutY="173.0" onAction="#EditPersoneel" prefHeight="44.0" prefWidth="230.0" stylesheets="@../css/Layout.css" text="Personeel aanpassen" />
+                  <JFXButton layoutX="223.0" layoutY="193.0" onAction="#deleteBadge" prefHeight="44.0" prefWidth="230.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />

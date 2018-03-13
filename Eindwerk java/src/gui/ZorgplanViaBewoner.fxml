@@ -23,7 +23,7 @@
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="ShowZorgplan" layoutX="269.0" layoutY="124.0" onAction="#ShowZorgplan" prefHeight="44.0" prefWidth="240.0" stylesheets="@../css/Layout.css" text="Zorgplan bekijken" />
+                  <JFXButton fx:id="ShowZorgplan" layoutX="269.0" layoutY="124.0" onAction="#ShowZorgplan" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Zorgplan bekijken" />
                   <Label layoutX="32.0" layoutY="31.0" text="Zorgplan via bewoner">
                      <font>
                         <Font size="20.0" />

@@ -44,7 +44,7 @@ public class EditContactpseroonController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        contactpersoon = BewonerDao.getContactpersoon(bewoner.getSelectedId());
+        contactpersoon = BewonerDao.getContactpersoon(Bewoner.getSelectedId());
 
         voornaam.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
         achternaam.setText(String.valueOf(contactpersoon.getAchternaam().toString()));

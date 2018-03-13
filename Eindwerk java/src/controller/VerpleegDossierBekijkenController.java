@@ -23,7 +23,7 @@ public class VerpleegDossierBekijkenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dossier = BewonerDao.getVerpleegDossier(bewoner.getSelectedId());
+        dossier = BewonerDao.getVerpleegDossier(Bewoner.getSelectedId());
         System.out.println(dossier);
 
         Wondzorg.setText(String.valueOf(dossier.getWondzorg().toString()));

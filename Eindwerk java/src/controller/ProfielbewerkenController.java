@@ -45,7 +45,7 @@ public class ProfielbewerkenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        user = PersoneelDao.getPersoneel(user.getCurrentUser());
+        user = PersoneelDao.getPersoneel(User.getCurrentUser());
         voornaam.setText(String.valueOf(user.getVoornaam().toString()));
         achternaam.setText(String.valueOf(user.getAchternaam().toString()));
         email.setText(String.valueOf(user.getEmail().toString()));

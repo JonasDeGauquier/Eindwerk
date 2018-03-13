@@ -163,7 +163,7 @@ public class ZorgplanController implements Initializable {
 
                 if (LoginDao.checkLogin(gebruikersnaam.toString(), passw.toString()) == true) {
                     int userId = LoginDao.getUserId(gebruikersnaam.toString(), passw.toString());
-                    user.setCurrentUser(userId);
+                    User.setCurrentUser(userId);
                     Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
                     Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
@@ -244,7 +244,7 @@ public class ZorgplanController implements Initializable {
                             int loginId = LoginDao.getLoginId(Integer.valueOf(rfid));
                             int userId = LoginDao.getUserIdByLoginId(loginId);
 
-                            user.setCurrentUser(userId);
+                            User.setCurrentUser(userId);
                             Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
                             Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 

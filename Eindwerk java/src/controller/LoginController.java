@@ -40,7 +40,7 @@ public class LoginController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/Login.fxml"));
         fxmlLoader.setController(this);
         try {
-            parent = (Parent) fxmlLoader.load();
+            parent = fxmlLoader.load();
             scene = new Scene(parent);
             scene.getStylesheets().add("css/Layout.css");
         } catch (IOException e) {

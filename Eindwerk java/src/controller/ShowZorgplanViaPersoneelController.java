@@ -31,7 +31,7 @@ public class ShowZorgplanViaPersoneelController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        zorgplannen = ZorgplanDao.getAllZorgplannenByPersoneel(user.getSelectedId());
+        zorgplannen = ZorgplanDao.getAllZorgplannenByPersoneel(User.getSelectedId());
 
         for (int i = 0; i < zorgplannen.size(); i++) {
             TitledPane gridTitlePane = new TitledPane();

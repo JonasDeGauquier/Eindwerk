@@ -36,7 +36,7 @@ public class VerpleegdossierBewerkenController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dossier = BewonerDao.getVerpleegDossier(bewoner.getSelectedId());
+        dossier = BewonerDao.getVerpleegDossier(Bewoner.getSelectedId());
 
         Wondzorg.setText(String.valueOf(dossier.getWondzorg().toString()));
         Bloedafname.setText(String.valueOf(dossier.getBloedafname().toString()));
@@ -88,7 +88,7 @@ public class VerpleegdossierBewerkenController implements Initializable{
             alertmis.showAndWait();
         }else {
             if (Validation.checkAlphabetical(Wondzorg.getText().toString()) == true && Validation.checkAlphabetical(Bloedafname.getText().toString()) == true  && Validation.checkAlphabetical(VroegerBeroep.getText().toString()) == true  && Validation.checkText(Specifiekewensen.getText().toString()) == true){
-                Verpleegdossier dossier = new Verpleegdossier(bewoner.getSelectedId(), Wondzorg.getText().toString(), Bloedafname.getText().toString() ,Boolean.valueOf(suikerziekte.getSelectedToggle().getUserData().toString()),VroegerBeroep.getText().toString(), Specifiekewensen.getText().toString());
+                Verpleegdossier dossier = new Verpleegdossier(Bewoner.getSelectedId(), Wondzorg.getText().toString(), Bloedafname.getText().toString() ,Boolean.valueOf(suikerziekte.getSelectedToggle().getUserData().toString()),VroegerBeroep.getText().toString(), Specifiekewensen.getText().toString());
                 Boolean edit;
                 edit = BewonerDao.editVerpleegDossier(dossier);
                 if (edit == true)

@@ -37,7 +37,7 @@ public class EditBewonerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        bewoner = BewonerDao.getBewoner(bewoner.getSelectedId());
+        bewoner = BewonerDao.getBewoner(Bewoner.getSelectedId());
 
         voornaam.setText(String.valueOf(bewoner.getVoornaam().toString()));
         achternaam.setText(String.valueOf(bewoner.getAchternaam().toString()));

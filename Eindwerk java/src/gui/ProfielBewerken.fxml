@@ -43,7 +43,7 @@
       <JFXTextField fx:id="achternaam" layoutX="218.0" layoutY="118.0" />
       <JFXTextField fx:id="email" layoutX="218.0" layoutY="190.0" prefHeight="26.0" prefWidth="151.0" />
       <JFXTextField fx:id="straat" layoutX="218.0" layoutY="225.0" prefHeight="26.0" prefWidth="151.0" />
-      <JFXButton onAction="#EditProfiel" layoutX="163.0" layoutY="451.0" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Bewerken">
+      <JFXButton onAction="#EditProfiel" layoutX="163.0" layoutY="451.0" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewerken">
          <font>
             <Font size="19.0" />
          </font>

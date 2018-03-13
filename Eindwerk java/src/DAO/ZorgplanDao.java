@@ -59,7 +59,7 @@ public class ZorgplanDao {
             stmt = con.prepareStatement("insert into zorgplan(medicatie_id, zorgtaak_id, user_id, opmerking, bewoner_id) values (?,?,?,?,?)");
             stmt.setInt(1, zorgplan.getMedicatie().getId());
             stmt.setInt(2, zorgplan.getZorgtaak().getId());
-            stmt.setInt(3, zorgplan.getUser().getCurrentUser());
+            stmt.setInt(3, User.getCurrentUser());
             stmt.setString(4, zorgplan.getOpmerking());
             stmt.setInt(5, zorgplan.getBewoner().getId());
             stmt.executeUpdate();

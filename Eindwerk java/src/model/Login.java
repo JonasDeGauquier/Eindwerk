@@ -12,19 +12,19 @@ public class Login {
 
     public Login(Integer loginId, String username, String password, User user) {
         this.loginId = loginId;
-        this.username = username;
+        Login.username = username;
         Password = password;
         this.user = user;
     }
 
     public Login(int id,String username, String password) {
         loginId = id;
-        this.username = username;
+        Login.username = username;
         Password = password;
     }
 
     public Login(String username, String password) {
-        this.username = username;
+        Login.username = username;
         Password = password;
     }
 
@@ -43,7 +43,7 @@ public class Login {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        Login.username = username;
     }
 
     public static String getPassword() {

@@ -39,7 +39,7 @@ public class ShowDossierController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dossier = BewonerDao.getDossier(bewoner.getSelectedId());
+        dossier = BewonerDao.getDossier(Bewoner.getSelectedId());
 
         Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
         GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));

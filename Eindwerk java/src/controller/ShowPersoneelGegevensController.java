@@ -30,7 +30,7 @@ public class ShowPersoneelGegevensController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personeel = PersoneelDao.getPersoneel(personeel.getSelectedId());
+        personeel = PersoneelDao.getPersoneel(User.getSelectedId());
 
         voornaam.setText(String.valueOf(personeel.getVoornaam().toString()));
         achternaam.setText(String.valueOf(personeel.getAchternaam().toString()));

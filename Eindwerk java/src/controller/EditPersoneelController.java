@@ -51,7 +51,7 @@ public class EditPersoneelController  implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        personeel = PersoneelDao.getPersoneel(personeel.getSelectedId());
+        personeel = PersoneelDao.getPersoneel(User.getSelectedId());
 
         voornaam.setText(personeel.getVoornaam().toString());
         achternaam.setText(personeel.getAchternaam().toString());

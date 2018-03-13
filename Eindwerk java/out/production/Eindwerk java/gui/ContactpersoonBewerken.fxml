@@ -3,11 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color: #dee4ed#dee4ed;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditContactpseroonController">
+<AnchorPane style="-fx-background-color: #dee4ed#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditContactpseroonController">
    <children>
       <Label layoutX="94.0" layoutY="123.0" prefHeight="26.0" prefWidth="105.0" text="Voornaam">
          <font>
@@ -50,7 +49,7 @@
       <JFXTextField fx:id="telefoon" layoutX="251.0" layoutY="229.0" />
       <JFXTextField fx:id="email" layoutX="251.0" layoutY="264.0" />
       <JFXTextField fx:id="relatie" layoutX="251.0" layoutY="296.0" />
-      <JFXButton onAction="#addContactpersoon" layoutX="176.0" layoutY="513.0" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Bewerken">
+      <JFXButton layoutX="176.0" layoutY="513.0" onAction="#addContactpersoon" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewerken">
          <font>
             <Font size="19.0" />
          </font>

@@ -35,7 +35,7 @@ public class EditDossierController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dossier = BewonerDao.getDossier(bewoner.getSelectedId());
+        dossier = BewonerDao.getDossier(Bewoner.getSelectedId());
 
         Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
         GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));
@@ -95,7 +95,7 @@ public class EditDossierController implements Initializable {
             alertmis.showAndWait();
         }else {
             if (Validation.checkAlphabetical(GroteOperaties.getText().toString()) == true && Validation.checkAlphabetical(Allergieën.getText().toString()) == true){
-                BewonersDossier dossier = new BewonersDossier(bewoner.getSelectedId(),Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()) ,GroteOperaties.getText().toString(), Allergieën.getText().toString());
+                BewonersDossier dossier = new BewonersDossier(Bewoner.getSelectedId(),Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()) ,GroteOperaties.getText().toString(), Allergieën.getText().toString());
                 Boolean edit;
                 edit = BewonerDao.editDossier(dossier);
                 if (edit == true)

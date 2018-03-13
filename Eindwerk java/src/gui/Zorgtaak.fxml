@@ -23,12 +23,12 @@
                   <JFXTextField fx:id="search" layoutX="26.0" layoutY="25.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
                   <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="251.0" layoutY="106.0" onMouseClicked="#AddZorgtaak" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/if_sign-add_299068.png" />
+                        <Image url="@../images/add-icon.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="34.0" fitWidth="44.0" layoutX="251.0" layoutY="147.0" onMouseClicked="#DeleteZorgtaak" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/if_f-cross_256_282471.png" />
+                        <Image url="@../images/delete-icon.png" />
                      </image>
                   </ImageView>
                </children>

@@ -37,7 +37,7 @@ public class ShowBewonerGegevensController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        bewoner = BewonerDao.getBewoner(bewoner.getSelectedId());
+        bewoner = BewonerDao.getBewoner(Bewoner.getSelectedId());
 
         Voornaam.setText(String.valueOf(bewoner.getVoornaam().toString()));
         Achternaam.setText(String.valueOf(bewoner.getAchternaam().toString()));

@@ -38,12 +38,12 @@
       <JFXComboBox fx:id="cmbMedicatie" layoutX="223.0" layoutY="143.0" prefHeight="27.0" prefWidth="150.0" />
       <JFXComboBox fx:id="cmbZorgtaak" layoutX="223.0" layoutY="181.0" prefHeight="27.0" prefWidth="150.0" />
       <JFXTextArea fx:id="txtOpmerking" layoutX="223.0" layoutY="227.0" prefHeight="82.0" prefWidth="239.0" />
-      <JFXButton layoutX="54.0" layoutY="338.0" onAction="#addZorgplan" prefHeight="35.0" prefWidth="266.0" stylesheets="@../css/Layout.css" text="Teken met login gegevens">
+      <JFXButton layoutX="54.0" layoutY="338.0" onAction="#addZorgplan" prefHeight="35.0" prefWidth="266.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Teken met login gegevens">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="343.0" layoutY="338.0" onAction="#addZorgplanViaRFID" prefHeight="35.0" prefWidth="181.0" stylesheets="@../css/Layout.css" text="Teken met badge">
+      <JFXButton layoutX="343.0" layoutY="338.0" onAction="#addZorgplanViaRFID" prefHeight="35.0" prefWidth="181.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Teken met badge">
          <font>
             <Font size="18.0" />
          </font>

@@ -24,6 +24,7 @@ public class Bewoner {
     private Adress adress;
     private static Integer selectedId;
     private byte[] foto;
+    private String plaats;
 
     public Bewoner(){
     }
@@ -44,7 +45,10 @@ public class Bewoner {
         this.achternaam = achternaam;
     }
 
-    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
+    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht,
+                   String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging,
+                   String peter, String meter, String nationaliteit, Long rijksregisternr, String indetiteitskaartnr,
+                   String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
@@ -66,7 +70,11 @@ public class Bewoner {
         this.foto = foto;
     }
 
-    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats, String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum, String geloofsovertuiging, String peter, String meter, String nationaliteit, Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis, Integer kamernr, Adress adress, byte[] foto) {
+    public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats,
+                   String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum,
+                   String geloofsovertuiging, String peter, String meter, String nationaliteit,
+                   Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis,
+                   Integer kamernr, Adress adress, byte[] foto, String plaats) {
         this.id = id;
         this.voornaam = voornaam;
         this.achternaam = achternaam;
@@ -87,6 +95,7 @@ public class Bewoner {
         this.kamernr = kamernr;
         this.adress = adress;
         this.foto = foto;
+        this.plaats = plaats;
     }
 
     public static Integer getSelectedId() {
@@ -257,8 +266,12 @@ public class Bewoner {
         this.foto = foto;
     }
 
+    public String getPlaats() { return plaats; }
+
+    public void setPlaats(String plaats) { this.plaats = plaats; }
+
     @Override
     public String toString() {
-        return voornaam  + " " + achternaam ;
+        return voornaam  + " " + achternaam + " " + plaats;
     }
 }

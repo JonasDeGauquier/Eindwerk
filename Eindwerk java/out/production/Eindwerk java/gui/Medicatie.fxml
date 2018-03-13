@@ -13,7 +13,7 @@
    <children>
       <SplitPane fx:id="splitpane" dividerPositions="0.5" focusTraversable="true" prefHeight="580.0" prefWidth="1003.0" VBox.vgrow="ALWAYS">
         <items>
-          <AnchorPane style="-fx-background-color: #dee4ed#dee4ed;" prefHeight="409.0" prefWidth="609.0">
+          <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
                <children>
                   <TableView fx:id="MedicatieTable" layoutX="26.0" layoutY="77.0" prefHeight="355.0" prefWidth="206.0">
                     <columns>
@@ -23,17 +23,17 @@
                    <JFXTextField fx:id="search" layoutX="26.0" layoutY="25.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
                    <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="251.0" layoutY="106.0" onMouseClicked="#AddMedicatie" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@../images/if_sign-add_299068.png" />
+                           <Image url="@../images/add-icon.png" />
                        </image>
                    </ImageView>
                    <ImageView fitHeight="34.0" fitWidth="44.0" layoutX="251.0" layoutY="147.0" onMouseClicked="#DeleteMedicatie" pickOnBounds="true" preserveRatio="true">
                        <image>
-                           <Image url="@../images/if_f-cross_256_282471.png" />
+                           <Image url="@../images/delete-icon.png" />
                        </image>
                    </ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane style="-fx-background-color: #dee4ed#dee4ed;" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #dee4ed#dee4ed;" />
         </items>
       </SplitPane>
    </children>

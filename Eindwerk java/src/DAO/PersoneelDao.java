@@ -194,7 +194,7 @@ public class PersoneelDao {
             stmt.setDate(3, (Date) user.getGeboortedatum());
             stmt.setString(4, user.getEmail());
             stmt.setBoolean(5, true);
-            stmt.setInt(6,user.getSelectedId());
+            stmt.setInt(6, User.getSelectedId());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -240,7 +240,7 @@ public class PersoneelDao {
             stmt.setString(4, user.getEmail());
             stmt.setInt(5,  user.getAdress().getId());
             stmt.setBoolean(6, true);
-            stmt.setInt(7,user.getCurrentUser());
+            stmt.setInt(7, User.getCurrentUser());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {

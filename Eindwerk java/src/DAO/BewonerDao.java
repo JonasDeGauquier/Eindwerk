@@ -4,11 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +22,7 @@ public class BewonerDao {
         ObservableList bewoner = FXCollections.observableArrayList();
         Connect();
         try{
-            stmt = con.prepareStatement("select * from bewoner");
+            stmt = con.prepareStatement("select * from bewoner where actief = true");
             rs = stmt.executeQuery();
             while ( rs.next() ) {
                 Bewoner b = new Bewoner();
@@ -68,13 +63,14 @@ public class BewonerDao {
         ObservableList bewoner = FXCollections.observableArrayList();
         Connect();
         try{
-            stmt = con.prepareStatement("select * from bewoner");
+            stmt = con.prepareStatement("select * from bewoner where actief = true");
             rs = stmt.executeQuery();
             while ( rs.next() ) {
                 Bewoner b = new Bewoner();
                 b.setId(rs.getInt("id"));
                 b.setVoornaam(rs.getString("voornaam"));
                 b.setAchternaam(rs.getString("achternaam"));
+                b.setPlaats(rs.getString("plaats"));
                 bewoner.add(b);
             }
         }catch(Exception e) {
@@ -109,7 +105,7 @@ public class BewonerDao {
         ObservableList bewoner = FXCollections.observableArrayList();
         Connect();
         try{
-            stmt = con.prepareStatement("select * from bewoner WHERE voornaam LIKE ? OR achternaam LIKE ?");
+            stmt = con.prepareStatement("select * from bewoner WHERE voornaam LIKE ? OR achternaam LIKE ? AND actief  = true");
             stmt.setString(1, "%"+ search + "%");
             stmt.setString(2, "%"+ search + "%");
             rs = stmt.executeQuery();
@@ -190,7 +186,7 @@ public class BewonerDao {
         Connect();
         try {
             stmt = con.prepareStatement("INSERT into bewonersdossier(bewoner_id, incontinentie, privacy, reanimatie_wens, grote_operaties, allergieën) VALUES (?, ?, ?, ?, ?, ?)");
-            stmt.setInt(1,b.getBewoner().getSelectedId());
+            stmt.setInt(1, Bewoner.getSelectedId());
             stmt.setBoolean(2, b.getIncontinentie());
             stmt.setBoolean(3, b.getPrivacy());
             stmt.setBoolean(4, b.getReanimatieWens());
@@ -308,7 +304,7 @@ public class BewonerDao {
         Connect();
         try {
             stmt = con.prepareStatement("INSERT INTO verpleegdossier (bewoner_id, wondzorg, bloedafname, suikerziekte, beroep_vroeger, specifiekewensen) VALUES (?, ?, ?, ?, ?, ?)");
-            stmt.setInt(1,v.getBewoner().getSelectedId());
+            stmt.setInt(1, Bewoner.getSelectedId());
             stmt.setString(2, v.getWondzorg());
             stmt.setString(3, v.getBloedafname());
             stmt.setBoolean(4, v.getSuikerziekte());
@@ -430,7 +426,7 @@ public class BewonerDao {
         Connect();
         try {
             stmt = con.prepareStatement("INSERT INTO contactpersoon(bewoner_id, adres_id, achternaam, voornaam, telefoon, email, relatie, identiteitskaartnr) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
-            stmt.setInt(1,c.getBewoner().getSelectedId());
+            stmt.setInt(1, Bewoner.getSelectedId());
             stmt.setInt(2, c.getAdress().getId());
             stmt.setString(3, c.getAchternaam());
             stmt.setString(4, c.getVoornaam());
@@ -479,7 +475,7 @@ public class BewonerDao {
             stmt.setInt(4, c.getTelefoon());
             stmt.setString(5,c.getEmail());
             stmt.setString(6, c.getRelatie());
-            stmt.setInt(7, c.getBewoner().getSelectedId());
+            stmt.setInt(7, Bewoner.getSelectedId());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -517,7 +513,7 @@ public class BewonerDao {
 
         Connect();
         try {
-            stmt = con.prepareStatement("insert into bewoner(voornaam, achternaam, geboortedatum, geboorteplaats, geslacht, burgerlijke_staat, gekoppeld_met, opnamedatum, geloofsovertuiging, meter, peter, nationaliteit, rijskregisternr, identiteitskaartnr, dokter, voorkeur_ziekenhuis, kamernr, adres_id, foto) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("insert into bewoner(voornaam, achternaam, geboortedatum, geboorteplaats, geslacht, burgerlijke_staat, gekoppeld_met, opnamedatum, geloofsovertuiging, meter, peter, nationaliteit, rijskregisternr, identiteitskaartnr, dokter, voorkeur_ziekenhuis, kamernr, adres_id, foto, actief, plaats) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, true, 'kamer')");
             stmt.setString(1, bewoner.getVoornaam());
             stmt.setString(2, bewoner.getAchternaam());
             stmt.setDate(3, (Date) bewoner.getGeboortedatum());
@@ -571,14 +567,14 @@ public class BewonerDao {
     public static Bewoner getBewoner(int id) {
         Connect();
         try {
-            stmt = con.prepareStatement("select * from bewoner where id = ?");
+            stmt = con.prepareStatement("select * from bewoner where id = ? and actief = true");
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 Adress adres = AdressDao.getAdress(rs.getInt("adres_id"));
                 Bewoner bewoner = new Bewoner(rs.getInt("id"),rs.getString("voornaam"), rs.getString("achternaam"), rs.getDate("geboortedatum"), rs.getString("geboorteplaats"), rs.getString("geslacht"), rs.getString("burgerlijke_staat"),
                         rs.getString("gekoppeld_met"), rs.getDate("opnamedatum"), rs.getString("geloofsovertuiging"), rs.getString("meter"), rs.getString("peter"), rs.getString("nationaliteit"), rs.getLong("rijskregisternr"),
-                        rs.getString("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"));
+                        rs.getString("identiteitskaartnr"), rs.getString("dokter"), rs.getString("voorkeur_ziekenhuis"), rs.getInt("kamernr"), adres, rs.getBytes("foto"), rs.getString("plaats"));
                 return bewoner;
             }
         } catch (Exception e) {
@@ -607,5 +603,76 @@ public class BewonerDao {
             }
         }
         return null;
+    }
+
+    public static boolean Delete(int id) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("update bewoner set actief = false where id = ?");
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static boolean UpdatePlaats(int id, String plaats) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("update bewoner set plaats = ? where id = ?");
+            stmt.setString(1, plaats);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

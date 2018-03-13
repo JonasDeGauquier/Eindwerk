@@ -68,13 +68,13 @@
       </Label>
       <JFXTextField fx:id="postcode" layoutX="208.0" layoutY="355.0" />
       <JFXComboBox fx:id="cmbRol" layoutX="208.0" layoutY="214.0" prefHeight="27.0" prefWidth="151.0" />
-      <JFXButton layoutX="153.0" layoutY="441.0" onAction="#AddPersoneel" prefHeight="38.0" prefWidth="151.0" stylesheets="@../css/Layout.css" text="Toevoegen">
+      <JFXButton layoutX="153.0" layoutY="441.0" onAction="#AddPersoneel" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Toevoegen">
          <font>
             <Font size="19.0" />
          </font>
       </JFXButton>
       <JFXDatePicker fx:id="geboortedatum" layoutX="208.0" layoutY="146.0" />
-      <JFXButton layoutX="51.0" layoutY="396.0" onAction="#addBadge" stylesheets="@../css/Layout.css" text="Badge toevoegen" />
+      <JFXButton layoutX="51.0" layoutY="396.0" onAction="#addBadge" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Badge toevoegen" />
       <Label fx:id="lblBadge" layoutX="208.0" layoutY="401.0" text="Geen badge toegevoegd" />
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) {
         LoginController loginController = new LoginController();
         loginController.launchLogingController(primaryStage);
         javafx.geometry.Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

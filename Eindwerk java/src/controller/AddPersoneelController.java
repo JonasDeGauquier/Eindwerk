@@ -83,7 +83,7 @@ public class AddPersoneelController implements Initializable {
     }
 
     @FXML
-    protected void addBadge(ActionEvent event) throws IOException {
+    protected void addBadge(ActionEvent event) {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Badge toevoegen");
         dialog.setContentText("Scan uw badge");
@@ -99,7 +99,7 @@ public class AddPersoneelController implements Initializable {
                     alert.showAndWait();
                 } else {
                     badge = Integer.valueOf(rf);
-                    login.setLoginId(LoginDao.getId(login.getUsername(),login.getPassword()));
+                    login.setLoginId(LoginDao.getId(Login.getUsername(), Login.getPassword()));
                     rfid = new Rfid(login,badge);
                     lblBadge.setText("Badge toegevoegd");
                 }

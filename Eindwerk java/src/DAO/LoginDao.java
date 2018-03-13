@@ -20,12 +20,7 @@ public class LoginDao extends PostgreSQLJDBC {
             rs = stmt.executeQuery();
             while ( rs.next() ) {
                 Login login = new Login(rs.getInt("id"),rs.getString("username"), rs.getString("password"));
-                if (login == null){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+                return login != null;
             }
         }catch(Exception e) {
             //Handle errors for Class.forName
@@ -257,12 +252,7 @@ public class LoginDao extends PostgreSQLJDBC {
             while ( rs.next() ) {
                 Login login = new Login(rs.getInt("id"));
                 Rfid rfidModel = new Rfid(rs.getInt("id"),login, rs.getInt("rfid"));
-                if (rfidModel == null){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+                return rfidModel != null;
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
