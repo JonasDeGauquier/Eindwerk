@@ -12,16 +12,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import model.Bewoner;
+import model.BewonersDossier;
+import model.Contactpersoon;
+import model.Verpleegdossier;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -38,15 +48,36 @@ public class BewonerController implements Initializable {
     private SplitPane splitpane;
     @FXML
     private JFXToolbar toolbar;
+    @FXML
+    private Accordion accordion;
+    @FXML
+    private TitledPane toonBewonerGegevens, toonBewonerDossier, toonVerpleegDossier, toonContactpersoon;
 
     private ObservableList bewoners = FXCollections.observableArrayList();
     private ObservableList searchList = FXCollections.observableArrayList();
-    private  ObservableList plaatsen = FXCollections.observableArrayList();
+    private ObservableList plaatsen = FXCollections.observableArrayList();
 
     private Button save = new Button();
     private Button add = new Button();
     private Button edit = new Button();
     private Button delete = new Button();
+
+    private BewonersDossier dossier = new BewonersDossier();
+    private Bewoner bewoner = new Bewoner();
+    private Verpleegdossier verpleegDossier = new Verpleegdossier();
+    private Contactpersoon contactpersoon = new Contactpersoon();
+
+    @FXML
+    private Label Allergieën, GroteOperaties, ReanimatieWens, Privacy, Incontinentie, VoornaamTonen, Achternaam,
+            Geboortedatum, Geboorteplaats, Geslacht, BurgerlijkeStaat, Gekoppeld, OpnameDatum, Geloofsovertuiging,
+            Peter, Meter, Nationaliteit, Rijksregisternr, Identiteitskaartnr, Huisarts, Ziekenhuis, Kamernr, Straat,
+            Huisnr, Postcode, Gemeente, Wondzorg, Bloedafname, Suikerziekte, VroegerBeroep, Specifiekewensen,
+            voornaamContactpersoon, achternaamContactpersoon, identiteitiskaartnrContactpersoon, relatieContactpersoon,
+            telefoonContactpersoon, emailContactpersoon, straatContactpersoon, huisnrContactpersoon, gemeenteContactpersoon,
+            postcodeContactpersoon;
+
+    @FXML
+    private ImageView foto;
 
     @FXML
     private void handleKeyPressed(KeyEvent ke) {
@@ -61,166 +92,171 @@ public class BewonerController implements Initializable {
     }
 
     @FXML
-    void switchToShowBewoner(ActionEvent event) {
+    public void bewonerGegevens(MouseEvent event) {
         editIcon("../gui/BewonerBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Bewoner gegevens bewerken");
-
-        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-            if (BewonerDao.getBewoner(selectedBewoner.getId()) == null || BewonerDao.getBewoner(selectedBewoner.getId()).equals("")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Geen gegevens gevonden");
-                alert.setHeaderText(null);
-                alert.setContentText("Er is een fout opgetreden. Probeer opnieuw!");
-                alert.show();
-            } else {
-                Bewoner.setSelectedId(selectedBewoner.getId());
-
-                setSplitpane("../gui/BewonergegevensBekijken.fxml");
-            }
-        }
     }
 
     @FXML
-    void switchToShowDossier(ActionEvent event) {
+    public void bewonerDossier(MouseEvent event) {
         editIcon("../gui/BewonerDossierBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Bewonerdossier bewerken");
-
-        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-            if (BewonerDao.getDossier(selectedBewoner.getId()) == null || BewonerDao.getDossier(selectedBewoner.getId()).equals("")) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Geen dossier gevonden");
-                alert.setHeaderText(null);
-                alert.setContentText("De geselecteerde bewoneer heeft nog geen dossier. Wilt u een dossier toevoegen?");
-                ButtonType buttonTypeYes = new ButtonType("Ja");
-                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == buttonTypeYes) {
-                    Bewoner.setSelectedId(selectedBewoner.getId());
-
-                    setSplitpane("../gui/BewonerDossierToevoegen.fxml");
-                }
-            } else {
-                Bewoner.setSelectedId(selectedBewoner.getId());
-
-                setSplitpane("../gui/BewonerDossierBekijken.fxml");
-            }
-        }
     }
 
     @FXML
-    void switchToShowVerpleegdossier(ActionEvent event) {
+    public void verpleegDossier(MouseEvent event) {
         editIcon("../gui/VerpleegdossierBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Verpleegdossier bewerken");
-
-        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-            if (BewonerDao.getVerpleegDossier(selectedBewoner.getId()) == null || BewonerDao.getVerpleegDossier(selectedBewoner.getId()).equals("")) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Geen verpleegdossier gevonden");
-                alert.setHeaderText(null);
-                alert.setContentText("De geselecteerde bewoneer heeft nog geen verpleegdossier. Wilt u een dossier toevoegen?");
-                ButtonType buttonTypeYes = new ButtonType("Ja");
-                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == buttonTypeYes) {
-                    Bewoner.setSelectedId(selectedBewoner.getId());
-
-                    setSplitpane("../gui/verpleegdossierToevoegen.fxml");
-                }
-            } else {
-                Bewoner.setSelectedId(selectedBewoner.getId());
-
-                setSplitpane("../gui/VerpleegDossierBekijken.fxml");
-            }
-        }
     }
 
     @FXML
-    void switchToShowContactpersoon(ActionEvent event) {
+    public void contactpersoon(MouseEvent event) {
         editIcon("../gui/ContactpersoonBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Contactpersoon bewerken");
-
-        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-
-            if (BewonerDao.getContactpersoon(selectedBewoner.getId()) == null || BewonerDao.getContactpersoon(selectedBewoner.getId()).equals("")) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Geen contactpersoon gevonden");
-                alert.setHeaderText(null);
-                alert.setContentText("De geselecteerde bewoneer heeft nog geen contactpersoon. Wilt u een contactpersoon toevoegen?");
-                ButtonType buttonTypeYes = new ButtonType("Ja");
-                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == buttonTypeYes) {
-                    Bewoner.setSelectedId(selectedBewoner.getId());
-
-                    setSplitpane("../gui/ContactpersoonToevoegen.fxml");
-                }
-            } else {
-                Bewoner.setSelectedId(selectedBewoner.getId());
-
-                setSplitpane("../gui/ContactpersoonBekijken.fxml");
-            }
-        }
     }
 
     @FXML
-    void ShowZorgplan(ActionEvent event) {
+    public void clickItem(MouseEvent event) {
         Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-            Bewoner.setSelectedId(selectedBewoner.getId());
+        Bewoner.setSelectedId(selectedBewoner.getId());
+        laadBewonerGegevens(selectedBewoner);
+        laadBewonerDossier(selectedBewoner);
+        laadVerpleegDossier(selectedBewoner);
+        laadContactpersoon(selectedBewoner);
+        accordion.setExpandedPane(toonBewonerGegevens);
+    }
 
-            setSplitpane("../gui/ZorgplanBekijkenViaBewoner.fxml");
+    private void laadBewonerGegevens(Bewoner selectedBewoner) {
+        bewoner = null;
+        bewoner = BewonerDao.getBewoner(selectedBewoner.getId());
+
+        if (bewoner == null) {
+            toonBewonerGegevens.setCollapsible(false);
+        } else {
+            VoornaamTonen.setText(String.valueOf(bewoner.getVoornaam().toString()));
+            Achternaam.setText(String.valueOf(bewoner.getAchternaam().toString()));
+            Geboortedatum.setText(String.valueOf(bewoner.getGeboortedatum().toString()));
+            Geboorteplaats.setText(String.valueOf(bewoner.getGeboorteplaats().toString()));
+            Geslacht.setText(String.valueOf(bewoner.getGeslacht().toString()));
+            BurgerlijkeStaat.setText(String.valueOf(bewoner.getBurgerlijkestaat().toString()));
+            Gekoppeld.setText(String.valueOf(bewoner.getGekoppeldMet().toString()));
+            OpnameDatum.setText(String.valueOf(bewoner.getOpnamedatum().toString()));
+            Geloofsovertuiging.setText(String.valueOf(bewoner.getGeloofsovertuiging().toString()));
+            Peter.setText(String.valueOf(bewoner.getPeter().toString()));
+            Meter.setText(String.valueOf(bewoner.getMeter().toString()));
+            Nationaliteit.setText(String.valueOf(bewoner.getNationaliteit().toString()));
+            Rijksregisternr.setText(String.valueOf(bewoner.getRijksregisternr().toString()));
+            Identiteitskaartnr.setText(String.valueOf(bewoner.getIndetiteitskaartnr().toString()));
+            Huisarts.setText(String.valueOf(bewoner.getHuisdokter().toString()));
+            Ziekenhuis.setText(String.valueOf(bewoner.getVoorkeurZiekenhuis().toString()));
+            Kamernr.setText(String.valueOf(bewoner.getKamernr().toString()));
+            Straat.setText(String.valueOf(bewoner.getAdress().getStraat().toString()));
+            Huisnr.setText(String.valueOf(bewoner.getAdress().getHuisnr()));
+            Postcode.setText(String.valueOf(bewoner.getAdress().getPostcode()));
+            Gemeente.setText(String.valueOf(bewoner.getAdress().getGemeente()).toString());
+
+            Path path = null;
+            try {
+                File myFile = new File("src/images/" + bewoner.getVoornaam().toString() + " " + bewoner.getAchternaam().toString() + ".png");
+                FileOutputStream image = new FileOutputStream(myFile);
+
+                int length = bewoner.getFoto().length;
+                byte[] bytes = bewoner.getFoto();
+                image.write(bytes, 0, length);
+
+                path = Paths.get(String.valueOf(myFile));
+                image.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Image image2 = new Image(path.toUri().toString());
+            foto.setImage(image2);
+            toonBewonerGegevens.setCollapsible(true);
+        }
+    }
+
+    private void laadBewonerDossier(Bewoner selectedBewoner) {
+        dossier = null;
+        dossier = BewonerDao.getDossier(selectedBewoner.getId());
+
+        if (dossier == null) {
+            toonBewonerDossier.setCollapsible(false);
+        } else {
+            Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
+            GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));
+            if (dossier.getIncontinentie() == true) {
+                Incontinentie.setText("Ja");
+            } else {
+                Incontinentie.setText("Nee");
+            }
+            if (dossier.getReanimatieWens() == true) {
+                ReanimatieWens.setText("Ja");
+            } else {
+                ReanimatieWens.setText("Nee");
+            }
+            if (dossier.getPrivacy() == true) {
+                Privacy.setText("Ja");
+            } else {
+                Privacy.setText("Nee");
+            }
+            toonBewonerDossier.setCollapsible(true);
+        }
+    }
+
+    private void laadVerpleegDossier(Bewoner selectedBewoner) {
+        verpleegDossier = null;
+        verpleegDossier = BewonerDao.getVerpleegDossier(selectedBewoner.getId());
+
+        if (verpleegDossier == null) {
+            toonVerpleegDossier.setCollapsible(false);
+        } else {
+            Wondzorg.setText(String.valueOf(verpleegDossier.getWondzorg().toString()));
+            Bloedafname.setText(String.valueOf(verpleegDossier.getBloedafname().toString()));
+            if (verpleegDossier.getSuikerziekte() == true) {
+                Suikerziekte.setText("Ja");
+            } else {
+                Suikerziekte.setText("Nee");
+            }
+            VroegerBeroep.setText(String.valueOf(verpleegDossier.getBeroepVroeger().toString()));
+            Specifiekewensen.setText(String.valueOf(verpleegDossier.getSpecifiekeWensen().toString()));
+            toonVerpleegDossier.setCollapsible(true);
+        }
+    }
+
+    private void laadContactpersoon(Bewoner selectedBewoner) {
+        contactpersoon = null;
+        contactpersoon = BewonerDao.getContactpersoon(selectedBewoner.getId());
+
+        if (contactpersoon == null) {
+            toonContactpersoon.setCollapsible(false);
+        } else {
+            voornaamContactpersoon.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
+            achternaamContactpersoon.setText(String.valueOf(contactpersoon.getAchternaam().toString()));
+            identiteitiskaartnrContactpersoon.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr().toString()));
+            relatieContactpersoon.setText(String.valueOf(contactpersoon.getRelatie().toString()));
+            telefoonContactpersoon.setText(String.valueOf(contactpersoon.getTelefoon().toString()));
+            emailContactpersoon.setText(String.valueOf(contactpersoon.getEmail().toString()));
+            straatContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getStraat()));
+            huisnrContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getHuisnr()));
+            gemeenteContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getGemeente()));
+            postcodeContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getPostcode()));
+            toonContactpersoon.setCollapsible(true);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        toonBewonerGegevens.setCollapsible(false);
+        toonBewonerDossier.setCollapsible(false);
+        toonVerpleegDossier.setCollapsible(false);
+        toonContactpersoon.setCollapsible(false);
+
         bewoners = BewonerDao.getAllBewonersForColum();
         Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
         achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
@@ -233,7 +269,7 @@ public class BewonerController implements Initializable {
             new EventHandler<TableColumn.CellEditEvent<Bewoner, String>>() {
                 @Override
                 public void handle(TableColumn.CellEditEvent<Bewoner, String> t) {
-                    BewonerDao.UpdatePlaats(t.getRowValue().getId(),t.getNewValue().toString());
+                    BewonerDao.UpdatePlaats(t.getRowValue().getId(), t.getNewValue().toString());
                 }
             }
         );
@@ -245,7 +281,7 @@ public class BewonerController implements Initializable {
         edit.setGraphic(new ImageView("/images/edit-icon.png"));
         delete.setGraphic(new ImageView("/images/delete-icon.png"));
 
-        if (toolbar != null){
+        if (toolbar != null) {
             toolbar.getLeftItems().addAll(add, edit, delete);
         }
 
@@ -303,6 +339,21 @@ public class BewonerController implements Initializable {
             }
         });
 
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    URL paneUrl = getClass().getResource("../gui/BewonerToevoegen.fxml");
+                    Pane pane = FXMLLoader.load(paneUrl);
+
+                    BorderPane border = HomeController.getRoot();
+                    border.setCenter(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         Tooltip addTooltip = new Tooltip();
         addTooltip.setText("Bewoner toevoegen");
         Duration duration = new Duration(1);
@@ -342,5 +393,21 @@ public class BewonerController implements Initializable {
         Duration duration = new Duration(1);
         editTooltip.setShowDelay(duration);
         edit.setTooltip(editTooltip);
+    }
+
+    @FXML
+    void ShowZorgplan(ActionEvent event) {
+        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
+        if (selectedBewoner == null || selectedBewoner.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen bewoner gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een bewoner te selecteren!");
+            notSelected.show();
+        } else {
+            Bewoner.setSelectedId(selectedBewoner.getId());
+
+            setSplitpane("../gui/ZorgplanBekijkenViaBewoner.fxml");
+        }
     }
 }

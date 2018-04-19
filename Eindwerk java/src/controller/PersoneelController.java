@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -141,6 +142,21 @@ public class PersoneelController implements Initializable{
             }
         });
 
+        add.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    URL paneUrl = getClass().getResource("../gui/PersoneelToevoegen.fxml");
+                    AnchorPane pane = FXMLLoader.load(paneUrl);
+
+                    BorderPane border = HomeController.getRoot();
+                    border.setCenter(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         Tooltip addTooltip = new Tooltip();
         addTooltip.setText("Personeel toevoegen");
         Duration duration = new Duration(1);
@@ -171,7 +187,8 @@ public class PersoneelController implements Initializable{
     }
 
     @FXML
-    void ShowPersoneelGegevens(ActionEvent event) {
+    public void clickItem(MouseEvent event)
+    {
         User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
         if (selectedItem == null || selectedItem.equals("")) {
             Alert notSelected = new Alert(Alert.AlertType.INFORMATION);

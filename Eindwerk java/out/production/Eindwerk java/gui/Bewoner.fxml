@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BewonerController">
   <children>
@@ -16,17 +21,13 @@
             <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
                <children>
                   <JFXTextField fx:id="search" layoutX="32.0" layoutY="78.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-                  <JFXButton fx:id="ShowDossier" layoutX="270.0" layoutY="182.0" onAction="#switchToShowDossier" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewoner dossier bekijken" />
-                  <JFXButton fx:id="ShowVerpleegDossier" layoutX="270.0" layoutY="243.0" onAction="#switchToShowVerpleegdossier" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Verpleeg dossier bekijken" />
-                  <JFXButton fx:id="ShowContactpersoon" layoutX="270.0" layoutY="303.0" onAction="#switchToShowContactpersoon" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Contactpersoon bekijken" />
-                  <TableView editable="true" fx:id="BewonersTable" layoutX="32.0" layoutY="122.0" prefHeight="362.0" prefWidth="206.0">
+                  <TableView fx:id="BewonersTable" editable="true" layoutX="32.0" layoutY="122.0" onMouseClicked="#clickItem" prefHeight="362.0" prefWidth="308.0">
                      <columns>
                         <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
-                         <TableColumn fx:id="plaats" prefWidth="102.0" text="Plaats"/>
+                         <TableColumn fx:id="plaats" prefWidth="102.0" text="Bevindt zich in" />
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="ShowBewoner" layoutX="270.0" layoutY="122.0" onAction="#switchToShowBewoner" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewoner gegevens bekijken" />
                   <VBox fx:id="vbox" prefHeight="27.0" prefWidth="510.0">
                      <children>
                         <JFXToolbar fx:id="toolbar" prefHeight="28.0" prefWidth="510.0">
@@ -35,7 +36,317 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="31.0" prefWidth="483.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />
+            <AnchorPane prefHeight="578.0" prefWidth="402.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;">
+               <children>
+                  <Accordion fx:id="accordion">
+                    <panes>
+                      <TitledPane fx:id="toonBewonerGegevens" animated="false" onMouseClicked="#bewonerGegevens" text="Bewoner gegevens">
+                           <content>
+                              <AnchorPane style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;">
+                                 <children>
+                                    <Label layoutX="64.0" layoutY="46.0" text="Bewoner gegevens">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="215.0" prefHeight="26.0" prefWidth="105.0" text="Voornaam">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="248.0" prefHeight="26.0" prefWidth="105.0" text="Achternaam">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="281.0" prefHeight="26.0" prefWidth="157.0" text="Geboortedatum">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="315.0" prefHeight="26.0" prefWidth="157.0" text="Geboorteplaats">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="348.0" prefHeight="26.0" prefWidth="157.0" text="Geslacht">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="382.0" prefHeight="26.0" prefWidth="157.0" text="Burgerlijke staat">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="415.0" prefHeight="26.0" prefWidth="157.0" text="Gekoppeld met">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="446.0" prefHeight="26.0" prefWidth="157.0" text="Opname datum">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="480.0" prefHeight="26.0" prefWidth="157.0" text="Geloofsovertuiging">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="507.0" prefHeight="26.0" prefWidth="105.0" text="Peter">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="64.0" layoutY="543.0" prefHeight="26.0" prefWidth="105.0" text="Meter">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="435.0" layoutY="215.0" prefHeight="26.0" prefWidth="157.0" text="Nationaliteit">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="248.0" prefHeight="26.0" prefWidth="157.0" text="Rijksregisternr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="281.0" prefHeight="26.0" prefWidth="157.0" text="Identiteitskaartnr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="315.0" prefHeight="26.0" prefWidth="157.0" text="Huisarts">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="439.0" layoutY="348.0" prefHeight="26.0" prefWidth="170.0" text="Voorkeursziekenhuis">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="382.0" prefHeight="26.0" prefWidth="157.0" text="Kamernr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="415.0" prefHeight="26.0" prefWidth="157.0" text="Straat">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="446.0" prefHeight="26.0" prefWidth="157.0" text="Huisnr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="438.0" layoutY="480.0" prefHeight="26.0" prefWidth="157.0" text="Postcode">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="435.0" layoutY="510.0" prefHeight="26.0" prefWidth="157.0" text="Gemeente">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="foto" fitHeight="138.0" fitWidth="170.0" layoutX="58.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label fx:id="VoornaamTonen" layoutX="244.0" layoutY="220.0" />
+                                    <Label fx:id="Achternaam" layoutX="244.0" layoutY="253.0" />
+                                    <Label fx:id="Geboortedatum" layoutX="242.0" layoutY="287.0" />
+                                    <Label fx:id="Geboorteplaats" layoutX="242.0" layoutY="320.0" />
+                                    <Label fx:id="Geslacht" layoutX="242.0" layoutY="349.0" />
+                                    <Label fx:id="BurgerlijkeStaat" layoutX="242.0" layoutY="387.0" />
+                                    <Label fx:id="Gekoppeld" layoutX="242.0" layoutY="420.0" />
+                                    <Label fx:id="OpnameDatum" layoutX="242.0" layoutY="451.0" />
+                                    <Label fx:id="Geloofsovertuiging" layoutX="242.0" layoutY="485.0" />
+                                    <Label fx:id="Peter" layoutX="241.0" layoutY="515.0" />
+                                    <Label fx:id="Meter" layoutX="241.0" layoutY="548.0" />
+                                    <Label fx:id="Nationaliteit" layoutX="631.0" layoutY="220.0" />
+                                    <Label fx:id="Rijksregisternr" layoutX="631.0" layoutY="253.0" />
+                                    <Label fx:id="Identiteitskaartnr" layoutX="631.0" layoutY="287.0" />
+                                    <Label fx:id="Huisarts" layoutX="631.0" layoutY="320.0" />
+                                    <Label fx:id="Ziekenhuis" layoutX="631.0" layoutY="353.0" />
+                                    <Label fx:id="Kamernr" layoutX="631.0" layoutY="387.0" />
+                                    <Label fx:id="Straat" layoutX="631.0" layoutY="420.0" />
+                                    <Label fx:id="Huisnr" layoutX="631.0" layoutY="451.0" />
+                                    <Label fx:id="Postcode" layoutX="631.0" layoutY="485.0" />
+                                    <Label fx:id="Gemeente" layoutX="631.0" layoutY="515.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                      </TitledPane>
+                      <TitledPane fx:id="toonBewonerDossier" animated="false" onMouseClicked="#bewonerDossier" text="Bewoner dossier">
+                           <content>
+                              <AnchorPane style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;">
+                                 <children>
+                                    <Label layoutX="31.0" layoutY="80.0" prefHeight="26.0" prefWidth="105.0" text="Incontinentie">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="31.0" layoutY="34.0" text="Bewoner dossier">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="31.0" layoutY="224.0" prefHeight="26.0" prefWidth="105.0" text="Privacy">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="31.0" layoutY="117.0" prefHeight="26.0" prefWidth="157.0" text="Reanimatie wens">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="31.0" layoutY="155.0" prefHeight="26.0" prefWidth="157.0" text="Grote operaties">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="31.0" layoutY="189.0" prefHeight="26.0" prefWidth="157.0" text="Allergieën">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Allergieën" layoutX="222.0" layoutY="189.0" prefHeight="26.0" prefWidth="157.0" />
+                                    <Label fx:id="GroteOperaties" layoutX="222.0" layoutY="155.0" prefHeight="26.0" prefWidth="157.0" />
+                                    <Label fx:id="ReanimatieWens" layoutX="223.0" layoutY="117.0" prefHeight="26.0" prefWidth="157.0" />
+                                    <Label fx:id="Privacy" layoutX="222.0" layoutY="224.0" prefHeight="26.0" prefWidth="157.0" />
+                                    <Label fx:id="Incontinentie" layoutX="222.0" layoutY="80.0" prefHeight="26.0" prefWidth="157.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                      </TitledPane>
+                      <TitledPane fx:id="toonVerpleegDossier" animated="false" onMouseClicked="#verpleegDossier" text="Verpleeg dossier">
+                           <content>
+                              <AnchorPane style="-fx-background-color:#dee4ed;">
+                                 <children>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+                                       <children>
+                                          <Label layoutX="64.0" layoutY="93.0" prefHeight="26.0" prefWidth="105.0" text="Wondzorg">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="64.0" layoutY="47.0" text="Verpleeg dossier">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="64.0" layoutY="128.0" prefHeight="26.0" prefWidth="105.0" text="Bloedafname">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="64.0" layoutY="166.0" prefHeight="26.0" prefWidth="157.0" text="Suikerziekte">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="64.0" layoutY="199.0" prefHeight="26.0" prefWidth="157.0" text="Vroeger beroep">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="64.0" layoutY="234.0" prefHeight="26.0" prefWidth="157.0" text="Specifiekewensen">
+                                             <font>
+                                                <Font size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="Wondzorg" layoutX="221.0" layoutY="98.0" text="Label" />
+                                          <Label fx:id="Bloedafname" layoutX="221.0" layoutY="133.0" text="Label" />
+                                          <Label fx:id="Suikerziekte" layoutX="221.0" layoutY="171.0" text="Label" />
+                                          <Label fx:id="VroegerBeroep" layoutX="221.0" layoutY="204.0" text="Label" />
+                                          <Label fx:id="Specifiekewensen" layoutX="221.0" layoutY="239.0" text="Label" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                      </TitledPane>
+                        <TitledPane fx:id="toonContactpersoon" animated="false" layoutX="10.0" layoutY="64.0" onMouseClicked="#contactpersoon" text="Contactpersoon">
+                           <content>
+                              <AnchorPane style="-fx-background-color:#dee4ed;">
+                                 <children>
+                                    <Label layoutX="74.0" layoutY="103.0" prefHeight="26.0" prefWidth="105.0" text="Voornaam">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="57.0" text="Contact persoon">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="139.0" prefHeight="26.0" prefWidth="105.0" text="Achternaam">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="176.0" prefHeight="26.0" prefWidth="157.0" text="Identiteitskaartnr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="209.0" prefHeight="26.0" prefWidth="157.0" text="Telefoon">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="240.0" prefHeight="26.0" prefWidth="157.0" text="Email">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                     <Label fx:id="voornaamContactpersoon" layoutX="231.0" layoutY="108.0" text="Label" />
+                                     <Label fx:id="achternaamContactpersoon" layoutX="231.0" layoutY="143.0" text="Label" />
+                                     <Label fx:id="identiteitiskaartnrContactpersoon" layoutX="231.0" layoutY="181.0" text="Label" />
+                                     <Label fx:id="telefoonContactpersoon" layoutX="231.0" layoutY="214.0" text="Label" />
+                                     <Label fx:id="emailContactpersoon" layoutX="231.0" layoutY="244.0" text="Label" />
+                                    <Label layoutX="74.0" layoutY="271.0" prefHeight="26.0" prefWidth="157.0" text="Relatie">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                     <Label fx:id="relatieContactpersoon" layoutX="231.0" layoutY="275.0" text="Label" />
+                                    <Label layoutX="74.0" layoutY="304.0" prefHeight="26.0" prefWidth="157.0" text="Straat">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="337.0" prefHeight="26.0" prefWidth="157.0" text="Huisnr">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="369.0" prefHeight="26.0" prefWidth="157.0" text="Gemeente">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="74.0" layoutY="402.0" prefHeight="26.0" prefWidth="157.0" text="Postcode">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                     <Label fx:id="straatContactpersoon" layoutX="231.0" layoutY="308.0" text="Label" />
+                                     <Label fx:id="huisnrContactpersoon" layoutX="231.0" layoutY="343.0" text="Label" />
+                                     <Label fx:id="gemeenteContactpersoon" layoutX="231.0" layoutY="377.0" text="Label" />
+                                     <Label fx:id="postcodeContactpersoon" layoutX="231.0" layoutY="407.0" text="Label" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+               </children>
+            </AnchorPane>
       </items>
     </SplitPane>
   </children>

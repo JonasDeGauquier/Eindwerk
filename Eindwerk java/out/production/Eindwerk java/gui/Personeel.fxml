@@ -23,8 +23,7 @@
                      </children>
                   </VBox>
                   <JFXTextField fx:id="search" layoutX="14.0" layoutY="93.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-                  <JFXButton fx:id="ShwoPersoneel" layoutX="223.0" layoutY="137.0" onAction="#ShowPersoneelGegevens" prefHeight="44.0" prefWidth="230.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Personeel gegevens bekijken" />
-                  <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="137.0" prefHeight="270.0" prefWidth="200.0">
+                  <TableView fx:id="PersoneelTable" layoutX="14.0" layoutY="137.0" onMouseClicked="#clickItem" prefHeight="270.0" prefWidth="200.0">
                      <columns>
                         <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
@@ -35,7 +34,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="223.0" layoutY="193.0" onAction="#deleteBadge" prefHeight="44.0" prefWidth="230.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
+                  <JFXButton layoutX="220.0" layoutY="137.0" onAction="#deleteBadge" prefHeight="44.0" prefWidth="230.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Badge blokkeren" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee4ed#dee4ed #dee4ed#dee4ed;" />

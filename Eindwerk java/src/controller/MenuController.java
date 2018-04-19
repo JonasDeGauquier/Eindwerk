@@ -39,19 +39,6 @@ public class MenuController{
     }
 
     @FXML
-    void switchToAddBewoner(ActionEvent event) {
-        try {
-            URL paneUrl = getClass().getResource("../gui/BewonerToevoegen.fxml");
-            Pane pane = FXMLLoader.load(paneUrl);
-
-            BorderPane border = HomeController.getRoot();
-            border.setCenter(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     void switchToZorgplan(ActionEvent event) {
         try {
             URL paneUrl = getClass().getResource("../gui/Zorgplan.fxml");

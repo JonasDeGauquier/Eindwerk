@@ -37,17 +37,17 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="voornaam" layoutX="231.0" layoutY="108.0" text="Label" />
-      <Label fx:id="achternaam" layoutX="231.0" layoutY="143.0" text="Label" />
-      <Label fx:id="identiteitiskaartnr" layoutX="231.0" layoutY="181.0" text="Label" />
-      <Label fx:id="telefoon" layoutX="231.0" layoutY="214.0" text="Label" />
-      <Label fx:id="email" layoutX="231.0" layoutY="244.0" text="Label" />
+      <Label fx:id="voornaamContactpersoon" layoutX="231.0" layoutY="108.0" text="Label" />
+      <Label fx:id="achternaamContactpersoon" layoutX="231.0" layoutY="143.0" text="Label" />
+      <Label fx:id="identiteitiskaartnrContactpersoon" layoutX="231.0" layoutY="181.0" text="Label" />
+      <Label fx:id="telefoonContactpersoon" layoutX="231.0" layoutY="214.0" text="Label" />
+      <Label fx:id="emailContactpersoon" layoutX="231.0" layoutY="244.0" text="Label" />
       <Label  layoutX="74.0" layoutY="271.0" prefHeight="26.0" prefWidth="157.0" text="Relatie">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="relatie" layoutX="231.0" layoutY="275.0" text="Label" />
+      <Label fx:id="relatieContactpersoon" layoutX="231.0" layoutY="275.0" text="Label" />
       <Label layoutX="74.0" layoutY="304.0" prefHeight="26.0" prefWidth="157.0" text="Straat">
          <font>
             <Font size="17.0" />
@@ -68,9 +68,9 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label fx:id="straat" layoutX="231.0" layoutY="308.0" text="Label" />
-      <Label fx:id="huisnr" layoutX="231.0" layoutY="343.0" text="Label" />
-      <Label fx:id="gemeente" layoutX="231.0" layoutY="377.0" text="Label" />
-      <Label fx:id="postcode" layoutX="231.0" layoutY="407.0" text="Label" />
+      <Label fx:id="straatContactpersoon" layoutX="231.0" layoutY="308.0" text="Label" />
+      <Label fx:id="huisnrContactpersoon" layoutX="231.0" layoutY="343.0" text="Label" />
+      <Label fx:id="gemeenteContactpersoon" layoutX="231.0" layoutY="377.0" text="Label" />
+      <Label fx:id="postcodeContactpersoon" layoutX="231.0" layoutY="407.0" text="Label" />
    </children>
 </AnchorPane>

@@ -11,21 +11,14 @@
     <Menu mnemonicParsing="false" text="Bewoners">
       <items>
         <MenuItem fx:id="ShowAllBewoners" mnemonicParsing="false" onAction="#switchToAllBewoners" text="Toon bewoners">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/show-icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></MenuItem>
-            <MenuItem fx:id="AddBewoner" mnemonicParsing="false" onAction="#switchToAddBewoner" text="Bewoner toevoegen">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/add-icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></MenuItem>
+           <graphic>
+              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                    <Image url="@../images/show-icon.png" />
+                 </image>
+              </ImageView>
+           </graphic>
+        </MenuItem>
       </items>
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -65,7 +58,6 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#switchToShowZorgplanByPersoneel" text="Via personeel" />
                   <MenuItem mnemonicParsing="false" onAction="#switchToShowZorgplanByBewoner" text="Via bewoner" />
-                  <MenuItem mnemonicParsing="false" text="Via datum" />
               </items>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -87,21 +79,14 @@
       <Menu mnemonicParsing="false" text="Personeel">
         <items>
           <MenuItem fx:id="Personeel" mnemonicParsing="false" onAction="#switchToPersonneel" text="Personeel">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/show-icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></MenuItem>
-          <MenuItem fx:id="AddPersoneel" mnemonicParsing="false" onAction="#AddPersoneel" text="Personeel toevoegen">
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/add-icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></MenuItem>
+           <graphic>
+              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                    <Image url="@../images/show-icon.png" />
+                 </image>
+              </ImageView>
+           </graphic>
+          </MenuItem>
         </items>
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
