@@ -1,6 +1,5 @@
 package controller;
 
-import DAO.BewonerDao;
 import DAO.MedicatieDao;
 import DAO.PersoneelDao;
 import DAO.ZorgplanDao;
@@ -12,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import model.Bewoner;
-import model.User;
 import model.Zorgplan;
 import model.Zorgtaak;
 
@@ -50,7 +48,7 @@ public class ShowZorgplanViaBewonerController implements Initializable {
             }
             grid.add(new Label(zorgplannen.get(i).getOpmerking()), 1, 2);
             grid.add(new Label("Personeel: "), 0, 3);
-            grid.add(new Label(PersoneelDao.getPersoneel(zorgplannen.get(i).getUser().getUserId()).toString().toString()), 1, 3);
+            grid.add(new Label(PersoneelDao.getPersoneel(zorgplannen.get(i).getUser().getUserId()).toString()), 1, 3);
             gridTitlePane.setText(String.valueOf(zorgplannen.get(i).getTimestamp()));
             gridTitlePane.setContent(grid);
 

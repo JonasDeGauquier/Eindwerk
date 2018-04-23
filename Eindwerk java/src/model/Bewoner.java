@@ -70,6 +70,31 @@ public class Bewoner {
         this.foto = foto;
     }
 
+    public Bewoner(String voornaam, String achternaam, Date geboortedatum, String geboorteplaats,
+                   String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum,
+                   String geloofsovertuiging, String peter, String meter, String nationaliteit,
+                   Long rijksregisternr, String indetiteitskaartnr, String huisdokter, String voorkeurZiekenhuis,
+                   Integer kamernr, Adress adress) {
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.geboortedatum = geboortedatum;
+        this.geboorteplaats = geboorteplaats;
+        this.geslacht = geslacht;
+        this.burgerlijkestaat = burgerlijkestaat;
+        this.gekoppeldMet = gekoppeldMet;
+        this.opnamedatum = opnamedatum;
+        this.geloofsovertuiging = geloofsovertuiging;
+        this.peter = peter;
+        this.meter = meter;
+        this.nationaliteit = nationaliteit;
+        this.rijksregisternr = rijksregisternr;
+        this.indetiteitskaartnr = indetiteitskaartnr;
+        this.huisdokter = huisdokter;
+        this.voorkeurZiekenhuis = voorkeurZiekenhuis;
+        this.kamernr = kamernr;
+        this.adress = adress;
+    }
+
     public Bewoner(Integer id, String voornaam, String achternaam, Date geboortedatum, String geboorteplaats,
                    String geslacht, String burgerlijkestaat, String gekoppeldMet, Date opnamedatum,
                    String geloofsovertuiging, String peter, String meter, String nationaliteit,
@@ -272,6 +297,6 @@ public class Bewoner {
 
     @Override
     public String toString() {
-        return voornaam  + " " + achternaam + " " + plaats;
+        return voornaam  + " " + achternaam;
     }
 }

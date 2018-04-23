@@ -23,7 +23,7 @@
                   <JFXTextField fx:id="search" layoutX="32.0" layoutY="78.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
                   <TableView fx:id="BewonersTable" editable="true" layoutX="32.0" layoutY="122.0" onMouseClicked="#clickItem" prefHeight="362.0" prefWidth="308.0">
                      <columns>
-                        <TableColumn fx:id="Voornaam" prefWidth="102.0" text="Voornaam" />
+                        <TableColumn fx:id="voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
                          <TableColumn fx:id="plaats" prefWidth="102.0" text="Bevindt zich in" />
                      </columns>

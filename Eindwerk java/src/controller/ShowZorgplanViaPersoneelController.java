@@ -50,7 +50,7 @@ public class ShowZorgplanViaPersoneelController implements Initializable {
                 grid.add(new Label(zorgplannen.get(i).getOpmerking()), 1, 2);
             }
             grid.add(new Label("Bewoner: "), 0, 3);
-            grid.add(new Label(BewonerDao.getBewoner(zorgplannen.get(i).getBewoner().getId()).toString().toString()), 1, 3);
+            grid.add(new Label(BewonerDao.getBewoner(zorgplannen.get(i).getBewoner().getId()).toString()), 1, 3);
             gridTitlePane.setText(String.valueOf(zorgplannen.get(i).getTimestamp()));
             gridTitlePane.setContent(grid);
 

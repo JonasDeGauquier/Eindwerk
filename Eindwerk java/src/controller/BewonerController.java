@@ -40,7 +40,7 @@ public class BewonerController implements Initializable {
     @FXML
     private TableView<Bewoner> BewonersTable = new TableView<>();
     @FXML
-    private TableColumn Voornaam, achternaam, plaats;
+    private TableColumn voornaam, achternaam, plaats;
     @FXML
     private TextField search = new TextField();
     private AnchorPane content;
@@ -85,7 +85,7 @@ public class BewonerController implements Initializable {
             BewonersTable.getItems().setAll(bewoners);
         } else {
             searchList = BewonerDao.getAllBewonersFromSearch(search.getText().toString());
-            Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
+            voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
             achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
             BewonersTable.getItems().setAll(searchList);
         }
@@ -103,6 +103,33 @@ public class BewonerController implements Initializable {
         editIcon("../gui/BewonerDossierBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Bewonerdossier bewerken");
+        dossier = null;
+        dossier = BewonerDao.getDossier(bewoner.getSelectedId());
+        if (dossier == null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Geen dossier gevonden");
+            alert.setHeaderText(null);
+            alert.setContentText("De geselecteerde bewoneer heeft nog geen dossier. Wilt u een dossier toevoegen?");
+            ButtonType buttonTypeYes = new ButtonType("Ja");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeYes) {
+                Bewoner bewoner = new Bewoner();
+                bewoner.setSelectedId(bewoner.getSelectedId());
+                try {
+                    URL paneUrl = getClass().getResource("../gui/BewonerDossierToevoegen.fxml");
+                    Pane pane = FXMLLoader.load(paneUrl);
+
+                    splitpane.getItems().remove(1);
+                    splitpane.getItems().add(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @FXML
@@ -110,6 +137,34 @@ public class BewonerController implements Initializable {
         editIcon("../gui/VerpleegdossierBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Verpleegdossier bewerken");
+        verpleegDossier = null;
+        verpleegDossier = BewonerDao.getVerpleegDossier(bewoner.getSelectedId());
+
+        if (verpleegDossier == null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Geen verpleegdossier gevonden");
+            alert.setHeaderText(null);
+            alert.setContentText("De geselecteerde bewoneer heeft nog geen verpleegdossier. Wilt u een dossier toevoegen?");
+            ButtonType buttonTypeYes = new ButtonType("Ja");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeYes) {
+                Bewoner bewoner = new Bewoner();
+                bewoner.setSelectedId(bewoner.getSelectedId());
+                try {
+                    URL paneUrl = getClass().getResource("../gui/verpleegdossierToevoegen.fxml");
+                    Pane pane = FXMLLoader.load(paneUrl);
+
+                    splitpane.getItems().remove(1);
+                    splitpane.getItems().add(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @FXML
@@ -117,6 +172,34 @@ public class BewonerController implements Initializable {
         editIcon("../gui/ContactpersoonBewerken.fxml");
         edit.setDisable(false);
         editIconTooltip("Contactpersoon bewerken");
+        contactpersoon = null;
+        contactpersoon = BewonerDao.getContactpersoon(bewoner.getSelectedId());
+
+        if (contactpersoon == null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Geen contactpersoon gevonden");
+            alert.setHeaderText(null);
+            alert.setContentText("De geselecteerde bewoneer heeft nog geen contactpersoon. Wilt u een contactpersoon toevoegen?");
+            ButtonType buttonTypeYes = new ButtonType("Ja");
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeYes) {
+                Bewoner bewoner = new Bewoner();
+                bewoner.setSelectedId(bewoner.getSelectedId());
+                try {
+                    URL paneUrl = getClass().getResource("../gui/ContactpersoonToevoegen.fxml");
+                    Pane pane = FXMLLoader.load(paneUrl);
+
+                    splitpane.getItems().remove(1);
+                    splitpane.getItems().add(pane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @FXML
@@ -128,6 +211,23 @@ public class BewonerController implements Initializable {
         laadVerpleegDossier(selectedBewoner);
         laadContactpersoon(selectedBewoner);
         accordion.setExpandedPane(toonBewonerGegevens);
+        bewonerGegevens(event);
+    }
+
+    @FXML
+    public void showZorgplanViaBewoner(MouseEvent event) {
+        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
+        if (selectedBewoner == null || selectedBewoner.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen bewoner gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een bewoner te selecteren!");
+            notSelected.show();
+        } else {
+            Bewoner.setSelectedId(selectedBewoner.getId());
+
+            setSplitpane("../gui/ZorgplanBekijkenViaBewoner.fxml");
+        }
     }
 
     private void laadBewonerGegevens(Bewoner selectedBewoner) {
@@ -252,27 +352,32 @@ public class BewonerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        toonBewonerGegevens.setCollapsible(false);
-        toonBewonerDossier.setCollapsible(false);
-        toonVerpleegDossier.setCollapsible(false);
-        toonContactpersoon.setCollapsible(false);
+        if (toonBewonerGegevens != null ) {
+            toonBewonerGegevens.setCollapsible(false);
+            toonBewonerDossier.setCollapsible(false);
+            toonVerpleegDossier.setCollapsible(false);
+            toonContactpersoon.setCollapsible(false);
+
+        }
 
         bewoners = BewonerDao.getAllBewonersForColum();
-        Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
+        voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
         achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
 
-        //Bron: https://stackoverflow.com/questions/21860019/javafx-create-combobox-tablecell
-        plaatsen = FXCollections.observableArrayList("kamer", "Kiné");
-        plaats.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("plaats"));
-        plaats.setCellFactory(ComboBoxTableCell.forTableColumn(plaatsen));
-        plaats.setOnEditCommit(
-            new EventHandler<TableColumn.CellEditEvent<Bewoner, String>>() {
-                @Override
-                public void handle(TableColumn.CellEditEvent<Bewoner, String> t) {
-                    BewonerDao.UpdatePlaats(t.getRowValue().getId(), t.getNewValue().toString());
-                }
-            }
-        );
+        if (plaats != null) {
+            //Bron: https://stackoverflow.com/questions/21860019/javafx-create-combobox-tablecell
+            plaatsen = FXCollections.observableArrayList("kamer", "Kiné");
+            plaats.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("plaats"));
+            plaats.setCellFactory(ComboBoxTableCell.forTableColumn(plaatsen));
+            plaats.setOnEditCommit(
+                    new EventHandler<TableColumn.CellEditEvent<Bewoner, String>>() {
+                        @Override
+                        public void handle(TableColumn.CellEditEvent<Bewoner, String> t) {
+                            BewonerDao.UpdatePlaats(t.getRowValue().getId(), t.getNewValue().toString());
+                        }
+                    }
+            );
+        }
 
         BewonersTable.getItems().setAll(bewoners);
 
@@ -393,21 +498,5 @@ public class BewonerController implements Initializable {
         Duration duration = new Duration(1);
         editTooltip.setShowDelay(duration);
         edit.setTooltip(editTooltip);
-    }
-
-    @FXML
-    void ShowZorgplan(ActionEvent event) {
-        Bewoner selectedBewoner = BewonersTable.getSelectionModel().getSelectedItem();
-        if (selectedBewoner == null || selectedBewoner.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen bewoner gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een bewoner te selecteren!");
-            notSelected.show();
-        } else {
-            Bewoner.setSelectedId(selectedBewoner.getId());
-
-            setSplitpane("../gui/ZorgplanBekijkenViaBewoner.fxml");
-        }
     }
 }

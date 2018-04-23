@@ -17,13 +17,12 @@
             <AnchorPane prefHeight="409.0" prefWidth="609.0" style="-fx-background-color: #dee4ed#dee4ed;">
                <children>
                   <JFXTextField fx:id="search" layoutX="32.0" layoutY="74.0" onKeyReleased="#handleKeyPressed" prefHeight="27.0" prefWidth="206.0" promptText="Search" />
-                  <TableView fx:id="BewonersTable" layoutX="29.0" layoutY="122.0" prefHeight="508.0" prefWidth="206.0">
+                  <TableView onMouseClicked="#showZorgplanViaBewoner" fx:id="BewonersTable" layoutX="29.0" layoutY="122.0" prefHeight="508.0" prefWidth="206.0">
                      <columns>
-                        <TableColumn fx:id="VoornaamTonen" prefWidth="102.0" text="Voornaam" />
+                        <TableColumn fx:id="voornaam" prefWidth="102.0" text="Voornaam" />
                         <TableColumn fx:id="achternaam" prefWidth="102.0" text="Achternaam" />
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="ShowZorgplan" layoutX="269.0" layoutY="124.0" onAction="#ShowZorgplan" prefHeight="44.0" prefWidth="240.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Zorgplan bekijken" />
                   <Label layoutX="32.0" layoutY="31.0" text="Zorgplan via bewoner">
                      <font>
                         <Font size="20.0" />

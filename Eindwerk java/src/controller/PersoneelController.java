@@ -204,6 +204,22 @@ public class PersoneelController implements Initializable{
     }
 
     @FXML
+    public void showZorgplanViaPersoneel(MouseEvent event) {
+        User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null || selectedItem.equals("")) {
+            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
+            notSelected.setTitle("Geen persoon gekozen");
+            notSelected.setHeaderText(null);
+            notSelected.setContentText("Gelieve een persoon te selecteren!");
+            notSelected.show();
+        } else {
+            User user = new User();
+            User.setSelectedId(selectedItem.getUserId());
+            setSplitpane("../gui/ZorgplanBekijkenViaPersoneel.fxml");
+        }
+    }
+
+    @FXML
     void EditPersoneel(ActionEvent event) {
         User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
         if (selectedItem == null || selectedItem.equals("")) {
@@ -271,18 +287,7 @@ public class PersoneelController implements Initializable{
 
     @FXML
     void ShowZorgplan(ActionEvent event) {
-        User selectedItem = PersoneelTable.getSelectionModel().getSelectedItem();
-        if (selectedItem == null || selectedItem.equals("")) {
-            Alert notSelected = new Alert(Alert.AlertType.INFORMATION);
-            notSelected.setTitle("Geen persoon gekozen");
-            notSelected.setHeaderText(null);
-            notSelected.setContentText("Gelieve een persoon te selecteren!");
-            notSelected.show();
-        } else {
-            User user = new User();
-            User.setSelectedId(selectedItem.getUserId());
-            setSplitpane("../gui/ZorgplanBekijkenViaPersoneel.fxml");
-        }
+
     }
 
     private void setSplitpane(String url) {

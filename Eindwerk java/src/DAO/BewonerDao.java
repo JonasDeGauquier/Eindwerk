@@ -564,6 +564,64 @@ public class BewonerDao {
         }
     }
 
+    public static boolean editBewoner(Bewoner bewoner) {
+        AdressDao.editAdres(bewoner.getAdress());
+        int addressID = AdressDao.getId(bewoner.getAdress());
+        bewoner.getAdress().setId(addressID);
+
+        Connect();
+        try {
+            stmt = con.prepareStatement("update bewoner set voornaam=?, achternaam=?, geboortedatum=?, geboorteplaats=?, geslacht=?, burgerlijke_staat=?, gekoppeld_met=?, opnamedatum=?, geloofsovertuiging=?, meter=?, peter=?, nationaliteit=?, rijskregisternr=?, identiteitskaartnr=?, dokter=?, voorkeur_ziekenhuis=?, kamernr=?, adres_id=?, foto=?, actief=true, plaats='kamer', where bewoner_id=?");
+            stmt.setString(1, bewoner.getVoornaam());
+            stmt.setString(2, bewoner.getAchternaam());
+            stmt.setDate(3, (Date) bewoner.getGeboortedatum());
+            stmt.setString(4, bewoner.getGeboorteplaats());
+            stmt.setString(5,  bewoner.getGeslacht());
+            stmt.setString(6,  bewoner.getBurgerlijkestaat());
+            stmt.setString(7,  bewoner.getGekoppeldMet());
+            stmt.setDate(8,  (Date) bewoner.getOpnamedatum());
+            stmt.setString(9,  bewoner.getGeloofsovertuiging());
+            stmt.setString(10,  bewoner.getMeter());
+            stmt.setString(11,  bewoner.getPeter());
+            stmt.setString(12,  bewoner.getNationaliteit());
+            stmt.setLong(13,  bewoner.getRijksregisternr());
+            stmt.setString(14,  bewoner.getIndetiteitskaartnr());
+            stmt.setString(15,  bewoner.getHuisdokter());
+            stmt.setString(16,  bewoner.getVoorkeurZiekenhuis());
+            stmt.setInt(17,  bewoner.getKamernr());
+            stmt.setInt(18, addressID);
+            stmt.setInt(20, bewoner.getSelectedId());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            ex.printStackTrace();
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static Bewoner getBewoner(int id) {
         Connect();
         try {
