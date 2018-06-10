@@ -234,32 +234,49 @@ public class ZorgplanController implements Initializable {
                 notSelected.show();
             }else {
                 TextInputDialog dialog = new TextInputDialog("");
-                dialog.setTitle("Text Input Dialog");
-                dialog.setContentText(" scan your badge");
+                dialog.setTitle("Zorgplan tekenen");
+                dialog.setContentText(" scan uw badge");
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()) {
                     String rfid = result.get();
-                    if (rfid.length() == 10) {
-                        if (LoginDao.checkLoginrfid(Integer.valueOf(rfid)) == true) {
-                            int loginId = LoginDao.getLoginId(Integer.valueOf(rfid));
-                            int userId = LoginDao.getUserIdByLoginId(loginId);
+                    if (Validation.checkNumeric(rfid)) {
+                        if (rfid.length() == 10) {
+                            if (LoginDao.checkLoginrfid(Integer.valueOf(rfid))) {
+                                int loginId = LoginDao.getLoginId(Integer.valueOf(rfid));
+                                int userId = LoginDao.getUserIdByLoginId(loginId);
 
-                            User.setCurrentUser(userId);
-                            Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
-                            Boolean check = ZorgplanDao.addZorgplan(zorgplan);
+                                User.setCurrentUser(userId);
+                                Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
+                                Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
-                            if (check == true) {
-                                // Bron: https://github.com/PlusHaze/TrayNotification
-                                String title = "Toevoegen gelukt";
-                                String message = "Zorgplan is getekend!";
-                                TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
-                                tray.showAndDismiss(Duration.seconds(4));
+                                if (check) {
+                                    // Bron: https://github.com/PlusHaze/TrayNotification
+                                    String title = "Toevoegen gelukt";
+                                    String message = "Zorgplan is getekend!";
+                                    TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
+                                    tray.showAndDismiss(Duration.seconds(4));
+                                    try {
+                                        URL paneUrl = getClass().getResource("../gui/Home.fxml");
+                                        VBox pane = FXMLLoader.load(paneUrl);
+
+                                        BorderPane border = HomeController.getRoot();
+                                        border.setCenter(pane);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    Alert mislukt = new Alert(Alert.AlertType.ERROR);
+                                    mislukt.setTitle("Toevoegen niet gelukt");
+                                    mislukt.setHeaderText(null);
+                                    mislukt.setContentText("Zorgplan is niet getekend!");
+                                    mislukt.show();
+                                }
                             } else {
-                                Alert mislukt = new Alert(Alert.AlertType.ERROR);
-                                mislukt.setTitle("Toevoegen niet gelukt");
-                                mislukt.setHeaderText(null);
-                                mislukt.setContentText("Zorgplan is niet getekend!");
-                                mislukt.show();
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Login niet gelukt");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
+                                alert.showAndWait();
                             }
                         } else {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -268,7 +285,7 @@ public class ZorgplanController implements Initializable {
                             alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
                             alert.showAndWait();
                         }
-                    } else {
+                    } else{
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Login niet gelukt");
                         alert.setHeaderText(null);

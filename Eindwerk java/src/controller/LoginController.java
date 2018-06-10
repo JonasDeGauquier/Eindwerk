@@ -56,18 +56,26 @@ public class LoginController {
     @FXML
     protected void loginWithBadge(ActionEvent event) throws IOException{
         TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Text Input Dialog");
-        dialog.setContentText(" scan your badge");
+        dialog.setTitle("Login");
+        dialog.setContentText(" scan uw badge");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             String rfid = result.get();
-            if (rfid.length() == 10 )
-            {
-                if (LoginDao.checkLoginrfid(Integer.valueOf(rfid)) == true){
-                    Integer loginid = LoginDao.getLoginId(Integer.valueOf(rfid));
-                    User.setCurrentUser(LoginDao.getUserIdByLoginId(loginid));
-                    homeController = new HomeController();
-                    homeController.redirectHomeRFID(stage, rfid);
+            if (Validation.checkNumeric(rfid)){
+                if (rfid.length() == 10 )
+                {
+                    if (LoginDao.checkLoginrfid(Integer.valueOf(rfid))){
+                        Integer loginid = LoginDao.getLoginId(Integer.valueOf(rfid));
+                        User.setCurrentUser(LoginDao.getUserIdByLoginId(loginid));
+                        homeController = new HomeController();
+                        homeController.redirectHomeRFID(stage, rfid);
+                    } else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Login niet gelukt");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
+                        alert.showAndWait();
+                    }
                 } else{
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Login niet gelukt");
@@ -75,14 +83,14 @@ public class LoginController {
                     alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
                     alert.showAndWait();
                 }
-            }else{
+            } else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login niet gelukt");
                 alert.setHeaderText(null);
                 alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
                 alert.showAndWait();
             }
-        }else{
+        } else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login niet gelukt");
             alert.setHeaderText(null);

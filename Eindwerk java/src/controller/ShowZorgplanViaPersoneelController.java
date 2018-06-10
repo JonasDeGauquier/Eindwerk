@@ -16,6 +16,7 @@ import model.Zorgplan;
 import model.Zorgtaak;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -51,7 +52,7 @@ public class ShowZorgplanViaPersoneelController implements Initializable {
             }
             grid.add(new Label("Bewoner: "), 0, 3);
             grid.add(new Label(BewonerDao.getBewoner(zorgplannen.get(i).getBewoner().getId()).toString()), 1, 3);
-            gridTitlePane.setText(String.valueOf(zorgplannen.get(i).getTimestamp()));
+            gridTitlePane.setText(String.valueOf(new SimpleDateFormat("dd MMMM yyyy").format(zorgplannen.get(i).getTimestamp())));
             gridTitlePane.setContent(grid);
 
             accordion.getPanes().addAll(gridTitlePane);

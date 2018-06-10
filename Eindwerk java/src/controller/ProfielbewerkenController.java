@@ -3,10 +3,13 @@ package controller;
 import DAO.BewonerDao;
 import DAO.PersoneelDao;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Adress;
 import model.Rol;
@@ -14,6 +17,7 @@ import model.User;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -129,6 +133,15 @@ public class ProfielbewerkenController implements Initializable {
                     String message = "Uw profiel is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
                     tray.showAndDismiss(Duration.seconds(4));
+                    try {
+                        URL paneUrl = getClass().getResource("../gui/Home.fxml");
+                        VBox pane = FXMLLoader.load(paneUrl);
+
+                        BorderPane border = HomeController.getRoot();
+                        border.setCenter(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     Alert alertmis = new Alert(Alert.AlertType.CONFIRMATION);
                     alertmis.setTitle("Aanpassen mislukt");

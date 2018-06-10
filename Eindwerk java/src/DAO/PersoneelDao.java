@@ -311,4 +311,45 @@ public class PersoneelDao {
         }
         return null;
     }
+
+    public static Integer getUserId(User personeel) {
+        Integer userId = 0;
+        Connect();
+        try {
+            stmt = con.prepareStatement("select id from personeel where voornaam = ? and achternaam = ? and email = ?");
+            stmt.setString(1, personeel.getVoornaam());
+            stmt.setString(2, personeel.getAchternaam());
+            stmt.setString(3, personeel.getEmail());
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                userId = rs.getInt("id");
+                return userId;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 }

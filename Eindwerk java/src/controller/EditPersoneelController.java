@@ -1,9 +1,6 @@
 package controller;
 
-import DAO.BewonerDao;
-import DAO.PersoneelDao;
-import DAO.RfidDao;
-import DAO.RolDao;
+import DAO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,12 +17,16 @@ import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EditPersoneelController  implements Initializable {
@@ -45,9 +46,15 @@ public class EditPersoneelController  implements Initializable {
     private TextField gemeente;
     @FXML
     private TextField postcode;
+    @FXML
+    private Label lblBadge;
 
     private LocalDate date;
     private User personeel = new User();
+    private Integer badge;
+    private Rfid rfid;
+    private Login login = new Login();
+    private Boolean addBadge;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,6 +82,51 @@ public class EditPersoneelController  implements Initializable {
         LocalDate localDateGeboortedatum = convertedGeboortedatum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         geboortedatum.setValue(LocalDate.of(localDateGeboortedatum.getYear(), localDateGeboortedatum.getMonth(), localDateGeboortedatum.getDayOfMonth()));
+    }
+
+    @FXML
+    protected void addBadge(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Badge aanpassen");
+        dialog.setContentText("Scan de badge");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String rf = result.get();
+            if (Validation.checkNumeric(rf)) {
+                if (rf.length() == 10) {
+                    if (LoginDao.checkLoginrfid(Integer.valueOf(rf))) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Badge toevoegen niet gelukt");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Badge wordt al gebruikt. Probeer opnieuw!");
+                        alert.showAndWait();
+                    } else {
+                        badge = Integer.valueOf(rf);
+                        login.setLoginId(LoginDao.getLoginId(badge));
+                        rfid = new Rfid(login,badge);
+                        lblBadge.setText("Badge toegevoegd");
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Badge toevoegen niet gelukt");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Badge niet toegevoegd. Probeer opnieuw!");
+                    alert.showAndWait();
+                }
+            } else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Badge toevoegen niet gelukt");
+                alert.setHeaderText(null);
+                alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Badge toevoegen niet gelukt");
+            alert.setHeaderText(null);
+            alert.setContentText("Badge niet toegevoegd. Probeer opnieuw!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -127,12 +179,65 @@ public class EditPersoneelController  implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }  else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true && Validation.checkEmail(email.getText().toString()) == true)
+            if (Validation.checkFirstName(voornaam.getText().toString()) && Validation.checkLastName(achternaam.getText().toString()) && Validation.checkAlphabetical(straat.getText().toString()) && Validation.checkHouseNumber(huisnr.getText()) && Validation.checkAlphabetical(gemeente.getText().toString()) && Validation.checkPostalCode(postcode.getText().toString()) && Validation.checkEmail(email.getText().toString()))
             {
                 Adress adres = new Adress(personeel.getAdress().getId(), straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
                 User personeel = new User(voornaam.getText().toString(), achternaam.getText().toString(), sqlDate, email.getText().toString(), adres);
                 Boolean eddit = PersoneelDao.editPersoneel(personeel);
-                if (eddit == true)
+                if (rfid == null) {
+                    addBadge = true;
+                } else {
+                    // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                    MessageDigest objMD5 = null;
+                    try {
+                        objMD5 = MessageDigest.getInstance("MD5");
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    byte[] bytMD5 = objMD5.digest(voornaam.getText().getBytes());
+                    BigInteger intNumMD5 = new BigInteger(1, bytMD5);
+                    String password = String.format("%032x", intNumMD5);
+
+                    int login_id = LoginDao.getId(email.getText(), password );
+
+                    if (RfidDao.checkRfid(login_id) == 0) {
+                        System.out.println("sdfsdfdsf");
+                        Login login = new Login();
+
+                        // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                        objMD5 = null;
+                        try {
+                            objMD5 = MessageDigest.getInstance("MD5");
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+                        bytMD5 = objMD5.digest(voornaam.getText().getBytes());
+                        intNumMD5 = new BigInteger(1, bytMD5);
+                        password = String.format("%032x", intNumMD5);
+
+                        login.setLoginId(LoginDao.getId(email.getText(), password ));
+                        rfid.setLogin(login);
+                        addBadge = RfidDao.addRfid(rfid);
+                    } else {
+                        Login login = new Login();
+
+                        // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                        objMD5 = null;
+                        try {
+                            objMD5 = MessageDigest.getInstance("MD5");
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+                        bytMD5 = objMD5.digest(voornaam.getText().getBytes());
+                        intNumMD5 = new BigInteger(1, bytMD5);
+                        password = String.format("%032x", intNumMD5);
+
+                        login.setLoginId(LoginDao.getId(email.getText(), password ));
+                        rfid.setLogin(login);
+                        addBadge = RfidDao.editRfid(rfid);
+                    }
+                }
+                if (eddit && addBadge)
                 {
                     // Bron: https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
@@ -157,29 +262,29 @@ public class EditPersoneelController  implements Initializable {
                     alertmis.showAndWait();
                 }
             }  else {
-                if (Validation.checkFirstName(voornaam.getText().toString()) == false) {
+                if (!Validation.checkFirstName(voornaam.getText())) {
                     voornaam.getStyleClass().add("error");
                 }
-                if (Validation.checkLastName(achternaam.getText().toString()) == false) {
+                if (!Validation.checkLastName(achternaam.getText())) {
                     achternaam.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(straat.getText().toString()) == false)
+                if (!Validation.checkAlphabetical(straat.getText()))
                 {
                     straat.getStyleClass().add("error");
                 }
-                if (Validation.checkHouseNumber(huisnr.getText().toString()) == false)
+                if (!Validation.checkHouseNumber(huisnr.getText()))
                 {
                     huisnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gemeente.getText().toString()) == false)
+                if (!Validation.checkAlphabetical(gemeente.getText()))
                 {
                     gemeente.getStyleClass().add("error");
                 }
-                if (Validation.checkPostalCode(postcode.getText().toString()) == false)
+                if (!Validation.checkPostalCode(postcode.getText()))
                 {
                     postcode.getStyleClass().add("error");
                 }
-                if (Validation.checkEmail(email.getText().toString()) == false)
+                if (!Validation.checkEmail(email.getText().toString()))
                 {
                     email.getStyleClass().add("error");
                 }

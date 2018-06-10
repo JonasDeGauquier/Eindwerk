@@ -15,6 +15,7 @@ import model.Zorgplan;
 import model.Zorgtaak;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -41,6 +42,7 @@ public class ShowZorgplanViaBewonerController implements Initializable {
             grid.add(new Label("Zorgtaak: "), 0, 1);
             zorgtaak = ZorgplanDao.getZorgtaak(zorgplannen.get(i).getZorgtaak().getId());
             grid.add(new Label(zorgtaak.getZorgtaak().toString()), 1, 1);
+            grid.add(new Label("Opmerking: "), 0, 2);
             if (zorgplannen.get(i).getOpmerking().isEmpty()){
                 grid.add(new Label("Geen opmerking"), 1, 2);
             } else {
@@ -49,7 +51,7 @@ public class ShowZorgplanViaBewonerController implements Initializable {
             grid.add(new Label(zorgplannen.get(i).getOpmerking()), 1, 2);
             grid.add(new Label("Personeel: "), 0, 3);
             grid.add(new Label(PersoneelDao.getPersoneel(zorgplannen.get(i).getUser().getUserId()).toString()), 1, 3);
-            gridTitlePane.setText(String.valueOf(zorgplannen.get(i).getTimestamp()));
+            gridTitlePane.setText(String.valueOf(new SimpleDateFormat("dd MMMM yyyy").format(zorgplannen.get(i).getTimestamp())));
             gridTitlePane.setContent(grid);
 
             accordion.getPanes().addAll(gridTitlePane);

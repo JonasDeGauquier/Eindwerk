@@ -1,5 +1,6 @@
 package DAO;
 
+import model.Adress;
 import model.Login;
 import model.Rfid;
 
@@ -49,6 +50,44 @@ public class LoginDao extends PostgreSQLJDBC {
             }
         }
         return false;
+    }
+
+    public static boolean addLogin(Login login) {
+        Connect();
+        try {
+            stmt = con.prepareStatement("insert into login(username, password, user_id) values (?,?,?)");
+            stmt.setString(1, login.getUsername());
+            stmt.setString(2, login.getPassword());
+            stmt.setInt(3, login.getUser().getUserId());
+            stmt.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex);
+            ex.printStackTrace();
+            return false;
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static int getId(String username, String password) {

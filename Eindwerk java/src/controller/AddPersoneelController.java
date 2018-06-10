@@ -8,8 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import model.*;
@@ -17,7 +20,10 @@ import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -54,6 +60,7 @@ public class AddPersoneelController implements Initializable {
     Integer badge;
     Rfid rfid;
     Login login = new Login();
+    Boolean addBadge;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,24 +97,32 @@ public class AddPersoneelController implements Initializable {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             String rf = result.get();
-            if (rf.length() == 10) {
-                if (LoginDao.checkLoginrfid(Integer.valueOf(rf)) == true) {
+            if (Validation.checkNumeric(rf)) {
+                if (rf.length() == 10) {
+                    if (LoginDao.checkLoginrfid(Integer.valueOf(rf))) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Badge toevoegen niet gelukt");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Badge wordt al gebruikt. Probeer opnieuw!");
+                        alert.showAndWait();
+                    } else {
+                        badge = Integer.valueOf(rf);
+                        login.setLoginId(LoginDao.getId(Login.getUsername(), Login.getPassword()));
+                        rfid = new Rfid(login,badge);
+                        lblBadge.setText("Badge toegevoegd");
+                    }
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Badge toevoegen niet gelukt");
                     alert.setHeaderText(null);
-                    alert.setContentText("Badge wordt al gebruikt. Probeer opnieuw!");
+                    alert.setContentText("Badge niet toegevoegd. Probeer opnieuw!");
                     alert.showAndWait();
-                } else {
-                    badge = Integer.valueOf(rf);
-                    login.setLoginId(LoginDao.getId(Login.getUsername(), Login.getPassword()));
-                    rfid = new Rfid(login,badge);
-                    lblBadge.setText("Badge toegevoegd");
                 }
-            } else {
+            } else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Badge toevoegen niet gelukt");
+                alert.setTitle("Login niet gelukt");
                 alert.setHeaderText(null);
-                alert.setContentText("Badge niet toegevoegd. Probeer opnieuw!");
+                alert.setContentText("Badge niet gevonden. Probeer opnieuw!");
                 alert.showAndWait();
             }
         } else {
@@ -174,21 +189,52 @@ public class AddPersoneelController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }  else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true && Validation.checkEmail(email.getText().toString()) == true)
+            if (Validation.checkFirstName(voornaam.getText()) && Validation.checkLastName(achternaam.getText().toString()) && Validation.checkAlphabetical(straat.getText().toString()) && Validation.checkHouseNumber(huisnr.getText().toString()) && Validation.checkAlphabetical(gemeente.getText().toString()) && Validation.checkPostalCode(postcode.getText().toString()) && Validation.checkEmail(email.getText().toString()))
             {
                 int output = cmbRol.getSelectionModel().getSelectedItem().getId();
                 Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
                 Rol rol = new Rol(output);
                 User personeel = new User(voornaam.getText().toString(), achternaam.getText().toString(), sqlDate, email.getText().toString(), adres, rol);
                 Boolean add = PersoneelDao.addPersoneel(personeel, output);
-                Boolean addBadge = RfidDao.addRfid(rfid);
-                if (add == true && addBadge == true)
+
+                personeel.setUserId(PersoneelDao.getUserId(personeel));
+
+                // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                MessageDigest objMD5 = null;
+                try {
+                    objMD5 = MessageDigest.getInstance("MD5");
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+                byte[] bytMD5 = objMD5.digest(voornaam.getText().getBytes());
+                BigInteger intNumMD5 = new BigInteger(1, bytMD5);
+                String password = String.format("%032x", intNumMD5);
+
+                Login login = new Login(email.getText(), password, personeel);
+                Boolean addLogin = LoginDao.addLogin(login);
+
+                if (rfid == null) {
+                    addBadge = true;
+                } else {
+                    addBadge = RfidDao.addRfid(rfid);
+                }
+                if (add && addBadge && addLogin)
                 {
                     // Bron: https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Persoon is toegevoegd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
                     tray.showAndDismiss(Duration.seconds(4));
+
+                    try {
+                        URL paneUrl = getClass().getResource("../gui/Personeel.fxml");
+                        VBox pane = FXMLLoader.load(paneUrl);
+
+                        BorderPane border = HomeController.getRoot();
+                        border.setCenter(pane);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     Alert alertmis = new Alert(Alert.AlertType.CONFIRMATION);
@@ -198,29 +244,29 @@ public class AddPersoneelController implements Initializable {
                     alertmis.showAndWait();
                 }
             }  else {
-                if (Validation.checkFirstName(voornaam.getText().toString()) == false) {
+                if (!Validation.checkFirstName(voornaam.getText().toString())) {
                     voornaam.getStyleClass().add("error");
                 }
-                if (Validation.checkLastName(achternaam.getText().toString()) == false) {
+                if (!Validation.checkLastName(achternaam.getText().toString())) {
                     achternaam.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(straat.getText().toString()) == false)
+                if (!Validation.checkAlphabetical(straat.getText().toString()))
                 {
                     straat.getStyleClass().add("error");
                 }
-                if (Validation.checkHouseNumber(huisnr.getText().toString()) == false)
+                if (!Validation.checkHouseNumber(huisnr.getText().toString()))
                 {
                     huisnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gemeente.getText().toString()) == false)
+                if (!Validation.checkAlphabetical(gemeente.getText().toString()))
                 {
                     gemeente.getStyleClass().add("error");
                 }
-                if (Validation.checkPostalCode(postcode.getText().toString()) == false)
+                if (!Validation.checkPostalCode(postcode.getText().toString()))
                 {
                     postcode.getStyleClass().add("error");
                 }
-                if (Validation.checkEmail(email.getText().toString()) == false)
+                if (!Validation.checkEmail(email.getText().toString()))
                 {
                     email.getStyleClass().add("error");
                 }
