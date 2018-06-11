@@ -71,13 +71,13 @@ public class VerpleegDossierToevoegenController implements Initializable{
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }else {
-            if (Validation.checkAlphabetical(Wondzorg.getText().toString()) == true && Validation.checkAlphabetical(Bloedafname.getText().toString()) == true  && Validation.checkAlphabetical(VroegerBeroep.getText().toString()) == true  && Validation.checkText(Specifiekewensen.getText().toString()) == true){
-                Verpleegdossier dossier = new Verpleegdossier(Bewoner.getSelectedId(), Wondzorg.getText().toString(), Bloedafname.getText().toString() ,Boolean.valueOf(suikerziekte.getSelectedToggle().getUserData().toString()),VroegerBeroep.getText().toString(), Specifiekewensen.getText().toString());
+            if (Validation.checkAlphabetical(Wondzorg.getText()) == true && Validation.checkAlphabetical(Bloedafname.getText()) == true  && Validation.checkAlphabetical(VroegerBeroep.getText()) == true  && Validation.checkText(Specifiekewensen.getText()) == true){
+                Verpleegdossier dossier = new Verpleegdossier(Bewoner.getSelectedId(), Wondzorg.getText(), Bloedafname.getText(),Boolean.valueOf(suikerziekte.getSelectedToggle().getUserData().toString()), VroegerBeroep.getText(), Specifiekewensen.getText());
                 Boolean add;
                 add = BewonerDao.addVerpleegDossier(dossier);
                 if (add == true)
                 {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Verpleegdossier is toegevoegd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -100,19 +100,19 @@ public class VerpleegDossierToevoegenController implements Initializable{
                     alertmis.showAndWait();
                 }
             }else {
-                if (Validation.checkAlphabetical(Wondzorg.getText().toString()) == false)
+                if (Validation.checkAlphabetical(Wondzorg.getText()) == false)
                 {
                     Wondzorg.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(Bloedafname.getText().toString()) == false)
+                if (Validation.checkAlphabetical(Bloedafname.getText()) == false)
                 {
                     Bloedafname.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(VroegerBeroep.getText().toString()) == false)
+                if (Validation.checkAlphabetical(VroegerBeroep.getText()) == false)
                 {
                     VroegerBeroep.getStyleClass().add("error");
                 }
-                if (Validation.checkText(Specifiekewensen.getText().toString()) == false)
+                if (Validation.checkText(Specifiekewensen.getText()) == false)
                 {
                     Specifiekewensen.getStyleClass().add("error");
                 }

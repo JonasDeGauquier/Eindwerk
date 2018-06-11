@@ -104,7 +104,7 @@ public class LoginController {
         passwordField.setStyle("-fx-background-color: white;");
 
         if (username.getText().trim().length() > 0 && passwordField.getText().trim().length() > 0) {
-            // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+            // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
             MessageDigest objMD5 = null;
             try {
                 objMD5 = MessageDigest.getInstance("MD5");

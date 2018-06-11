@@ -32,14 +32,14 @@ public class ShowPersoneelGegevensController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         personeel = PersoneelDao.getPersoneel(User.getSelectedId());
 
-        voornaam.setText(String.valueOf(personeel.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(personeel.getAchternaam().toString()));
+        voornaam.setText(String.valueOf(personeel.getVoornaam()));
+        achternaam.setText(String.valueOf(personeel.getAchternaam()));
         geboortedatum.setText(String.valueOf(personeel.getGeboortedatum().toString()));
-        email.setText(String.valueOf(personeel.getEmail().toString()));
-        rol.setText(String.valueOf(personeel.getRol().getRol().toString()));
-        straat.setText(String.valueOf(personeel.getAdress().getStraat().toString()));
+        email.setText(String.valueOf(personeel.getEmail()));
+        rol.setText(String.valueOf(personeel.getRol().getRol()));
+        straat.setText(String.valueOf(personeel.getAdress().getStraat()));
         huisnr.setText(String.valueOf(personeel.getAdress().getHuisnr()));
-        gemeente.setText(String.valueOf(personeel.getAdress().getGemeente().toString()));
+        gemeente.setText(String.valueOf(personeel.getAdress().getGemeente()));
         postcode.setText(String.valueOf(personeel.getAdress().getPostcode().toString()));
     }
 
@@ -67,7 +67,7 @@ public class ShowPersoneelGegevensController implements Initializable {
             if (result.get() == buttonTypeYes) {
                 Boolean del = PersoneelDao.Delete(selectedPersoon);
                 if (del == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Personeel";
                     String message = "Deze persoon is succesvol verwijderd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

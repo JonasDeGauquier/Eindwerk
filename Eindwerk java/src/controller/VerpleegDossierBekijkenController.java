@@ -25,15 +25,15 @@ public class VerpleegDossierBekijkenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dossier = BewonerDao.getVerpleegDossier(Bewoner.getSelectedId());
 
-        Wondzorg.setText(String.valueOf(dossier.getWondzorg().toString()));
-        Bloedafname.setText(String.valueOf(dossier.getBloedafname().toString()));
+        Wondzorg.setText(String.valueOf(dossier.getWondzorg()));
+        Bloedafname.setText(String.valueOf(dossier.getBloedafname()));
         if (dossier.getSuikerziekte() == true){
             Suikerziekte.setText("Ja");
         }
         else {
             Suikerziekte.setText("Nee");
         }
-        VroegerBeroep.setText(String.valueOf(dossier.getBeroepVroeger().toString()));
-        Specifiekewensen.setText(String.valueOf(dossier.getSpecifiekeWensen().toString()));
+        VroegerBeroep.setText(String.valueOf(dossier.getBeroepVroeger()));
+        Specifiekewensen.setText(String.valueOf(dossier.getSpecifiekeWensen()));
     }
 }

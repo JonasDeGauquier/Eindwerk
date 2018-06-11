@@ -43,7 +43,7 @@ public class ShowZorgplanViaPersoneelController implements Initializable {
             grid.add(new Label(MedicatieDao.getMedicatie(zorgplannen.get(i).getMedicatie().getId()).toString()), 1, 0);
             grid.add(new Label("Zorgtaak: "), 0, 1);
             zorgtaak = ZorgplanDao.getZorgtaak(zorgplannen.get(i).getZorgtaak().getId());
-            grid.add(new Label(zorgtaak.getZorgtaak().toString()), 1, 1);
+            grid.add(new Label(zorgtaak.getZorgtaak()), 1, 1);
             grid.add(new Label("Opmerking: "), 0, 2);
             if (zorgplannen.get(i).getOpmerking().isEmpty()){
                 grid.add(new Label("Geen opmerking"), 1, 2);

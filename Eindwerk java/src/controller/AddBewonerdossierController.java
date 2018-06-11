@@ -71,12 +71,12 @@ public class AddBewonerdossierController implements Initializable{
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         } else {
-            if (Validation.checkAlphabetical(GroteOperaties.getText().toString()) == true && Validation.checkAlphabetical(Allergieën.getText().toString()) == true) {
-                BewonersDossier dossier = new BewonersDossier(bewoner, Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()), GroteOperaties.getText().toString(), Allergieën.getText().toString());
+            if (Validation.checkAlphabetical(GroteOperaties.getText()) == true && Validation.checkAlphabetical(Allergieën.getText()) == true) {
+                BewonersDossier dossier = new BewonersDossier(bewoner, Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()), GroteOperaties.getText(), Allergieën.getText());
                 Boolean add;
                 add = BewonerDao.addDossier(dossier);
                 if (add == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Dossier is aangemaakt!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -98,10 +98,10 @@ public class AddBewonerdossierController implements Initializable{
                     alertmis.showAndWait();
                 }
             } else {
-                if (Validation.checkAlphabetical(GroteOperaties.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(GroteOperaties.getText()) == false) {
                     GroteOperaties.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(Allergieën.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(Allergieën.getText()) == false) {
                     Allergieën.getStyleClass().add("error");
                 }
                 Alert alertmis = new Alert(Alert.AlertType.ERROR);

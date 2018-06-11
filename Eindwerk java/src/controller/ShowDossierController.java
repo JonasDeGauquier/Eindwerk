@@ -41,8 +41,8 @@ public class ShowDossierController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         dossier = BewonerDao.getDossier(Bewoner.getSelectedId());
 
-        Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
-        GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));
+        Allergieën.setText(String.valueOf(dossier.getAllergieën()));
+        GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties()));
         if (dossier.getIncontinentie() == true){
             Incontinentie.setText("Ja");
         }

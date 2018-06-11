@@ -88,7 +88,7 @@ public class ZorgplanController implements Initializable {
         }else {
             taak = cmbZorgtaak.getSelectionModel().getSelectedItem();
         }
-        String opmerking = txtOpmerking.getText().toString();
+        String opmerking = txtOpmerking.getText();
 
         if (bew == null || bew.equals("")) {
             cmbBewoner.getStyleClass().add("error");
@@ -150,7 +150,7 @@ public class ZorgplanController implements Initializable {
                     pas = pair.getValue();
                 });
 
-                // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
                 MessageDigest objMD5 = null;
                 try {
                     objMD5 = MessageDigest.getInstance("MD5");
@@ -161,14 +161,14 @@ public class ZorgplanController implements Initializable {
                 BigInteger intNumMD5 = new BigInteger(1, bytMD5);
                 String passw = String.format("%032x", intNumMD5);
 
-                if (LoginDao.checkLogin(gebruikersnaam.toString(), passw.toString()) == true) {
-                    int userId = LoginDao.getUserId(gebruikersnaam.toString(), passw.toString());
+                if (LoginDao.checkLogin(gebruikersnaam, passw) == true) {
+                    int userId = LoginDao.getUserId(gebruikersnaam, passw);
                     User.setCurrentUser(userId);
                     Zorgplan zorgplan = new Zorgplan(med, taak, user, opmerking, bew);
                     Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
                     if (check == true) {
-                        // Bron: https://github.com/PlusHaze/TrayNotification
+                        //PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                         String title = "Toevoegen gelukt";
                         String message = "Zorgplan is getekend!";
                         TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -209,7 +209,7 @@ public class ZorgplanController implements Initializable {
         bew = cmbBewoner.getSelectionModel().getSelectedItem();
         med = cmbMedicatie.getSelectionModel().getSelectedItem();
         taak = cmbZorgtaak.getSelectionModel().getSelectedItem();
-        String opmerking = txtOpmerking.getText().toString();
+        String opmerking = txtOpmerking.getText();
 
         if (bew == null || bew.equals("")) {
             cmbBewoner.getStyleClass().add("error");
@@ -250,7 +250,7 @@ public class ZorgplanController implements Initializable {
                                 Boolean check = ZorgplanDao.addZorgplan(zorgplan);
 
                                 if (check) {
-                                    // Bron: https://github.com/PlusHaze/TrayNotification
+                                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                                     String title = "Toevoegen gelukt";
                                     String message = "Zorgplan is getekend!";
                                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -316,10 +316,10 @@ public class ZorgplanController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         } else {
-            if ( Validation.checkAlphabetical(zorgTaak.getText().toString()) == true){
+            if ( Validation.checkAlphabetical(zorgTaak.getText()) == true){
                 Zorgtaak zorgtaak = new Zorgtaak(zorgTaak.getText());
                 if (ZorgplanDao.addZorgtaak(zorgtaak) == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Het toevoegen van de zorgtaak is gelukt!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

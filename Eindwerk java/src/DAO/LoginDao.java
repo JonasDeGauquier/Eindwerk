@@ -56,8 +56,8 @@ public class LoginDao extends PostgreSQLJDBC {
         Connect();
         try {
             stmt = con.prepareStatement("insert into login(username, password, user_id) values (?,?,?)");
-            stmt.setString(1, login.getUsername());
-            stmt.setString(2, login.getPassword());
+            stmt.setString(1, Login.getUsername());
+            stmt.setString(2, Login.getPassword());
             stmt.setInt(3, login.getUser().getUserId());
             stmt.executeUpdate();
             return true;

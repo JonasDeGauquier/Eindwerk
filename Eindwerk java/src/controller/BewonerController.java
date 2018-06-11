@@ -84,7 +84,7 @@ public class BewonerController implements Initializable {
         if (search.textProperty().get().isEmpty()) {
             BewonersTable.getItems().setAll(bewoners);
         } else {
-            searchList = BewonerDao.getAllBewonersFromSearch(search.getText().toString());
+            searchList = BewonerDao.getAllBewonersFromSearch(search.getText());
             voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
             achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
             BewonersTable.getItems().setAll(searchList);
@@ -104,7 +104,7 @@ public class BewonerController implements Initializable {
         edit.setDisable(false);
         editIconTooltip("Bewonerdossier bewerken");
         dossier = null;
-        dossier = BewonerDao.getDossier(bewoner.getSelectedId());
+        dossier = BewonerDao.getDossier(Bewoner.getSelectedId());
         if (dossier == null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Geen dossier gevonden");
@@ -118,7 +118,7 @@ public class BewonerController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeYes) {
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(bewoner.getSelectedId());
+                Bewoner.setSelectedId(Bewoner.getSelectedId());
                 try {
                     URL paneUrl = getClass().getResource("../gui/BewonerDossierToevoegen.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);
@@ -138,7 +138,7 @@ public class BewonerController implements Initializable {
         edit.setDisable(false);
         editIconTooltip("Verpleegdossier bewerken");
         verpleegDossier = null;
-        verpleegDossier = BewonerDao.getVerpleegDossier(bewoner.getSelectedId());
+        verpleegDossier = BewonerDao.getVerpleegDossier(Bewoner.getSelectedId());
 
         if (verpleegDossier == null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -153,7 +153,7 @@ public class BewonerController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeYes) {
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(bewoner.getSelectedId());
+                Bewoner.setSelectedId(Bewoner.getSelectedId());
                 try {
                     URL paneUrl = getClass().getResource("../gui/verpleegdossierToevoegen.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);
@@ -173,7 +173,7 @@ public class BewonerController implements Initializable {
         edit.setDisable(false);
         editIconTooltip("Contactpersoon bewerken");
         contactpersoon = null;
-        contactpersoon = BewonerDao.getContactpersoon(bewoner.getSelectedId());
+        contactpersoon = BewonerDao.getContactpersoon(Bewoner.getSelectedId());
 
         if (contactpersoon == null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -188,7 +188,7 @@ public class BewonerController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeYes) {
                 Bewoner bewoner = new Bewoner();
-                bewoner.setSelectedId(bewoner.getSelectedId());
+                Bewoner.setSelectedId(Bewoner.getSelectedId());
                 try {
                     URL paneUrl = getClass().getResource("../gui/ContactpersoonToevoegen.fxml");
                     Pane pane = FXMLLoader.load(paneUrl);
@@ -237,31 +237,31 @@ public class BewonerController implements Initializable {
         if (bewoner == null) {
             toonBewonerGegevens.setCollapsible(false);
         } else {
-            VoornaamTonen.setText(String.valueOf(bewoner.getVoornaam().toString()));
-            Achternaam.setText(String.valueOf(bewoner.getAchternaam().toString()));
+            VoornaamTonen.setText(String.valueOf(bewoner.getVoornaam()));
+            Achternaam.setText(String.valueOf(bewoner.getAchternaam()));
             Geboortedatum.setText(String.valueOf(bewoner.getGeboortedatum().toString()));
-            Geboorteplaats.setText(String.valueOf(bewoner.getGeboorteplaats().toString()));
-            Geslacht.setText(String.valueOf(bewoner.getGeslacht().toString()));
-            BurgerlijkeStaat.setText(String.valueOf(bewoner.getBurgerlijkestaat().toString()));
-            Gekoppeld.setText(String.valueOf(bewoner.getGekoppeldMet().toString()));
+            Geboorteplaats.setText(String.valueOf(bewoner.getGeboorteplaats()));
+            Geslacht.setText(String.valueOf(bewoner.getGeslacht()));
+            BurgerlijkeStaat.setText(String.valueOf(bewoner.getBurgerlijkestaat()));
+            Gekoppeld.setText(String.valueOf(bewoner.getGekoppeldMet()));
             OpnameDatum.setText(String.valueOf(bewoner.getOpnamedatum().toString()));
-            Geloofsovertuiging.setText(String.valueOf(bewoner.getGeloofsovertuiging().toString()));
-            Peter.setText(String.valueOf(bewoner.getPeter().toString()));
-            Meter.setText(String.valueOf(bewoner.getMeter().toString()));
-            Nationaliteit.setText(String.valueOf(bewoner.getNationaliteit().toString()));
+            Geloofsovertuiging.setText(String.valueOf(bewoner.getGeloofsovertuiging()));
+            Peter.setText(String.valueOf(bewoner.getPeter()));
+            Meter.setText(String.valueOf(bewoner.getMeter()));
+            Nationaliteit.setText(String.valueOf(bewoner.getNationaliteit()));
             Rijksregisternr.setText(String.valueOf(bewoner.getRijksregisternr().toString()));
-            Identiteitskaartnr.setText(String.valueOf(bewoner.getIndetiteitskaartnr().toString()));
-            Huisarts.setText(String.valueOf(bewoner.getHuisdokter().toString()));
-            Ziekenhuis.setText(String.valueOf(bewoner.getVoorkeurZiekenhuis().toString()));
+            Identiteitskaartnr.setText(String.valueOf(bewoner.getIndetiteitskaartnr()));
+            Huisarts.setText(String.valueOf(bewoner.getHuisdokter()));
+            Ziekenhuis.setText(String.valueOf(bewoner.getVoorkeurZiekenhuis()));
             Kamernr.setText(String.valueOf(bewoner.getKamernr().toString()));
-            Straat.setText(String.valueOf(bewoner.getAdress().getStraat().toString()));
+            Straat.setText(String.valueOf(bewoner.getAdress().getStraat()));
             Huisnr.setText(String.valueOf(bewoner.getAdress().getHuisnr()));
             Postcode.setText(String.valueOf(bewoner.getAdress().getPostcode()));
-            Gemeente.setText(String.valueOf(bewoner.getAdress().getGemeente()).toString());
+            Gemeente.setText(String.valueOf(bewoner.getAdress().getGemeente()));
 
             Path path = null;
             try {
-                File myFile = new File("src/images/" + bewoner.getVoornaam().toString() + " " + bewoner.getAchternaam().toString() + ".png");
+                File myFile = new File("src/images/" + bewoner.getVoornaam() + " " + bewoner.getAchternaam() + ".png");
                 FileOutputStream image = new FileOutputStream(myFile);
 
                 int length = bewoner.getFoto().length;
@@ -288,19 +288,19 @@ public class BewonerController implements Initializable {
         if (dossier == null) {
             toonBewonerDossier.setCollapsible(false);
         } else {
-            Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
-            GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));
-            if (dossier.getIncontinentie() == true) {
+            Allergieën.setText(String.valueOf(dossier.getAllergieën()));
+            GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties()));
+            if (dossier.getIncontinentie()) {
                 Incontinentie.setText("Ja");
             } else {
                 Incontinentie.setText("Nee");
             }
-            if (dossier.getReanimatieWens() == true) {
+            if (dossier.getReanimatieWens()) {
                 ReanimatieWens.setText("Ja");
             } else {
                 ReanimatieWens.setText("Nee");
             }
-            if (dossier.getPrivacy() == true) {
+            if (dossier.getPrivacy()) {
                 Privacy.setText("Ja");
             } else {
                 Privacy.setText("Nee");
@@ -316,15 +316,15 @@ public class BewonerController implements Initializable {
         if (verpleegDossier == null) {
             toonVerpleegDossier.setCollapsible(false);
         } else {
-            Wondzorg.setText(String.valueOf(verpleegDossier.getWondzorg().toString()));
-            Bloedafname.setText(String.valueOf(verpleegDossier.getBloedafname().toString()));
-            if (verpleegDossier.getSuikerziekte() == true) {
+            Wondzorg.setText(String.valueOf(verpleegDossier.getWondzorg()));
+            Bloedafname.setText(String.valueOf(verpleegDossier.getBloedafname()));
+            if (verpleegDossier.getSuikerziekte()) {
                 Suikerziekte.setText("Ja");
             } else {
                 Suikerziekte.setText("Nee");
             }
-            VroegerBeroep.setText(String.valueOf(verpleegDossier.getBeroepVroeger().toString()));
-            Specifiekewensen.setText(String.valueOf(verpleegDossier.getSpecifiekeWensen().toString()));
+            VroegerBeroep.setText(String.valueOf(verpleegDossier.getBeroepVroeger()));
+            Specifiekewensen.setText(String.valueOf(verpleegDossier.getSpecifiekeWensen()));
             toonVerpleegDossier.setCollapsible(true);
         }
     }
@@ -336,12 +336,12 @@ public class BewonerController implements Initializable {
         if (contactpersoon == null) {
             toonContactpersoon.setCollapsible(false);
         } else {
-            voornaamContactpersoon.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
-            achternaamContactpersoon.setText(String.valueOf(contactpersoon.getAchternaam().toString()));
-            identiteitiskaartnrContactpersoon.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr().toString()));
-            relatieContactpersoon.setText(String.valueOf(contactpersoon.getRelatie().toString()));
+            voornaamContactpersoon.setText(String.valueOf(contactpersoon.getVoornaam()));
+            achternaamContactpersoon.setText(String.valueOf(contactpersoon.getAchternaam()));
+            identiteitiskaartnrContactpersoon.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr()));
+            relatieContactpersoon.setText(String.valueOf(contactpersoon.getRelatie()));
             telefoonContactpersoon.setText(String.valueOf(contactpersoon.getTelefoon().toString()));
-            emailContactpersoon.setText(String.valueOf(contactpersoon.getEmail().toString()));
+            emailContactpersoon.setText(String.valueOf(contactpersoon.getEmail()));
             straatContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getStraat()));
             huisnrContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getHuisnr()));
             gemeenteContactpersoon.setText(String.valueOf(contactpersoon.getAdress().getGemeente()));
@@ -352,7 +352,7 @@ public class BewonerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (toonBewonerGegevens != null ) {
+        if (toonBewonerGegevens != null) {
             toonBewonerGegevens.setCollapsible(false);
             toonBewonerDossier.setCollapsible(false);
             toonVerpleegDossier.setCollapsible(false);
@@ -365,7 +365,7 @@ public class BewonerController implements Initializable {
         achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
 
         if (plaats != null) {
-            //Bron: https://stackoverflow.com/questions/21860019/javafx-create-combobox-tablecell
+            //Bron: Jerome. (2014, 19 februari). javafx create ComboBox TableCell [Blogreactie]. Geraadpleegd op 11 maart 2018, van https://stackoverflow.com/questions/21860019/javafx-create-combobox-tablecell
             plaatsen = FXCollections.observableArrayList("kamer", "Kiné");
             plaats.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("plaats"));
             plaats.setCellFactory(ComboBoxTableCell.forTableColumn(plaatsen));
@@ -373,7 +373,7 @@ public class BewonerController implements Initializable {
                     new EventHandler<TableColumn.CellEditEvent<Bewoner, String>>() {
                         @Override
                         public void handle(TableColumn.CellEditEvent<Bewoner, String> t) {
-                            BewonerDao.UpdatePlaats(t.getRowValue().getId(), t.getNewValue().toString());
+                            BewonerDao.UpdatePlaats(t.getRowValue().getId(), t.getNewValue());
                         }
                     }
             );
@@ -418,7 +418,7 @@ public class BewonerController implements Initializable {
                     if (result.get() == buttonTypeYes) {
                         Boolean del = BewonerDao.Delete(selectedItem.getId());
                         if (del == true) {
-                            // Bron: https://github.com/PlusHaze/TrayNotification
+                            // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotificationF
                             String title = "Bewoner";
                             String message = "De bewoner is succesvol verwjiderd!";
                             TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

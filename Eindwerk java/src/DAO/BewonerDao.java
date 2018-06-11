@@ -574,7 +574,7 @@ public class BewonerDao {
             stmt = con.prepareStatement("update bewoner set voornaam=?, achternaam=?, geboortedatum=?, geboorteplaats=?, " +
                     "geslacht=?, burgerlijke_staat=?, gekoppeld_met=?, opnamedatum=?, geloofsovertuiging=?, meter=?, peter=?, " +
                     "nationaliteit=?, rijskregisternr=?, identiteitskaartnr=?, dokter=?, voorkeur_ziekenhuis=?, kamernr=?, " +
-                    "adres_id=?, actief=true, plaats='kamer' where id=?");
+                    "adres_id=?, foto=?, actief=true, plaats='kamer' where id=?");
             stmt.setString(1, bewoner.getVoornaam());
             stmt.setString(2, bewoner.getAchternaam());
             stmt.setDate(3, (Date) bewoner.getGeboortedatum());
@@ -593,7 +593,8 @@ public class BewonerDao {
             stmt.setString(16,  bewoner.getVoorkeurZiekenhuis());
             stmt.setInt(17,  bewoner.getKamernr());
             stmt.setInt(18, addressID);
-            stmt.setInt(19, bewoner.getSelectedId());
+            stmt.setBytes(19, bewoner.getFoto());
+            stmt.setInt(20, Bewoner.getSelectedId());
             stmt.executeUpdate();
             return true;
         } catch (Exception ex) {

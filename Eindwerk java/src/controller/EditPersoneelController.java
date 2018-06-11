@@ -60,15 +60,15 @@ public class EditPersoneelController  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         personeel = PersoneelDao.getPersoneel(User.getSelectedId());
 
-        voornaam.setText(personeel.getVoornaam().toString());
-        achternaam.setText(personeel.getAchternaam().toString());
-        email.setText(personeel.getEmail().toString());
-        straat.setText(personeel.getAdress().getStraat().toString());
+        voornaam.setText(personeel.getVoornaam());
+        achternaam.setText(personeel.getAchternaam());
+        email.setText(personeel.getEmail());
+        straat.setText(personeel.getAdress().getStraat());
         huisnr.setText(String.valueOf(personeel.getAdress().getHuisnr()));
-        gemeente.setText(personeel.getAdress().getGemeente().toString());
+        gemeente.setText(personeel.getAdress().getGemeente());
         postcode.setText(String.valueOf(personeel.getAdress().getPostcode()));
 
-        // Bron: https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
+        // Gayan Ranaweera, R. (2018, 13 september). Parse String date in (yyyy-MM-dd) format [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedGeboortedatum = null;
         Date convertedOpnamedatum = null;
@@ -78,7 +78,7 @@ public class EditPersoneelController  implements Initializable {
             e.printStackTrace();
         }
 
-        // Bron: https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
+        // Guillaume, F. (2012, 12 februari). [jaar, maand en dag uit datum halen] [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
         LocalDate localDateGeboortedatum = convertedGeboortedatum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         geboortedatum.setValue(LocalDate.of(localDateGeboortedatum.getYear(), localDateGeboortedatum.getMonth(), localDateGeboortedatum.getDayOfMonth()));
@@ -179,15 +179,15 @@ public class EditPersoneelController  implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }  else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) && Validation.checkLastName(achternaam.getText().toString()) && Validation.checkAlphabetical(straat.getText().toString()) && Validation.checkHouseNumber(huisnr.getText()) && Validation.checkAlphabetical(gemeente.getText().toString()) && Validation.checkPostalCode(postcode.getText().toString()) && Validation.checkEmail(email.getText().toString()))
+            if (Validation.checkFirstName(voornaam.getText()) && Validation.checkLastName(achternaam.getText()) && Validation.checkAlphabetical(straat.getText()) && Validation.checkHouseNumber(huisnr.getText()) && Validation.checkAlphabetical(gemeente.getText()) && Validation.checkPostalCode(postcode.getText()) && Validation.checkEmail(email.getText()))
             {
-                Adress adres = new Adress(personeel.getAdress().getId(), straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
-                User personeel = new User(voornaam.getText().toString(), achternaam.getText().toString(), sqlDate, email.getText().toString(), adres);
+                Adress adres = new Adress(personeel.getAdress().getId(), straat.getText(), Integer.parseInt(huisnr.getText()), gemeente.getText(), Integer.parseInt(postcode.getText()));
+                User personeel = new User(voornaam.getText(), achternaam.getText(), sqlDate, email.getText(), adres);
                 Boolean eddit = PersoneelDao.editPersoneel(personeel);
                 if (rfid == null) {
                     addBadge = true;
                 } else {
-                    // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                    // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
                     MessageDigest objMD5 = null;
                     try {
                         objMD5 = MessageDigest.getInstance("MD5");
@@ -204,7 +204,7 @@ public class EditPersoneelController  implements Initializable {
                         System.out.println("sdfsdfdsf");
                         Login login = new Login();
 
-                        // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                        // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
                         objMD5 = null;
                         try {
                             objMD5 = MessageDigest.getInstance("MD5");
@@ -221,7 +221,7 @@ public class EditPersoneelController  implements Initializable {
                     } else {
                         Login login = new Login();
 
-                        // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                        // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
                         objMD5 = null;
                         try {
                             objMD5 = MessageDigest.getInstance("MD5");
@@ -239,7 +239,7 @@ public class EditPersoneelController  implements Initializable {
                 }
                 if (eddit && addBadge)
                 {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
                     String message = "Persoon is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -284,7 +284,7 @@ public class EditPersoneelController  implements Initializable {
                 {
                     postcode.getStyleClass().add("error");
                 }
-                if (!Validation.checkEmail(email.getText().toString()))
+                if (!Validation.checkEmail(email.getText()))
                 {
                     email.getStyleClass().add("error");
                 }

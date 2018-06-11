@@ -38,11 +38,11 @@ public class AddMedicatieController {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         } else {
-            if (Validation.checkLenght(naam.getText().toString(), 4) == true && Validation.checkAlphabeticalAndNumeric(naam.getText().toString()) == true){
-                Medicatie medicatie = new Medicatie(naam.getText().toString());
+            if (Validation.checkLenght(naam.getText(), 4) == true && Validation.checkAlphabeticalAndNumeric(naam.getText()) == true){
+                Medicatie medicatie = new Medicatie(naam.getText());
                 Boolean add = MedicatieDao.addMedicatie(medicatie);
                 if (add == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Medicatie is toegevoegd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

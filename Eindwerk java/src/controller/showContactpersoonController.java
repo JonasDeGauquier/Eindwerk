@@ -22,12 +22,12 @@ public class showContactpersoonController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         contactpersoon = BewonerDao.getContactpersoon(Bewoner.getSelectedId());
 
-        voornaam.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(contactpersoon.getAchternaam().toString()));
-        identiteitiskaartnr.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr().toString()));
-        relatie.setText(String.valueOf(contactpersoon.getRelatie().toString()));
+        voornaam.setText(String.valueOf(contactpersoon.getVoornaam()));
+        achternaam.setText(String.valueOf(contactpersoon.getAchternaam()));
+        identiteitiskaartnr.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr()));
+        relatie.setText(String.valueOf(contactpersoon.getRelatie()));
         telefoon.setText(String.valueOf(contactpersoon.getTelefoon().toString()));
-        email.setText(String.valueOf(contactpersoon.getEmail().toString()));
+        email.setText(String.valueOf(contactpersoon.getEmail()));
         straat.setText(String.valueOf(contactpersoon.getAdress().getStraat()));
         huisnr.setText(String.valueOf(contactpersoon.getAdress().getHuisnr()));
         gemeente.setText(String.valueOf(contactpersoon.getAdress().getGemeente()));

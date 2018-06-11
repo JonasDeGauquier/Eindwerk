@@ -116,7 +116,7 @@ public class PersoneelController implements Initializable{
                     if (result.get() == buttonTypeYes) {
                         Boolean del = PersoneelDao.Delete(selectedItem.getUserId());
                         if (del == true) {
-                            // Bron: https://github.com/PlusHaze/TrayNotification
+                            // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                             String title = "Personeel";
                             String message = "De persoon is succesvol verwjiderd!";
                             TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -179,7 +179,7 @@ public class PersoneelController implements Initializable{
         if(search.textProperty().get().isEmpty()) {
             PersoneelTable.getItems().setAll(personeel);
         }else {
-            searchList =  PersoneelDao.getAllPersoneelFromSearch(search.getText().toString());
+            searchList =  PersoneelDao.getAllPersoneelFromSearch(search.getText());
             Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
             achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
             PersoneelTable.getItems().setAll(searchList);
@@ -260,7 +260,7 @@ public class PersoneelController implements Initializable{
                 int loginId = LoginDao.getLoginIdByUserId(selectedItem.getUserId());
                 Boolean del = RfidDao.Delete(loginId);
                 if (del == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Badge";
                     String message = "De badge is succesvol geblokeerd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

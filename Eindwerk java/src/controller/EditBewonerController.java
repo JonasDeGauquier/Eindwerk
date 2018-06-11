@@ -7,11 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import model.Adress;
 import model.Bewoner;
@@ -40,35 +43,60 @@ public class EditBewonerController implements Initializable {
 
     @FXML
     private DatePicker opnamedatum, geboortedatum;
+    @FXML
+    private Label fototext;
 
     private LocalDate geboorteDate, opnameDate;
+
+    private Boolean edit = false;
+    private File byteaFile;
+    private File img;
+    private  byte[] bFile;
+
+    @FXML
+    void addFoto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        Window stage = null;
+        byteaFile = fileChooser.showOpenDialog(stage);
+
+        if (byteaFile != null) {
+            fototext.setText("Foto geselecteerd!");
+        }
+        else {
+            fototext.setText("Geen foto geselecteerd!");
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bewoner = BewonerDao.getBewoner(Bewoner.getSelectedId());
 
-        voornaam.setText(String.valueOf(bewoner.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(bewoner.getAchternaam().toString()));
-        geboorteplaats.setText(String.valueOf(bewoner.getGeboorteplaats().toString()));
-        geslacht.setText(String.valueOf(bewoner.getGeslacht().toString()));
-        burgerlijkeStaat.setText(String.valueOf(bewoner.getBurgerlijkestaat().toString()));
-        gekoppeld.setText(String.valueOf(bewoner.getGekoppeldMet().toString()));
-        geloofsovertuiging.setText(String.valueOf(bewoner.getGeloofsovertuiging().toString()));
-        peter.setText(String.valueOf(bewoner.getPeter().toString()));
-        meter.setText(String.valueOf(bewoner.getMeter().toString()));
-        nationaliteit.setText(String.valueOf(bewoner.getNationaliteit().toString()));
+        voornaam.setText(String.valueOf(bewoner.getVoornaam()));
+        achternaam.setText(String.valueOf(bewoner.getAchternaam()));
+        geboorteplaats.setText(String.valueOf(bewoner.getGeboorteplaats()));
+        geslacht.setText(String.valueOf(bewoner.getGeslacht()));
+        burgerlijkeStaat.setText(String.valueOf(bewoner.getBurgerlijkestaat()));
+        gekoppeld.setText(String.valueOf(bewoner.getGekoppeldMet()));
+        geloofsovertuiging.setText(String.valueOf(bewoner.getGeloofsovertuiging()));
+        peter.setText(String.valueOf(bewoner.getPeter()));
+        meter.setText(String.valueOf(bewoner.getMeter()));
+        nationaliteit.setText(String.valueOf(bewoner.getNationaliteit()));
         rijksregisternr.setText(String.valueOf(bewoner.getRijksregisternr().toString()));
         rijksregisternr.setText(String.valueOf(bewoner.getRijksregisternr().toString()));
-        identiteitskaartnr.setText(String.valueOf(bewoner.getIndetiteitskaartnr().toString()));
-        huisarts.setText(String.valueOf(bewoner.getHuisdokter().toString()));
-        ziekenhuis.setText(String.valueOf(bewoner.getVoorkeurZiekenhuis().toString()));
+        identiteitskaartnr.setText(String.valueOf(bewoner.getIndetiteitskaartnr()));
+        huisarts.setText(String.valueOf(bewoner.getHuisdokter()));
+        ziekenhuis.setText(String.valueOf(bewoner.getVoorkeurZiekenhuis()));
         kamernr.setText(String.valueOf(bewoner.getKamernr().toString()));
-        straat.setText(String.valueOf(bewoner.getAdress().getStraat().toString()));
+        straat.setText(String.valueOf(bewoner.getAdress().getStraat()));
         huisnr.setText(String.valueOf(bewoner.getAdress().getHuisnr()));
         postcode.setText(String.valueOf(bewoner.getAdress().getPostcode()));
         gemeente.setText(String.valueOf(bewoner.getAdress().getGemeente()));
 
-        // Bron: https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
+        //Gayan Ranaweera, R. (2018, 13 september). Parse String date in (yyyy-MM-dd) format [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedGeboortedatum = null;
         Date convertedOpnamedatum = null;
@@ -79,7 +107,7 @@ public class EditBewonerController implements Initializable {
             e.printStackTrace();
         }
 
-        // Bron: https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
+        // Guillaume, F. (2012, 12 februari). [jaar, maand en dag uit datum halen] [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
         LocalDate localDateGeboortedatum = convertedGeboortedatum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localOpnamedatum = convertedOpnamedatum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -88,10 +116,10 @@ public class EditBewonerController implements Initializable {
 
         Path path = null;
         try {
-            File myFile = new File("src/images/" + bewoner.getVoornaam().toString() + " " + bewoner.getAchternaam().toString() + ".png");
+            File myFile = new File("src/images/" + bewoner.getVoornaam() + " " + bewoner.getAchternaam() + ".png");
             FileOutputStream image = new FileOutputStream(myFile);
 
-            int length = bewoner.getFoto().length;
+           int length = bewoner.getFoto().length;
             byte[] bytes = bewoner.getFoto();
             image.write(bytes, 0, length);
 
@@ -214,23 +242,46 @@ public class EditBewonerController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         } else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkAlphabetical(geboorteplaats.getText().toString()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true
-                    && Validation.checkAlphabetical(geslacht.getText().toString()) == true && Validation.checkAlphabetical(burgerlijkeStaat.getText().toString()) == true && Validation.checkAlphabetical(gekoppeld.getText().toString()) == true && Validation.checkAlphabetical(geloofsovertuiging.getText().toString()) == true && Validation.checkAlphabetical(meter.getText().toString()) == true && Validation.checkAlphabetical(peter.getText().toString()) == true && Validation.checkAlphabetical(nationaliteit.getText().toString()) == true
-                    && Validation.checkRijksregisternr(rijksregisternr.getText().toString()) == true && Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == true && Validation.checkAlphabetical(huisarts.getText().toString()) == true && Validation.checkAlphabetical(ziekenhuis.getText().toString()) == true && Validation.checkNumeric(kamernr.getText().toString()) == true) {
+            if (Validation.checkFirstName(voornaam.getText()) && Validation.checkLastName(achternaam.getText()) && Validation.checkAlphabetical(geboorteplaats.getText()) && Validation.checkAlphabetical(straat.getText()) && Validation.checkHouseNumber(huisnr.getText()) && Validation.checkAlphabetical(gemeente.getText()) && Validation.checkPostalCode(postcode.getText())
+                    && Validation.checkAlphabetical(geslacht.getText()) && Validation.checkAlphabetical(burgerlijkeStaat.getText()) && Validation.checkAlphabetical(gekoppeld.getText()) && Validation.checkAlphabetical(geloofsovertuiging.getText()) && Validation.checkAlphabetical(meter.getText()) && Validation.checkAlphabetical(peter.getText()) && Validation.checkAlphabetical(nationaliteit.getText())
+                    && Validation.checkRijksregisternr(rijksregisternr.getText()) && Validation.checkIdentitiecard(identiteitskaartnr.getText()) && Validation.checkAlphabetical(huisarts.getText()) && Validation.checkAlphabetical(ziekenhuis.getText()) && Validation.checkNumeric(kamernr.getText())) {
                 geboorteDate = geboortedatum.getValue();
                 Date sqlGeboorteDate = java.sql.Date.valueOf(geboorteDate);
 
                 opnameDate = opnamedatum.getValue();
                 Date sqlOpnameDate = java.sql.Date.valueOf(opnameDate);
 
-                Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
-                Bewoner bewoner = new Bewoner(voornaam.getText().toString(), achternaam.getText().toString(), sqlGeboorteDate, geboorteplaats.getText().toString(),
-                        geslacht.getText().toString(), burgerlijkeStaat.getText().toString(), gekoppeld.getText().toString(), sqlOpnameDate,
-                        geloofsovertuiging.getText().toString(), meter.getText().toString(), peter.getText().toString(), nationaliteit.getText().toString(), Long.parseLong(rijksregisternr.getText().toString()),
-                        identiteitskaartnr.getText().toString(), huisarts.getText().toString(), ziekenhuis.getText().toString(), Integer.parseInt(kamernr.getText().toString()), adres);
-                Boolean edit = BewonerDao.editBewoner(bewoner);
-                if (edit == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                Adress adres = new Adress(straat.getText(), Integer.parseInt(huisnr.getText()), gemeente.getText(), Integer.parseInt(postcode.getText()));
+
+                if (byteaFile == null) {
+                    // Mkyong. (2010, 6 april). Java – How to convert File to byte[]. Geraadpleegd op 2 januari 2018, van Https://www.mkyong.com/java/how-to-convert-file-into-an-array-of-bytes/
+                    img = new File("src/images/" + bewoner.getVoornaam() + " " + bewoner.getAchternaam() + ".png");
+                    bFile = new byte[(int) img.length()];
+                } else {
+                     img = new File(String.valueOf(byteaFile));
+                     bFile = new byte[(int) img.length()];
+                }
+
+                FileInputStream fileInputStream = null;
+                try {
+                    fileInputStream = new FileInputStream(img);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fileInputStream.read(bFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Bewoner bewoner = new Bewoner(voornaam.getText(), achternaam.getText(), sqlGeboorteDate, geboorteplaats.getText(),
+                        geslacht.getText(), burgerlijkeStaat.getText(), gekoppeld.getText(), sqlOpnameDate,
+                        geloofsovertuiging.getText(), meter.getText(), peter.getText(), nationaliteit.getText(), Long.parseLong(rijksregisternr.getText()),
+                        identiteitskaartnr.getText(), huisarts.getText(), ziekenhuis.getText(), Integer.parseInt(kamernr.getText()), adres,bFile);
+                edit = BewonerDao.editBewoner(bewoner);
+
+                if (edit) {
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
                     String message = "Bewoner is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -252,62 +303,62 @@ public class EditBewonerController implements Initializable {
                     alertmis.showAndWait();
                 }
             } else {
-                if (Validation.checkFirstName(voornaam.getText().toString()) == false) {
+                if (Validation.checkFirstName(voornaam.getText()) == false) {
                     voornaam.getStyleClass().add("error");
                 }
-                if (Validation.checkLastName(achternaam.getText().toString()) == false) {
+                if (Validation.checkLastName(achternaam.getText()) == false) {
                     achternaam.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(geboorteplaats.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(geboorteplaats.getText()) == false) {
                     geboorteplaats.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(straat.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(straat.getText()) == false) {
                     straat.getStyleClass().add("error");
                 }
 
-                if (Validation.checkHouseNumber(huisnr.getText().toString()) == false) {
+                if (Validation.checkHouseNumber(huisnr.getText()) == false) {
                     huisnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gemeente.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(gemeente.getText()) == false) {
                     gemeente.getStyleClass().add("error");
                 }
-                if (Validation.checkPostalCode(postcode.getText().toString()) == false) {
+                if (Validation.checkPostalCode(postcode.getText()) == false) {
                     postcode.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(geslacht.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(geslacht.getText()) == false) {
                     geslacht.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(burgerlijkeStaat.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(burgerlijkeStaat.getText()) == false) {
                     burgerlijkeStaat.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gekoppeld.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(gekoppeld.getText()) == false) {
                     gekoppeld.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gekoppeld.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(gekoppeld.getText()) == false) {
                     geloofsovertuiging.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(meter.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(meter.getText()) == false) {
                     meter.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(peter.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(peter.getText()) == false) {
                     peter.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(nationaliteit.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(nationaliteit.getText()) == false) {
                     nationaliteit.getStyleClass().add("error");
                 }
-                if (Validation.checkRijksregisternr(rijksregisternr.getText().toString()) == false) {
+                if (Validation.checkRijksregisternr(rijksregisternr.getText()) == false) {
                     rijksregisternr.getStyleClass().add("error");
                 }
-                if (Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == false) {
+                if (Validation.checkIdentitiecard(identiteitskaartnr.getText()) == false) {
                     identiteitskaartnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(huisarts.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(huisarts.getText()) == false) {
                     huisarts.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(ziekenhuis.getText().toString()) == false) {
+                if (Validation.checkAlphabetical(ziekenhuis.getText()) == false) {
                     ziekenhuis.getStyleClass().add("error");
                 }
-                if (Validation.checkNumeric(kamernr.getText().toString()) == false) {
+                if (Validation.checkNumeric(kamernr.getText()) == false) {
                     kamernr.getStyleClass().add("error");
                 }
                 Alert alertmis = new Alert(Alert.AlertType.ERROR);

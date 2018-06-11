@@ -50,7 +50,7 @@
       <JFXTextField fx:id="geboorteplaats" layoutX="207.0" layoutY="297.0" />
       <JFXTextField fx:id="geslacht" layoutX="207.0" layoutY="333.0" />
       <JFXTextField fx:id="burgerlijkeStaat" layoutX="207.0" layoutY="365.0" />
-      <JFXButton onAction="#editBeowner" layoutX="283.0" layoutY="588.0" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewerken">
+      <JFXButton layoutX="283.0" layoutY="588.0" onAction="#editBeowner" prefHeight="38.0" prefWidth="151.0" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Bewerken">
          <font>
             <Font size="19.0" />
          </font>
@@ -147,5 +147,7 @@
       </Label>
       <JFXTextField fx:id="gemeente" layoutX="555.0" layoutY="494.0" />
       <ImageView fx:id="foto" fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton layoutX="380.0" layoutY="529.0" mnemonicParsing="false" onAction="#addFoto" styleClass="button-raised" stylesheets="@../css/Layout.css" text="Foto  toevoegen" />
+      <Label fx:id="fototext" layoutX="553.0" layoutY="540.0" text="Geen foto geselecteerd" />
    </children>
 </AnchorPane>

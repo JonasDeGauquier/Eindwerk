@@ -37,8 +37,8 @@ public class EditDossierController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dossier = BewonerDao.getDossier(Bewoner.getSelectedId());
 
-        Allergieën.setText(String.valueOf(dossier.getAllergieën().toString()));
-        GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties().toString()));
+        Allergieën.setText(String.valueOf(dossier.getAllergieën()));
+        GroteOperaties.setText(String.valueOf(dossier.getGroteOperaties()));
 
         ReanimatieJa.setToggleGroup(reanimatie);
         ReanimatieJa.setUserData("True");
@@ -94,13 +94,13 @@ public class EditDossierController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }else {
-            if (Validation.checkAlphabetical(GroteOperaties.getText().toString()) == true && Validation.checkAlphabetical(Allergieën.getText().toString()) == true){
-                BewonersDossier dossier = new BewonersDossier(Bewoner.getSelectedId(),Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()) ,GroteOperaties.getText().toString(), Allergieën.getText().toString());
+            if (Validation.checkAlphabetical(GroteOperaties.getText()) == true && Validation.checkAlphabetical(Allergieën.getText()) == true){
+                BewonersDossier dossier = new BewonersDossier(Bewoner.getSelectedId(),Boolean.valueOf(incontinentie.getSelectedToggle().getUserData().toString()), Boolean.valueOf(privacy.getSelectedToggle().getUserData().toString()), Boolean.valueOf(reanimatie.getSelectedToggle().getUserData().toString()) , GroteOperaties.getText(), Allergieën.getText());
                 Boolean edit;
                 edit = BewonerDao.editDossier(dossier);
                 if (edit == true)
                 {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
                     String message = "Dossier is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -124,11 +124,11 @@ public class EditDossierController implements Initializable {
                 }
             }
             else {
-                if (Validation.checkAlphabetical(GroteOperaties.getText().toString()) == false)
+                if (Validation.checkAlphabetical(GroteOperaties.getText()) == false)
                 {
                     GroteOperaties.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(Allergieën.getText().toString()) == false)
+                if (Validation.checkAlphabetical(Allergieën.getText()) == false)
                 {
                     Allergieën.getStyleClass().add("error");
                 }

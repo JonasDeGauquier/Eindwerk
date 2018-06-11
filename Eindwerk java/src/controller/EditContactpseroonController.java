@@ -46,16 +46,16 @@ public class EditContactpseroonController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         contactpersoon = BewonerDao.getContactpersoon(Bewoner.getSelectedId());
 
-        voornaam.setText(String.valueOf(contactpersoon.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(contactpersoon.getAchternaam().toString()));
-        relatie.setText(String.valueOf(contactpersoon.getRelatie().toString()));
+        voornaam.setText(String.valueOf(contactpersoon.getVoornaam()));
+        achternaam.setText(String.valueOf(contactpersoon.getAchternaam()));
+        relatie.setText(String.valueOf(contactpersoon.getRelatie()));
         telefoon.setText(String.valueOf(contactpersoon.getTelefoon().toString()));
-        email.setText(String.valueOf(contactpersoon.getEmail().toString()));
+        email.setText(String.valueOf(contactpersoon.getEmail()));
         straat.setText(String.valueOf(contactpersoon.getAdress().getStraat()));
         huisnr.setText(String.valueOf(contactpersoon.getAdress().getHuisnr()));
         gemeente.setText(String.valueOf(contactpersoon.getAdress().getGemeente()));
         postcode.setText(String.valueOf(contactpersoon.getAdress().getPostcode()));
-        identiteitskaartnr.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr().toString()));
+        identiteitskaartnr.setText(String.valueOf(contactpersoon.getIdentiteitskaartnr()));
 
         a.setStraat(contactpersoon.getAdress().getStraat());
         a.setHuisnr(contactpersoon.getAdress().getHuisnr());
@@ -144,17 +144,17 @@ public class EditContactpseroonController implements Initializable{
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == true && Validation.checkAlphabetical(relatie.getText().toString()) == true && Validation.checkPhone(telefoon.getText()) == true
-                    && Validation.checkEmail(email.getText()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true) {
-                    Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText().toString()), gemeente.getText().toString(), Integer.parseInt(postcode.getText().toString()));
+            if (Validation.checkFirstName(voornaam.getText()) == true && Validation.checkLastName(achternaam.getText()) == true && Validation.checkIdentitiecard(identiteitskaartnr.getText()) == true && Validation.checkAlphabetical(relatie.getText()) == true && Validation.checkPhone(telefoon.getText()) == true
+                    && Validation.checkEmail(email.getText()) == true && Validation.checkAlphabetical(straat.getText()) == true && Validation.checkHouseNumber(huisnr.getText()) == true && Validation.checkAlphabetical(gemeente.getText()) == true && Validation.checkPostalCode(postcode.getText()) == true) {
+                    Adress adres = new Adress(straat.getText(), Integer.parseInt(huisnr.getText()), gemeente.getText(), Integer.parseInt(postcode.getText()));
                     int adresId = AdressDao.getId(a);
                     adres.setId(adresId);
-                contactpersoon = new Contactpersoon(bewoner, adres, voornaam.getText().toString(), achternaam.getText().toString(), Integer.parseInt(telefoon.getText().toString()), email.getText().toString(),
-                        relatie.getText().toString(), identiteitskaartnr.getText().toString());
+                contactpersoon = new Contactpersoon(bewoner, adres, voornaam.getText(), achternaam.getText(), Integer.parseInt(telefoon.getText()), email.getText(),
+                        relatie.getText(), identiteitskaartnr.getText());
                 Boolean edit;
                 edit = BewonerDao.editContactpersoon(contactpersoon);
                 if (edit == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
                     String message = "Contactpersoon is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -176,19 +176,19 @@ public class EditContactpseroonController implements Initializable{
                     alertmis.showAndWait();
                 }
             }else {
-                if (Validation.checkFirstName(voornaam.getText().toString()) == false)
+                if (Validation.checkFirstName(voornaam.getText()) == false)
                 {
                     voornaam.getStyleClass().add("error");
                 }
-                if (Validation.checkLastName(achternaam.getText().toString()) == false)
+                if (Validation.checkLastName(achternaam.getText()) == false)
                 {
                     achternaam.getStyleClass().add("error");
                 }
-                if (Validation.checkIdentitiecard(identiteitskaartnr.getText().toString()) == false)
+                if (Validation.checkIdentitiecard(identiteitskaartnr.getText()) == false)
                 {
                     identiteitskaartnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(relatie.getText().toString()) == false)
+                if (Validation.checkAlphabetical(relatie.getText()) == false)
                 {
                     relatie.getStyleClass().add("error");
                 }
@@ -200,19 +200,19 @@ public class EditContactpseroonController implements Initializable{
                 {
                     email.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(straat.getText().toString()) == false)
+                if (Validation.checkAlphabetical(straat.getText()) == false)
                 {
                     straat.getStyleClass().add("error");
                 }
-                if (Validation.checkHouseNumber(huisnr.getText().toString()) == false)
+                if (Validation.checkHouseNumber(huisnr.getText()) == false)
                 {
                     huisnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gemeente.getText().toString()) == false)
+                if (Validation.checkAlphabetical(gemeente.getText()) == false)
                 {
                     gemeente.getStyleClass().add("error");
                 }
-                if (Validation.checkPostalCode(postcode.getText().toString()) == false)
+                if (Validation.checkPostalCode(postcode.getText()) == false)
                 {
                     postcode.getStyleClass().add("error");
                 }

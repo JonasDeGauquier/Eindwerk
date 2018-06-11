@@ -32,6 +32,9 @@ public class MedicatieController implements Initializable {
     TableView<Medicatie> MedicatieTable = new TableView<Medicatie>();
     @FXML
     TableColumn MedicatieNaam;
+    ObservableList medicaties = FXCollections.observableArrayList();
+    ObservableList searchList = FXCollections.observableArrayList();
+    Medicatie medicatie;
     @FXML
     private TextField search = new TextField();
     @FXML
@@ -39,16 +42,12 @@ public class MedicatieController implements Initializable {
     @FXML
     private SplitPane splitpane;
 
-    ObservableList medicaties = FXCollections.observableArrayList();
-    ObservableList searchList = FXCollections.observableArrayList();
-    Medicatie medicatie;
-
     @FXML
     private void handleKeyPressed(KeyEvent ke){
         if(search.textProperty().get().isEmpty()) {
             MedicatieTable.getItems().setAll(medicaties);
         }else {
-            searchList =  MedicatieDao.getAllMedicatieFromSearch(search.getText().toString());
+            searchList =  MedicatieDao.getAllMedicatieFromSearch(search.getText());
             MedicatieNaam.setCellValueFactory(new PropertyValueFactory<Medicatie, String>("medicatie"));
             MedicatieTable.getItems().setAll(searchList);
         }
@@ -91,7 +90,7 @@ public class MedicatieController implements Initializable {
             if (result.get() == buttonTypeYes) {
                 Boolean del = MedicatieDao.Delete(selectedMedicatie.getId());
                 if (del == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Medicatie";
                     String message = "De medicatie is succesvol verwjiderd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);

@@ -189,17 +189,17 @@ public class AddPersoneelController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }  else {
-            if (Validation.checkFirstName(voornaam.getText()) && Validation.checkLastName(achternaam.getText().toString()) && Validation.checkAlphabetical(straat.getText().toString()) && Validation.checkHouseNumber(huisnr.getText().toString()) && Validation.checkAlphabetical(gemeente.getText().toString()) && Validation.checkPostalCode(postcode.getText().toString()) && Validation.checkEmail(email.getText().toString()))
+            if (Validation.checkFirstName(voornaam.getText()) && Validation.checkLastName(achternaam.getText()) && Validation.checkAlphabetical(straat.getText()) && Validation.checkHouseNumber(huisnr.getText()) && Validation.checkAlphabetical(gemeente.getText()) && Validation.checkPostalCode(postcode.getText()) && Validation.checkEmail(email.getText()))
             {
                 int output = cmbRol.getSelectionModel().getSelectedItem().getId();
-                Adress adres = new Adress(straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
+                Adress adres = new Adress(straat.getText(), Integer.parseInt(huisnr.getText()), gemeente.getText(), Integer.parseInt(postcode.getText()));
                 Rol rol = new Rol(output);
-                User personeel = new User(voornaam.getText().toString(), achternaam.getText().toString(), sqlDate, email.getText().toString(), adres, rol);
+                User personeel = new User(voornaam.getText(), achternaam.getText(), sqlDate, email.getText(), adres, rol);
                 Boolean add = PersoneelDao.addPersoneel(personeel, output);
 
                 personeel.setUserId(PersoneelDao.getUserId(personeel));
 
-                // Bron: https://codereview.stackexchange.com/questions/137964/string-hash-generator
+                // Jakob. (2016, 6 augustus). String hash generator [Blogreactie]. Geraadpleegd op 19 januari 2018, van https://codereview.stackexchange.com/questions/137964/string-hash-generator
                 MessageDigest objMD5 = null;
                 try {
                     objMD5 = MessageDigest.getInstance("MD5");
@@ -220,7 +220,7 @@ public class AddPersoneelController implements Initializable {
                 }
                 if (add && addBadge && addLogin)
                 {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Toevoegen gelukt";
                     String message = "Persoon is toegevoegd!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -244,29 +244,29 @@ public class AddPersoneelController implements Initializable {
                     alertmis.showAndWait();
                 }
             }  else {
-                if (!Validation.checkFirstName(voornaam.getText().toString())) {
+                if (!Validation.checkFirstName(voornaam.getText())) {
                     voornaam.getStyleClass().add("error");
                 }
-                if (!Validation.checkLastName(achternaam.getText().toString())) {
+                if (!Validation.checkLastName(achternaam.getText())) {
                     achternaam.getStyleClass().add("error");
                 }
-                if (!Validation.checkAlphabetical(straat.getText().toString()))
+                if (!Validation.checkAlphabetical(straat.getText()))
                 {
                     straat.getStyleClass().add("error");
                 }
-                if (!Validation.checkHouseNumber(huisnr.getText().toString()))
+                if (!Validation.checkHouseNumber(huisnr.getText()))
                 {
                     huisnr.getStyleClass().add("error");
                 }
-                if (!Validation.checkAlphabetical(gemeente.getText().toString()))
+                if (!Validation.checkAlphabetical(gemeente.getText()))
                 {
                     gemeente.getStyleClass().add("error");
                 }
-                if (!Validation.checkPostalCode(postcode.getText().toString()))
+                if (!Validation.checkPostalCode(postcode.getText()))
                 {
                     postcode.getStyleClass().add("error");
                 }
-                if (!Validation.checkEmail(email.getText().toString()))
+                if (!Validation.checkEmail(email.getText()))
                 {
                     email.getStyleClass().add("error");
                 }

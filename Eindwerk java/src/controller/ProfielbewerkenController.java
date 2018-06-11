@@ -50,16 +50,16 @@ public class ProfielbewerkenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         user = PersoneelDao.getPersoneel(User.getCurrentUser());
-        voornaam.setText(String.valueOf(user.getVoornaam().toString()));
-        achternaam.setText(String.valueOf(user.getAchternaam().toString()));
-        email.setText(String.valueOf(user.getEmail().toString()));
-        straat.setText(String.valueOf(user.getAdress().getStraat().toString()));
+        voornaam.setText(String.valueOf(user.getVoornaam()));
+        achternaam.setText(String.valueOf(user.getAchternaam()));
+        email.setText(String.valueOf(user.getEmail()));
+        straat.setText(String.valueOf(user.getAdress().getStraat()));
         huisnr.setText(String.valueOf(user.getAdress().getHuisnr()));
-        gemeente.setText(String.valueOf(user.getAdress().getGemeente().toString()));
+        gemeente.setText(String.valueOf(user.getAdress().getGemeente()));
         postcode.setText(String.valueOf(user.getAdress().getPostcode().toString()));
         user.getAdress().setId(user.getAdress().getId());
 
-        // Bron: https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
+        // Gayan Ranaweera, R. (2018, 13 september). Parse String date in (yyyy-MM-dd) format [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/18873014/parse-string-date-in-yyyy-mm-dd-format
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedGeboortedatum = null;
         try {
@@ -68,7 +68,7 @@ public class ProfielbewerkenController implements Initializable {
             e.printStackTrace();
         }
 
-        // Bron: https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
+        // Guillaume, F. (2012, 12 februari). [jaar, maand en dag uit datum halen] [Blogreactie]. Geraadpleegd op 20 januari 2018, van https://stackoverflow.com/questions/9474121/i-want-to-get-year-month-day-etc-from-java-date-to-compare-with-gregorian-cal
         LocalDate localDateGeboortedatum = convertedGeboortedatum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         geboortedatum.setValue(LocalDate.of(localDateGeboortedatum.getYear(), localDateGeboortedatum.getMonth(), localDateGeboortedatum.getDayOfMonth()));
@@ -121,14 +121,14 @@ public class ProfielbewerkenController implements Initializable {
             alertmis.setContentText("Gelieve alle velden in te vullen!");
             alertmis.showAndWait();
         }  else {
-            if (Validation.checkFirstName(voornaam.getText().toString()) == true && Validation.checkLastName(achternaam.getText().toString()) == true && Validation.checkAlphabetical(straat.getText().toString()) == true && Validation.checkHouseNumber(huisnr.getText().toString()) == true && Validation.checkAlphabetical(gemeente.getText().toString()) == true && Validation.checkPostalCode(postcode.getText().toString()) == true && Validation.checkEmail(email.getText().toString()) == true) {
+            if (Validation.checkFirstName(voornaam.getText()) == true && Validation.checkLastName(achternaam.getText()) == true && Validation.checkAlphabetical(straat.getText()) == true && Validation.checkHouseNumber(huisnr.getText()) == true && Validation.checkAlphabetical(gemeente.getText()) == true && Validation.checkPostalCode(postcode.getText()) == true && Validation.checkEmail(email.getText()) == true) {
                 date = geboortedatum.getValue();
                 Date sqlDate = java.sql.Date.valueOf(date);
-                Adress adres = new Adress(user.getAdress().getId(), straat.getText().toString(), Integer.parseInt(huisnr.getText()), gemeente.getText().toString(), Integer.parseInt(postcode.getText()));
-                User personeel = new User(voornaam.getText().toString(), achternaam.getText().toString(), sqlDate, email.getText().toString(), adres);
+                Adress adres = new Adress(user.getAdress().getId(), straat.getText(), Integer.parseInt(huisnr.getText()), gemeente.getText(), Integer.parseInt(postcode.getText()));
+                User personeel = new User(voornaam.getText(), achternaam.getText(), sqlDate, email.getText(), adres);
                 Boolean add = PersoneelDao.editProfiel(personeel);
                 if (add == true) {
-                    // Bron: https://github.com/PlusHaze/TrayNotification
+                    // PlusHaze. (2016, 3 maart). Tray notification. Geraadpleegd op 29 januari 2018, van https://github.com/PlusHaze/TrayNotification
                     String title = "Aanpassen gelukt";
                     String message = "Uw profiel is aangepast!";
                     TrayNotification tray = new TrayNotification(title, message, NotificationType.SUCCESS);
@@ -150,29 +150,29 @@ public class ProfielbewerkenController implements Initializable {
                     alertmis.showAndWait();
                 }
             } else {
-                if (Validation.checkFirstName(voornaam.getText().toString()) == false) {
+                if (Validation.checkFirstName(voornaam.getText()) == false) {
                     voornaam.getStyleClass().add("error");
                 }
-                if (Validation.checkLastName(achternaam.getText().toString()) == false) {
+                if (Validation.checkLastName(achternaam.getText()) == false) {
                     achternaam.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(straat.getText().toString()) == false)
+                if (Validation.checkAlphabetical(straat.getText()) == false)
                 {
                     straat.getStyleClass().add("error");
                 }
-                if (Validation.checkHouseNumber(huisnr.getText().toString()) == false)
+                if (Validation.checkHouseNumber(huisnr.getText()) == false)
                 {
                     huisnr.getStyleClass().add("error");
                 }
-                if (Validation.checkAlphabetical(gemeente.getText().toString()) == false)
+                if (Validation.checkAlphabetical(gemeente.getText()) == false)
                 {
                     gemeente.getStyleClass().add("error");
                 }
-                if (Validation.checkPostalCode(postcode.getText().toString()) == false)
+                if (Validation.checkPostalCode(postcode.getText()) == false)
                 {
                     postcode.getStyleClass().add("error");
                 }
-                if (Validation.checkEmail(email.getText().toString()) == false)
+                if (Validation.checkEmail(email.getText()) == false)
                 {
                     email.getStyleClass().add("error");
                 }

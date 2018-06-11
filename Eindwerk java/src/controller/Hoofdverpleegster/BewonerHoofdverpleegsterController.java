@@ -43,7 +43,7 @@ public class BewonerHoofdverpleegsterController implements Initializable{
         if (search.textProperty().get().isEmpty()) {
             BewonersTable.getItems().setAll(bewoners);
         } else {
-            searchList = BewonerDao.getAllBewonersFromSearch(search.getText().toString());
+            searchList = BewonerDao.getAllBewonersFromSearch(search.getText());
             Voornaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("voornaam"));
             achternaam.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("achternaam"));
             BewonersTable.getItems().setAll(searchList);
