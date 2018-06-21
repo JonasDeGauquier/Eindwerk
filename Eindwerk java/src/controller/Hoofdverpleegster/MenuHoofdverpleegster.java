@@ -20,22 +20,6 @@ import java.net.URL;
 public class MenuHoofdverpleegster {
     @FXML
     MenuBar myMenuBar;
-    @FXML
-    private MenuItem ShowAllBewoners;
-
-    @FXML
-    private MenuItem AddBewoner;
-
-    @FXML
-    private MenuItem ShowZorgplan;
-
-    @FXML
-    private MenuItem AddZorgtaak;
-    @FXML
-    private MenuItem LogOut;
-    @FXML
-    private MenuItem Personeel;
-
 
     @FXML
     void switchToAllBewoners(ActionEvent event) {
@@ -66,7 +50,7 @@ public class MenuHoofdverpleegster {
     @FXML
     void switchToZorgtaak(ActionEvent event) {
         try {
-            URL paneUrl = getClass().getResource("../gui/Zorgtaak.fxml");
+            URL paneUrl = getClass().getResource("../../gui/Zorgtaak.fxml");
             Pane pane = FXMLLoader.load(paneUrl);
 
             BorderPane border = HomeController.getRoot();
@@ -79,8 +63,21 @@ public class MenuHoofdverpleegster {
     @FXML
     void switchToMedicatie(ActionEvent event){
         try {
-            URL paneUrl = getClass().getResource("../gui/Medicatie.fxml");
+            URL paneUrl = getClass().getResource("../../gui/Medicatie.fxml");
             Pane pane = FXMLLoader.load(paneUrl);
+
+            BorderPane border = HomeController.getRoot();
+            border.setCenter(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void instellingen(ActionEvent event) {
+        try {
+            URL paneUrl = getClass().getResource("../../gui/ProfielBewerken.fxml");
+            AnchorPane pane = FXMLLoader.load(paneUrl);
 
             BorderPane border = HomeController.getRoot();
             border.setCenter(pane);
@@ -92,7 +89,13 @@ public class MenuHoofdverpleegster {
     @FXML
     void logOut(ActionEvent event){
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
+        BorderPane border = HomeController.getRoot();
+        border.setCenter(null);
+        border.setTop(null);
+        border.setDisable(true);
         stage.close();
+
+
 
         LoginController loginController = new LoginController();
         loginController.launchLogingController(stage);

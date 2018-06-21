@@ -1,22 +1,15 @@
 package controller;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -108,46 +101,6 @@ public class MenuController{
         try {
             URL paneUrl = getClass().getResource("../gui/Personeel.fxml");
             VBox pane = FXMLLoader.load(paneUrl);
-
-            BorderPane border = HomeController.getRoot();
-            border.setCenter(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    void zorgplanViaPersoneel(ActionEvent event) {
-        try {
-            URL paneUrl = getClass().getResource("../gui/zorgplanViaPersoneel.fxml");
-            VBox pane = FXMLLoader.load(paneUrl);
-
-            BorderPane border = HomeController.getRoot();
-            border.setCenter(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void zorgplanViaBewoner(ActionEvent event) {
-        try {
-            URL paneUrl = getClass().getResource("../gui/zorgplanViaBewoner.fxml");
-            VBox pane = FXMLLoader.load(paneUrl);
-
-            BorderPane border = HomeController.getRoot();
-            border.setCenter(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void AddPersoneel(ActionEvent event) {
-        try {
-            URL paneUrl = getClass().getResource("../gui/PersoneelToevoegen.fxml");
-            AnchorPane pane = FXMLLoader.load(paneUrl);
 
             BorderPane border = HomeController.getRoot();
             border.setCenter(pane);

@@ -51,7 +51,7 @@ public class ShowZorgplanViaBewonerController implements Initializable {
             grid.add(new Label(zorgplannen.get(i).getOpmerking()), 1, 2);
             grid.add(new Label("Personeel: "), 0, 3);
             grid.add(new Label(PersoneelDao.getPersoneel(zorgplannen.get(i).getUser().getUserId()).toString()), 1, 3);
-            gridTitlePane.setText(String.valueOf(new SimpleDateFormat("dd MMMM yyyy").format(zorgplannen.get(i).getTimestamp())));
+            gridTitlePane.setText(String.valueOf(new SimpleDateFormat("dd MMMM yyyy H:MM").format(zorgplannen.get(i).getTimestamp())));
             gridTitlePane.setContent(grid);
 
             accordion.getPanes().addAll(gridTitlePane);

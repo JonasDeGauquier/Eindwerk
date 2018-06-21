@@ -4,24 +4,91 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <MenuBar fx:id="myMenuBar" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Hoofdverpleegster.MenuHoofdverpleegster">
   <menus>
     <Menu mnemonicParsing="false" text="Bewoners">
       <items>
-        <MenuItem fx:id="ShowAllBewoners" mnemonicParsing="false" onAction="#switchToAllBewoners" text="Toon bewoners" />
+        <MenuItem fx:id="ShowAllBewoners" mnemonicParsing="false" onAction="#switchToAllBewoners" text="Toon bewoners">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/show-icon.png" />
+              </image>
+            </ImageView>
+          </graphic>
+        </MenuItem>
       </items>
+      <graphic>
+        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/bewoner-icon.png" />
+          </image>
+        </ImageView>
+      </graphic>
     </Menu>
     <Menu mnemonicParsing="false" text="Zorgplan">
       <items>
-        <MenuItem fx:id="ShowZorgplan" mnemonicParsing="false" onAction="#switchToZorgplan" text="Zorgplan invullen" />
-        <MenuItem fx:id="AddZorgtaak" mnemonicParsing="false" onAction="#switchToZorgtaak" text="Zorgtaak" />
-        <MenuItem fx:id="Medicatie" mnemonicParsing="false" onAction="#switchToMedicatie" text="Medicatie" />
+        <MenuItem fx:id="ShowZorgplan" mnemonicParsing="false" onAction="#switchToZorgplan" text="Zorgplan invullen">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/zorgplan-icon.png" />
+              </image>
+            </ImageView>
+          </graphic></MenuItem>
+        <MenuItem fx:id="AddZorgtaak" mnemonicParsing="false" onAction="#switchToZorgtaak" text="Zorgtaak">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/taken-icon.png" />
+              </image>
+            </ImageView>
+          </graphic></MenuItem>
+        <MenuItem fx:id="Medicatie" mnemonicParsing="false" onAction="#switchToMedicatie" text="Medicatie">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/mediactie-icon.png" />
+              </image>
+            </ImageView>
+          </graphic></MenuItem>
       </items>
+      <graphic>
+        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/zorgplan-icon.png" />
+          </image>
+        </ImageView>
+      </graphic>
     </Menu>
-    <Menu mnemonicParsing="false" text="Uitloggen">
+    <Menu mnemonicParsing="false" text="Mijn account">
       <items>
-        <MenuItem fx:id="LogOut" mnemonicParsing="false" onAction="#logOut" text="Log uit" />
+        <MenuItem fx:id="Instellingen" mnemonicParsing="false" onAction="#instellingen" text="Profiel bewerken">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/edit-icon.png" />
+              </image>
+            </ImageView>
+          </graphic></MenuItem>
+        <MenuItem fx:id="LogOut" mnemonicParsing="false" onAction="#logOut" text="Log uit">
+          <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/logout-icon.png" />
+              </image>
+            </ImageView>
+          </graphic></MenuItem>
       </items>
+      <graphic>
+        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/account-icon.png" />
+          </image>
+        </ImageView>
+      </graphic>
     </Menu>
   </menus>
 </MenuBar>

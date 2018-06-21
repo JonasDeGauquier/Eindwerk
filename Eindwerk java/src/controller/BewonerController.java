@@ -366,7 +366,7 @@ public class BewonerController implements Initializable {
 
         if (plaats != null) {
             //Bron: Jerome. (2014, 19 februari). javafx create ComboBox TableCell [Blogreactie]. Geraadpleegd op 11 maart 2018, van https://stackoverflow.com/questions/21860019/javafx-create-combobox-tablecell
-            plaatsen = FXCollections.observableArrayList("kamer", "Kiné");
+            plaatsen = FXCollections.observableArrayList("kamer", "Kiné", "Naar huis", "Leefruimte");
             plaats.setCellValueFactory(new PropertyValueFactory<Bewoner, String>("plaats"));
             plaats.setCellFactory(ComboBoxTableCell.forTableColumn(plaatsen));
             plaats.setOnEditCommit(

@@ -20,22 +20,6 @@ import java.net.URL;
 public class MenuVerpleegster {
     @FXML
     MenuBar myMenuBar;
-    @FXML
-    private MenuItem ShowAllBewoners;
-
-    @FXML
-    private MenuItem AddBewoner;
-
-    @FXML
-    private MenuItem ShowZorgplan;
-
-    @FXML
-    private MenuItem AddZorgtaak;
-    @FXML
-    private MenuItem LogOut;
-    @FXML
-    private MenuItem Personeel;
-
 
     @FXML
     void switchToAllBewoners(ActionEvent event) {
@@ -64,10 +48,10 @@ public class MenuVerpleegster {
     }
 
     @FXML
-    void switchToAddZorgtaak(ActionEvent event) {
+    void instellingen(ActionEvent event) {
         try {
-            URL paneUrl = getClass().getResource("../../gui/ZorgtaakToevoegen.fxml");
-            Pane pane = FXMLLoader.load(paneUrl);
+            URL paneUrl = getClass().getResource("../../gui/ProfielBewerken.fxml");
+            AnchorPane pane = FXMLLoader.load(paneUrl);
 
             BorderPane border = HomeController.getRoot();
             border.setCenter(pane);
@@ -79,6 +63,10 @@ public class MenuVerpleegster {
     @FXML
     void logOut(ActionEvent event){
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
+        BorderPane border = HomeController.getRoot();
+        border.setCenter(null);
+        border.setTop(null);
+        border.setDisable(true);
         stage.close();
 
         LoginController loginController = new LoginController();
